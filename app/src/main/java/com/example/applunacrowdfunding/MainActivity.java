@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         final ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
 
-        Call<Respuesta> call = apiService.multiplicidad(200);
+        Call<Respuesta> call = apiService.getUsuarios();
         call.enqueue(new Callback<Respuesta>() {
             @Override
             public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
@@ -58,18 +58,18 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-                /*Este es con call respuesta, para mostrar lista de usuarios
+                //Este es con call respuesta, para mostrar lista de usuarios
                 JsonArray arregloUsers = response.body().getMessage();
-               for(int i=0; i<arregloUsers.size(); i++){
+              /* for(int i=0; i<arregloUsers.size(); i++){
                     JsonObject aux = arregloUsers.get(i).getAsJsonObject();
                     String nombre= aux.get("Nombre").getAsString();
 
-                }
+                }*/
              String nombre = arregloUsers.get(0).getAsJsonObject().get("Nombre").getAsString();
-             EditText txtNombre= findViewById(R.id.txtNombre);
-                txtNombre.setText(nombre);*/
-                JsonArray numero = response.body().getMessage();
-                String nombre=numero.get(0).getAsJsonObject().get("numerito").getAsString();
+
+
+             /*   JsonArray numero = response.body().getMessage();
+                String nombre=numero.get(0).getAsJsonObject().get("numerito").getAsString();*/
                 EditText txtNombre= findViewById(R.id.txtNombre);
                 txtNombre.setText(nombre);
 
