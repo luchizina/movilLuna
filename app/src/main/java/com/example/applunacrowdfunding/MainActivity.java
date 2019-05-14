@@ -1,10 +1,12 @@
 package com.example.applunacrowdfunding;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
-
+import android.widget.Button;
 import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
@@ -20,13 +22,20 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-
+Button registro;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        registro = (Button) findViewById(R.id.buttonR);
 
-
+        registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, registro.class);
+                startActivity(i);
+            }
+        });
         final ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
 
         Call<Respuesta> call = apiService.multiplicidad(200);

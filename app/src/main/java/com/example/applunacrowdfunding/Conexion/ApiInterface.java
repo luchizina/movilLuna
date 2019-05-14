@@ -1,7 +1,10 @@
 package com.example.applunacrowdfunding.Conexion;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ApiInterface {
@@ -9,4 +12,8 @@ public interface ApiInterface {
     Call<Respuesta> getUsuarios();
   @GET("usuario/multiplicidad/{numerito}")
     Call<Respuesta> multiplicidad(@Path("numerito") int num);
+  @FormUrlEncoded
+    @POST("usuario/nuevoUsuCel")
+    Call<Respuesta> create(@Field("nick") String nick, @Field("cont") String cont, @Field("nombre") String nom, @Field("ape") String ape, @Field("correo") String correo, @Field("cel") String cel, @Field("ci") String ci);
+
 }
