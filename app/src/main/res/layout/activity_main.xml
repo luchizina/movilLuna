@@ -31,6 +31,7 @@
         android:layout_height="wrap_content"
         android:text="Registro"
         tools:layout_editor_absoluteX="175dp"
-        tools:layout_editor_absoluteY="486dp" />
+        tools:layout_editor_absoluteY="486dp"
+        tools:ignore="MissingConstraints" />
 
 </android.support.constraint.ConstraintLayout>
