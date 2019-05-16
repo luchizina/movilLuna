@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
@@ -35,8 +36,6 @@ public class registro extends AppCompatActivity {
     private String correo;
     private String cel;
     private String ci;
-    private ProgressDialog pDialog;
-    private String register_url = "http://192.168.20.135/phpLuna/usuario/nuevoUsuCel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +48,9 @@ public class registro extends AppCompatActivity {
         etCorreo= findViewById(R.id.correo);
         etCel= findViewById(R.id.cel);
         etCI= findViewById(R.id.ci);
-        Button registro = findViewById(R.id.registro);
+        Button regis = findViewById(R.id.reg);
 
-        registro.setOnClickListener(new View.OnClickListener() {
+        regis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Retrieve the data entered in the edit texts
@@ -62,52 +61,37 @@ public class registro extends AppCompatActivity {
                 correo = etCorreo.getText().toString().trim();
                 cel = etCel.getText().toString().trim();
                 ci = etCI.getText().toString().trim();
-                if (validateInputs()) {
+               // if (validateInputs()) {
                     ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
                     Call<Respuesta> call = apiService.create(nick, cont, nombre, ape, correo, cel, ci);
                     call.enqueue(new Callback<Respuesta>() {
                         @Override
                         public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
-                            if (!response.isSuccessful()) {
-                                String error = "Ha ocurrido un error. Contacte al administrador";
-                                if (response.errorBody()
-                                        .contentType()
-                                        .subtype()
-                                        .equals("json")) {
-                                    ApiError apiError = ApiError.fromResponseBody(response.errorBody());
+                            if (response.code()==200) {
+                                Respuesta response1 = response.body();
+                                Toast.makeText(getApplicationContext(), response1.getMessage().toString(), Toast.LENGTH_SHORT).show();
 
-                                    error = apiError.getMessage();
-                                    Log.d("LoginActivity", apiError.getDeveloperMessage());
-                                }
                             } else {
-                                try {
-                                    // Reportar causas de error no relacionado con la API
-                                    Log.d("LoginActivity", response.errorBody().string());
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                                Toast.makeText(getApplicationContext(), String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
                             }
-
-
-                            return;
                         }
 
                         @Override
                         public void onFailure(Call<Respuesta> call, Throwable t) {
-                            Log.d("LoginActivity", t.getMessage());
+                            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
                         }
 
                     });
 
-                }
+                //}
 
             }
         });
     }
 
-    private boolean validateInputs() {
+   /* private boolean validateInputs() {
         if (KEY_EMPTY.equals(nick)) {
-            etNick.setError("Este campo no puede estar vacio");
+            etNick.setError("El campo no puede estar vacio");
             etNick.requestFocus();
             return false;
 
@@ -143,5 +127,5 @@ public class registro extends AppCompatActivity {
             return false;
         }
         return true;
-    }
+    }*/
 }
