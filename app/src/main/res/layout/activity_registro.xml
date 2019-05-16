@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".registro">
 
+
+        android:layout_width="404dp"
+        android:layout_height="727dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="-4dp">
     <EditText
         android:id="@+id/nick"
         android:layout_width="wrap_content"
@@ -59,14 +65,15 @@
         tools:layout_editor_absoluteY="470dp"
         tools:ignore="MissingConstraints" />
 
-    <Button
-        android:id="@+id/registro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Registro"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="565dp"
-        tools:ignore="MissingConstraints" />
+        <Button
+            android:id="@+id/registro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registro"
+
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="161dp"
+            tools:layout_editor_absoluteY="565dp" />
 
     <EditText
         android:id="@+id/cel"
