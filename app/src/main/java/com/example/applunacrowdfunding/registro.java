@@ -63,22 +63,39 @@ public class registro extends AppCompatActivity {
                 ci = etCI.getText().toString().trim();
                // if (validateInputs()) {
                     ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
-                    Call<Respuesta> call = apiService.create(nick, cont, nombre, ape, correo, cel, ci);
+                    Call<Respuesta> call = apiService.nuevoUsuCel(nick, cont, nombre, ape, correo, cel, ci);
                     call.enqueue(new Callback<Respuesta>() {
                         @Override
                         public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
-                            if (response.code()==200) {
-                                Respuesta response1 = response.body();
-                                Toast.makeText(getApplicationContext(), response1.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                            if (!response.isSuccessful()) {
+                                String error = "Ha ocurrido un error. Contacte al administrador";
+                                if (response.errorBody()
+                                        .contentType()
+                                        .subtype()
+                                        .equals("json")) {
+                                    ApiError apiError = ApiError.fromResponseBody(response.errorBody());
 
-                            } else {
-                                Toast.makeText(getApplicationContext(), String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
+                                    error = apiError.getMessage();
+                                    Log.d("LoginActivity", apiError.getDeveloperMessage());
+                                } else {
+                                    try {
+                                        // Reportar causas de error no relacionado con la API
+                                        Log.d("LoginActivity", response.errorBody().string());
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+
+                                return;
+
+
                             }
                         }
 
                         @Override
                         public void onFailure(Call<Respuesta> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                            Log.d("LoginActivity", t.getMessage());
                         }
 
                     });
