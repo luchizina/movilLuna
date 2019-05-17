@@ -7,18 +7,68 @@
     tools:context=".traerProp">
 
     <RelativeLayout
-        android:layout_width="395dp"
+        android:layout_width="399dp"
         android:layout_height="715dp"
+        android:background="@drawable/person_7"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteX="6dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints">
 
         <EditText
             android:id="@+id/txtNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPersonName" />
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtNombre"
+            android:layout_centerHorizontal="true"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/monto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="6dp"
+            android:text="Monto" />
+
+        <TextView
+            android:id="@+id/monto_actual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img"
+            android:layout_marginLeft="104dp"
+            android:layout_marginTop="6dp"
+            android:layout_toRightOf="@id/monto"
+            android:text="Actual" />
+
+        <TextView
+            android:id="@+id/descri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/monto"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp"
+            android:text="Descripcion" />
+
+
+        <TextView
+            android:id="@+id/usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/descri"
+            android:layout_centerHorizontal="true"
+            android:text="Usuario" />
+
+
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
