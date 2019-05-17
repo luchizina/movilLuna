@@ -14,6 +14,9 @@ public interface ApiInterface {
     Call<Respuesta> multiplicidad(@Path("numerito") int num);
   @FormUrlEncoded
     @POST("usuario/nuevoUsuCel")
-    Call<Respuesta> create(@Field("nick") String nick, @Field("cont") String cont, @Field("nombre") String nom, @Field("ape") String ape, @Field("correo") String correo, @Field("cel") String cel, @Field("ci") String ci);
+    Call<Respuesta> nuevoUsuCel(@Field("nick") String nick, @Field("cont") String cont, @Field("nombre") String nom, @Field("ape") String ape, @Field("correo") String correo, @Field("cel") String cel,@Field("ci") String ci);
+
+  @GET("propuesta/traerPropuesta/{nombre}")
+    Call<Respuesta> traerPropuesta(@Path("nombre") String nombre);
 
 }
