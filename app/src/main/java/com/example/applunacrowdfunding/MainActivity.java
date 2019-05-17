@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-
+import android.widget.Button;
 import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
@@ -22,13 +22,20 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-
+Button registro;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        registro = (Button) findViewById(R.id.buttonR);
 
-
+        registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, registro.class);
+                startActivity(i);
+            }
+        });
         final ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
 
         Call<Respuesta> call = apiService.multiplicidad(300);
@@ -67,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     String nombre= aux.get("Nombre").getAsString();
 
                 }*/
-             String nombre = arregloUsers.get(0).getAsJsonObject().get("Nombre").getAsString();
+             String nombre = arregloUsers.get(0).getAsJsonObject().get("numerito").getAsString();
 
 
              /*   JsonArray numero = response.body().getMessage();
@@ -83,9 +90,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+
     }
-
-
     public void traerProp(View vista){
         String prop = "hola";
         Intent intento = new Intent(MainActivity.this,traerProp.class);
@@ -93,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intento);
 
     }
+
+
+
 
 
 }

@@ -30,10 +30,21 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:text="Propuesta"
+            android:layout_below="@+id/buttonR"
             tools:layout_editor_absoluteX="86dp"
             tools:layout_editor_absoluteY="463dp"
             android:onClick="traerProp"/>
+
+
+        <Button
+            android:id="@+id/buttonR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registro"
+            tools:layout_editor_absoluteX="175dp"
+            tools:layout_editor_absoluteY="486dp"
+            tools:ignore="MissingConstraints" />
     </RelativeLayout>
 
 
