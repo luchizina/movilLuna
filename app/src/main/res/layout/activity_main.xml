@@ -9,12 +9,12 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.088">
 
         <EditText
             android:id="@+id/txtNombre"
@@ -25,26 +25,28 @@
             android:text="" />
 
 
-
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="-1dp"
+
+            android:onClick="traerProp"
             android:text="Propuesta"
-            android:layout_below="@+id/buttonR"
             tools:layout_editor_absoluteX="86dp"
-            tools:layout_editor_absoluteY="463dp"
-            android:onClick="traerProp"/>
+            tools:layout_editor_absoluteY="463dp" />
 
 
         <Button
             android:id="@+id/buttonR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="186dp"
+            android:layout_toRightOf="@+id/button"
             android:text="Registro"
+            tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="175dp"
-            tools:layout_editor_absoluteY="486dp"
-            tools:ignore="MissingConstraints" />
+            tools:layout_editor_absoluteY="486dp" />
     </RelativeLayout>
 
 
