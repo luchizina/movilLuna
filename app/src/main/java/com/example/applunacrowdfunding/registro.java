@@ -61,7 +61,7 @@ public class registro extends AppCompatActivity {
                 correo = etCorreo.getText().toString().trim();
                 cel = etCel.getText().toString().trim();
                 ci = etCI.getText().toString().trim();
-               // if (validateInputs()) {
+               if (validateInputs()) {
                     ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
                     Call<Respuesta> call = apiService.create(nick, cont, nombre, ape, correo, cel, ci);
                     call.enqueue(new Callback<Respuesta>() {
@@ -83,13 +83,13 @@ public class registro extends AppCompatActivity {
 
                     });
 
-                //}
+                }
 
             }
         });
     }
 
-   /* private boolean validateInputs() {
+   private boolean validateInputs() {
         if (KEY_EMPTY.equals(nick)) {
             etNick.setError("El campo no puede estar vacio");
             etNick.requestFocus();
@@ -126,6 +126,11 @@ public class registro extends AppCompatActivity {
             etCel.requestFocus();
             return false;
         }
+        if(ci.length() != 8 || ci.length() != 7){
+            etCI.setError("La ci debe tener entre 7 y 8 caracteres");
+            etCI.requestFocus();
+            return false;
+        }
         return true;
-    }*/
+    }
 }
