@@ -1,19 +1,15 @@
 package com.example.applunacrowdfunding;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 
 import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
-import com.example.applunacrowdfunding.Conexion.RespuestaParametro;
 import com.example.applunacrowdfunding.Conexion.conexion;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import java.io.IOException;
 
@@ -21,17 +17,25 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class traerProp extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_traer_prop);
 
+
+        Call<Respuesta> call = null;
+        Bundle extra =getIntent().getExtras();
 
         final ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
+        if(extra!=null){
+        call = apiService.traerPropuesta(extra.getString("prop"));
+        }
+        else {
+            call = apiService.traerPropuesta("hola");
+        }
 
-        Call<Respuesta> call = apiService.multiplicidad(300);
         call.enqueue(new Callback<Respuesta>() {
             @Override
             public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
@@ -67,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     String nombre= aux.get("Nombre").getAsString();
 
                 }*/
-             String nombre = arregloUsers.get(0).getAsJsonObject().get("Nombre").getAsString();
+                String nombre = arregloUsers.get(0).getAsJsonObject().get("Nombre").getAsString();
 
 
              /*   JsonArray numero = response.body().getMessage();
@@ -83,16 +87,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
 
 
-    public void traerProp(View vista){
-        String prop = "hola";
-        Intent intento = new Intent(MainActivity.this,traerProp.class);
-        intento.putExtra("prop",prop);
-        startActivity(intento);
+
 
     }
-
-
 }

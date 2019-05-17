@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">appLunaCrowdfunding</string>
+    <string name="title_activity_registro">registro</string>
 </resources>

@@ -9,4 +9,7 @@ public interface ApiInterface {
     Call<Respuesta> getUsuarios();
   @GET("usuario/multiplicidad/{numerito}")
     Call<Respuesta> multiplicidad(@Path("numerito") int num);
+  @GET("propuesta/traerPropuesta/{nombre}")
+    Call<Respuesta> traerPropuesta(@Path("nombre") String nombre);
+
 }
