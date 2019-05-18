@@ -1,6 +1,8 @@
 package com.example.applunacrowdfunding;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +28,18 @@ Button registro;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//codigo mio
+        final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+        String emailLogueado= sp.getString("correoLogueado","sinusuario");
+        EditText txtUsuLog = (EditText) findViewById(R.id.txtUsuLogueado);
+        String mantieneAct = sp.getString("mantieneAct","algo");
+
+        if((!emailLogueado.equals("sinusuario")) && (!mantieneAct.equals("algo"))){
+            txtUsuLog.setText(emailLogueado);
+        }
+        //hasta aca
+
         registro = (Button) findViewById(R.id.buttonR);
 
         registro.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +113,14 @@ Button registro;
         intento.putExtra("prop",prop);
         startActivity(intento);
 
+    }
+
+    public void iniciarS(View vista){
+
+        String algo ="oh";
+        Intent intento = new Intent(MainActivity.this,iniciarSesion.class);
+        intento.putExtra("algo",algo);
+        startActivity(intento);
     }
 
 
