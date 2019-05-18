@@ -27,7 +27,7 @@ Button registro;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_iniciar_sesion);
 
 //codigo mio
         final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
