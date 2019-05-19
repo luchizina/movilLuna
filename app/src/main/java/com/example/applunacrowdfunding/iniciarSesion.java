@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
@@ -39,6 +40,7 @@ public class iniciarSesion extends AppCompatActivity {
        final String correo=txtCorreo.getText().toString();
         EditText txtPass = (EditText) findViewById(R.id.txtPass);
         String pass=txtPass.getText().toString();
+
 
 
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
@@ -88,6 +90,7 @@ public class iniciarSesion extends AppCompatActivity {
                     }else{
                         SharedPreferences.Editor editor = sp.edit();
                         editor.putString("correoLogueado",correo);
+                        editor.putString("mantieneAct", "no");
                         editor.commit();
                         Intent intento = new Intent(iniciarSesion.this,MainActivity.class);
                         intento.putExtra("correoLogueado",correo);
@@ -102,6 +105,9 @@ public class iniciarSesion extends AppCompatActivity {
                         startActivity(intento);
                     }*/
 
+                }else{
+                    TextView error= (TextView) findViewById(R.id.txtError);
+                    error.setVisibility(View.VISIBLE);
                 }
 
 
@@ -116,15 +122,19 @@ public class iniciarSesion extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
     }
+
+    public void regUsu(View vista){
+        Intent intento = new Intent(iniciarSesion.this,registro.class);
+        startActivity(intento);
+    }
+
+    public void cambiarError(View vista){
+        TextView error= (TextView) findViewById(R.id.txtError);
+        error.setVisibility(View.INVISIBLE);
+    }
+
+
+
 }
 

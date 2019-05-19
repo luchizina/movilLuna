@@ -15,14 +15,17 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text=""
+        android:hint="Correo electrónico"
         tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="75dp" />
+        tools:layout_editor_absoluteY="75dp"
+        android:onClick="cambiarError"/>
 
     <EditText
         android:id="@+id/txtPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Contraseña"
         android:inputType="textPassword"
         android:text=""
         tools:layout_editor_absoluteX="97dp"
@@ -46,5 +49,34 @@
         android:text="Iniciar sesión"
         android:onClick="iniciarS"
         />
+    <RelativeLayout android:id="@+id/relativeLayout1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+    <TextView
+        android:id="@+id/labelCue"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="¿No tiene cuenta?"
+        />
 
+    <TextView
+        android:id="@+id/txtRegistro"
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:onClick="regUsu"
+        android:layout_toRightOf="@+id/labelCue"
+        android:textColor="#3F51B5"
+        android:text="¡Registrate!" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtError"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_centerHorizontal="true"
+        android:text="Ingresaste mal las credenciales"
+        android:textColor="#F44336"
+        android:visibility="invisible" />
 </LinearLayout>

@@ -27,7 +27,7 @@ Button registro;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_iniciar_sesion);
+        setContentView(R.layout.activity_main);
 
 //codigo mio
         final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
@@ -35,8 +35,11 @@ Button registro;
         EditText txtUsuLog = (EditText) findViewById(R.id.txtUsuLogueado);
         String mantieneAct = sp.getString("mantieneAct","algo");
 
-        if((!emailLogueado.equals("sinusuario")) && (!mantieneAct.equals("algo"))){
+        if((!emailLogueado.equals("sinusuario")) && (mantieneAct.equals("si"))) {
             txtUsuLog.setText(emailLogueado);
+        }else if((!emailLogueado.equals("sinusuario"))){
+        Button btnCerrar = (Button) findViewById(R.id.btnCerrar);
+        btnCerrar.setVisibility(View.VISIBLE);
         }
         //hasta aca
 
@@ -120,6 +123,16 @@ Button registro;
         String algo ="oh";
         Intent intento = new Intent(MainActivity.this,iniciarSesion.class);
         intento.putExtra("algo",algo);
+        startActivity(intento);
+    }
+
+    public void cerrarSesion(View vista){
+        SharedPreferences prefs =  getSharedPreferences("info", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.remove("correoLogueado");
+        editor.remove("mantieneAct");
+        editor.commit();
+        Intent intento = new Intent(MainActivity.this,iniciarSesion.class);
         startActivity(intento);
     }
 
