@@ -7,7 +7,7 @@
     android:orientation="horizontal"
     tools:context=".traerProp">
 
-    
+
         android:id="@+id/relativeLayout"
         android:layout_width="0dp"
         android:layout_height="715dp"
@@ -24,24 +24,29 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
-    <TextView
+    <EditText
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@id/imageButton3"
-        android:text="TextView"
-        android:layout_toLeftOf="@id/imageButton3" />
+        android:layout_toStartOf="@id/enviarCom"
+        android:layout_toLeftOf="@id/enviarCom"
+        android:hint="Haz un comentario..."
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold|italic"/>
+
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/enviarCom"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:scaleType="fitXY"
-        android:src="@drawable/sendstuff" />
+        android:src="@drawable/sendstuff"
+        android:onClick="comentar"/>
+
 
     <EditText
             android:id="@+id/txtNombre"
@@ -96,5 +101,13 @@
             android:layout_below="@id/descri"
             android:layout_centerHorizontal="true"
             android:text="Usuario" />
+
+        <Button
+            android:id="@+id/com"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Ver comentarios" />
+
 
     </RelativeLayout>

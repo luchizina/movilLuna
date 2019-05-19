@@ -45,7 +45,7 @@ public class comentarios extends AppCompatActivity {
 
     private void loadJSON(){
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
-        Call<Respuesta> call = apiService.getCo m(nombre);
+        Call<Respuesta> call = apiService.getCom(nombre);
         call.enqueue(new Callback<Respuesta>() {
             @Override
             public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
@@ -69,10 +69,9 @@ public class comentarios extends AppCompatActivity {
                     }
                     return;
             }
-
-                c = (response.body().getMessage());
+                /*c = new ArrayList<>(response.body().getMessage());
                 coAd = new comAdapter(comentarios.this, c);
-                recyclerView.setAdapter(coAd);
+                recyclerView.setAdapter(coAd);*/
 
         }
 
