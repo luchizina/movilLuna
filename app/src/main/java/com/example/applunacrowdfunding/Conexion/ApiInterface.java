@@ -19,4 +19,8 @@ public interface ApiInterface {
   @GET("propuesta/traerPropuesta/{nombre}")
     Call<Respuesta> traerPropuesta(@Path("nombre") String nombre);
 
+  @FormUrlEncoded
+    @POST("usuario/loginCel")
+    Call<Respuesta> loginCel(@Field("email") String correo, @Field("pass") String pass);
+
 }

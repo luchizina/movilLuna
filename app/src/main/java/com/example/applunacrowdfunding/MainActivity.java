@@ -1,22 +1,23 @@
 package com.example.applunacrowdfunding;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Button;
+import android.widget.EditText;
+
 import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
-import com.example.applunacrowdfunding.Conexion.RespuestaParametro;
 import com.example.applunacrowdfunding.Conexion.conexion;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import java.io.IOException;
 
+import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,7 +27,19 @@ Button registro;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_iniciar_sesion);
+
+//codigo mio
+        final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+        String emailLogueado= sp.getString("correoLogueado","sinusuario");
+        EditText txtUsuLog = (EditText) findViewById(R.id.txtUsuLogueado);
+        String mantieneAct = sp.getString("mantieneAct","algo");
+
+        if((!emailLogueado.equals("sinusuario")) && (!mantieneAct.equals("algo"))){
+            txtUsuLog.setText(emailLogueado);
+        }
+        //hasta aca
+
         registro = (Button) findViewById(R.id.buttonR);
 
         registro.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +113,14 @@ Button registro;
         intento.putExtra("prop",prop);
         startActivity(intento);
 
+    }
+
+    public void iniciarS(View vista){
+
+        String algo ="oh";
+        Intent intento = new Intent(MainActivity.this,iniciarSesion.class);
+        intento.putExtra("algo",algo);
+        startActivity(intento);
     }
 
 

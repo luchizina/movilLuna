@@ -1,9 +1,10 @@
 package com.example.applunacrowdfunding;
 
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
@@ -13,6 +14,7 @@ import com.google.gson.JsonArray;
 
 import java.io.IOException;
 
+import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,12 +74,23 @@ public class traerProp extends AppCompatActivity {
 
                 }*/
                 String nombre = arregloUsers.get(0).getAsJsonObject().get("Nombre").getAsString();
-
+                String montoT = arregloUsers.get(0).getAsJsonObject().get("Monto").getAsString();
+                String montoA = arregloUsers.get(0).getAsJsonObject().get("MontoActual").getAsString();
+                String desc = arregloUsers.get(0).getAsJsonObject().get("Descripcion").getAsString();
 
              /*   JsonArray numero = response.body().getMessage();
                 String nombre=numero.get(0).getAsJsonObject().get("numerito").getAsString();*/
                 EditText txtNombre= findViewById(R.id.txtNombre);
                 txtNombre.setText(nombre);
+
+                TextView monto= findViewById(R.id.monto);
+                monto.setText(montoT);
+                TextView monto_actual= findViewById(R.id.monto_actual);
+                monto_actual.setText(montoA);
+                TextView descri= findViewById(R.id.descri);
+                descri.setText(desc);
+                descri.setText(desc);
+
 
             }
             @Override
