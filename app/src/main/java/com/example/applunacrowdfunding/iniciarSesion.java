@@ -88,6 +88,7 @@ public class iniciarSesion extends AppCompatActivity {
                     }else{
                         SharedPreferences.Editor editor = sp.edit();
                         editor.putString("correoLogueado",correo);
+                        editor.putString("mantieneAct", "no");
                         editor.commit();
                         Intent intento = new Intent(iniciarSesion.this,MainActivity.class);
                         intento.putExtra("correoLogueado",correo);

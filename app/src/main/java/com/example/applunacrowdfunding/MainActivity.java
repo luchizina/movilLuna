@@ -35,7 +35,7 @@ Button registro;
         EditText txtUsuLog = (EditText) findViewById(R.id.txtUsuLogueado);
         String mantieneAct = sp.getString("mantieneAct","algo");
 
-        if((!emailLogueado.equals("sinusuario")) && (!mantieneAct.equals("algo"))){
+        if((!emailLogueado.equals("sinusuario")) && (mantieneAct.equals("si"))){
             txtUsuLog.setText(emailLogueado);
         }
         //hasta aca
