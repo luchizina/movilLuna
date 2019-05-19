@@ -69,6 +69,12 @@
             android:layout_centerHorizontal="true"
             android:text="Usuario" />
 
+        <Button
+            android:id="@+id/com"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ver comentarios" />
+
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

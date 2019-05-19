@@ -23,4 +23,7 @@ public interface ApiInterface {
     @POST("usuario/loginCel")
     Call<Respuesta> loginCel(@Field("email") String correo, @Field("pass") String pass);
 
+  @GET("propuesta/listComent/{propu}")
+  Call<Respuesta> getCom(@Path("propu") String nom);
+
 }

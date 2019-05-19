@@ -1,8 +1,11 @@
 package com.example.applunacrowdfunding;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,7 +23,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class traerProp extends AppCompatActivity {
-
+Button com;
+String nom;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +81,7 @@ public class traerProp extends AppCompatActivity {
                 String montoT = arregloUsers.get(0).getAsJsonObject().get("Monto").getAsString();
                 String montoA = arregloUsers.get(0).getAsJsonObject().get("MontoActual").getAsString();
                 String desc = arregloUsers.get(0).getAsJsonObject().get("Descripcion").getAsString();
-
+                nom = nombre;
              /*   JsonArray numero = response.body().getMessage();
                 String nombre=numero.get(0).getAsJsonObject().get("numerito").getAsString();*/
                 EditText txtNombre= findViewById(R.id.txtNombre);
@@ -91,6 +95,15 @@ public class traerProp extends AppCompatActivity {
                 descri.setText(desc);
                 descri.setText(desc);
 
+                com = (Button) findViewById(R.id.com);
+                com.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(traerProp.this, comentarios.class);
+                        i.putExtra("nom", nom);
+                        startActivity(i);
+                    }
+                });
 
             }
             @Override

@@ -1,6 +1,7 @@
 package com.example.applunacrowdfunding;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -85,12 +86,12 @@ public class registro extends AppCompatActivity {
                                         e.printStackTrace();
                                     }
                                 }
-
-
                                 return;
 
 
                             }
+                            Intent i = new Intent(registro.this, iniciarSesion.class);
+                            startActivity(i);
                         }
 
                         @Override
