@@ -1,11 +1,13 @@
 package com.example.applunacrowdfunding;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -73,6 +75,9 @@ public class listarProp extends AppCompatActivity {
                 }
                 p = new Gson().fromJson(response.body().getMessage(), new TypeToken<List<propuests>>(){}.getType());
                 //new ArrayList<>(response.body().getMessage());
+                Drawable dividerDrawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.divider);
+                RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
+                recyclerView.addItemDecoration(dividerItemDecoration);
                 proAd = new propAdapter(p);
                 recyclerView.setAdapter(proAd);
 

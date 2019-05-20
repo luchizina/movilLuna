@@ -22,18 +22,18 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
-        <ProgressBar
-            android:id="@+id/prg"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="213dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="89dp"
-            android:layout_marginLeft="89dp"
-            android:layout_marginTop="215dp"
-            android:progress="2" />
+    <ProgressBar
+        android:id="@+id/prg"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="213dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="89dp"
+        android:layout_marginLeft="89dp"
+        android:layout_marginTop="243dp"
+        android:progress="2" />
 
         <EditText
         android:id="@+id/textView6"
@@ -55,7 +55,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:scaleType="fitXY"
-
+        android:src="@drawable/sendstuff"
         android:onClick="comentar"/>
 
 
@@ -68,14 +68,14 @@
             android:ems="10"
             android:inputType="textPersonName" />
 
-        <ImageView
-            android:id="@+id/img"
-            android:layout_width="153dp"
-            android:layout_height="161dp"
-            android:layout_below="@id/txtNombre"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="24dp"
-            app:srcCompat="@drawable/otra" />
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="118dp"
+        android:layout_height="124dp"
+        android:layout_below="@id/txtNombre"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="61dp"
+        app:srcCompat="@drawable/otra" />
 
         <TextView
             android:id="@+id/monto"
