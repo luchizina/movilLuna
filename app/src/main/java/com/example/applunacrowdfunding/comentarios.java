@@ -11,10 +11,13 @@ import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
 import com.example.applunacrowdfunding.Conexion.conexion;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,9 +72,10 @@ public class comentarios extends AppCompatActivity {
                     }
                     return;
             }
-                /*c = new ArrayList<>(response.body().getMessage());
-                coAd = new comAdapter(comentarios.this, c);
-                recyclerView.setAdapter(coAd);*/
+                c = new Gson().fromJson(response.body().getMessage(), new TypeToken<List<coments>>(){}.getType());
+                        //new ArrayList<>(response.body().getMessage());
+                coAd = new comAdapter(c);
+                recyclerView.setAdapter(coAd);
 
         }
 
