@@ -124,5 +124,11 @@ String nom;
 
 
 
+
+
+
+    }
+    public void comentar(View vista){
+
     }
 }
