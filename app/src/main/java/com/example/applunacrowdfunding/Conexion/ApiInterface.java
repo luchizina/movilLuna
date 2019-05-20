@@ -30,6 +30,9 @@ public interface ApiInterface {
   @GET("propuesta/listComent/{propu}")
   Call<Respuesta> getCom(@Path("propu") String nom);
 
+    @GET("propuesta/listadoCel")
+    Call<Respuesta> getPropuestas();
+
     @GET("propuesta/borrComent/{id}")
     Call<Respuesta> BorrCom(@Path("id") String id);
 
