@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.applunacrowdfunding.Conexion.ApiError;
@@ -81,10 +82,11 @@ String nom;
                 String montoT = arregloUsers.get(0).getAsJsonObject().get("Monto").getAsString();
                 String montoA = arregloUsers.get(0).getAsJsonObject().get("MontoActual").getAsString();
                 String desc = arregloUsers.get(0).getAsJsonObject().get("Descripcion").getAsString();
+                String nick = arregloUsers.get(0).getAsJsonObject().get("NickUsuario").getAsString();
                 nom = nombre;
              /*   JsonArray numero = response.body().getMessage();
                 String nombre=numero.get(0).getAsJsonObject().get("numerito").getAsString();*/
-                EditText txtNombre= findViewById(R.id.txtNombre);
+                TextView txtNombre= findViewById(R.id.txtNombre);
                 txtNombre.setText(nombre);
 
                 TextView monto= findViewById(R.id.monto);
@@ -93,8 +95,13 @@ String nom;
                 monto_actual.setText(montoA);
                 TextView descri= findViewById(R.id.descri);
                 descri.setText(desc);
-                descri.setText(desc);
-
+                TextView nic= findViewById(R.id.usuario);
+                nic.setText(nick);
+                ProgressBar me = (ProgressBar) findViewById(R.id.prg);
+                int moT = Integer.parseInt(montoT);
+                int moA = Integer.parseInt(montoA);
+                int barra = ((moA * 100) /  moT);
+                me.setProgress(barra);
                 com = (Button) findViewById(R.id.com);
                 com.setOnClickListener(new View.OnClickListener() {
                     @Override

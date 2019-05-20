@@ -4,21 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@drawable/person_7"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".iniciarSesion">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="173dp"
+        android:layout_height="154dp"
+        app:srcCompat="@drawable/moon" />
 
     <EditText
         android:id="@+id/txtCorreo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
         android:hint="Correo electrónico"
+        android:inputType="textPersonName"
+        android:onClick="cambiarError"
+        android:text=""
         tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="75dp"
-        android:onClick="cambiarError"/>
+        tools:layout_editor_absoluteY="75dp" />
 
     <EditText
         android:id="@+id/txtPass"
@@ -37,38 +44,40 @@
         android:layout_height="wrap_content"
 
         android:layout_below="@+id/btnLogin"
+        android:text="Mantenerse activo"
         tools:layout_editor_absoluteX="97dp"
-        tools:layout_editor_absoluteY="240dp"
 
-        android:text="Mantenerse activo" />
+        tools:layout_editor_absoluteY="240dp" />
 
     <Button
         android:id="@+id/btnLogin"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Iniciar sesión"
         android:onClick="iniciarS"
-        />
-    <RelativeLayout android:id="@+id/relativeLayout1"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content">
-    <TextView
-        android:id="@+id/labelCue"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="¿No tiene cuenta?"
-        />
+        android:text="Iniciar sesión" />
 
-    <TextView
-        android:id="@+id/txtRegistro"
-        android:layout_width="105dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:onClick="regUsu"
-        android:layout_toRightOf="@+id/labelCue"
-        android:textColor="#3F51B5"
-        android:text="¡Registrate!" />
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/labelCue"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="¿No tiene cuenta?" />
+
+        <TextView
+            android:id="@+id/txtRegistro"
+            android:layout_width="105dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/labelCue"
+            android:ems="10"
+            android:onClick="regUsu"
+            android:text="¡Registrate!"
+            android:textColor="#3F51B5" />
     </RelativeLayout>
 
     <TextView
@@ -79,4 +88,5 @@
         android:text="Ingresaste mal las credenciales"
         android:textColor="#F44336"
         android:visibility="invisible" />
+
 </LinearLayout>

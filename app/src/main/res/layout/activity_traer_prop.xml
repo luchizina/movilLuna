@@ -7,15 +7,34 @@
     tools:context=".traerProp">
 
     <RelativeLayout
-        android:layout_width="399dp"
-        android:layout_height="715dp"
+        android:id="@+id/relativeLayout"
+        android:layout_width="397dp"
+        android:layout_height="746dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
         android:background="@drawable/person_7"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="6dp"
-        tools:layout_editor_absoluteY="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
-        <EditText
+        <ProgressBar
+            android:id="@+id/prg"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="213dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="89dp"
+            android:layout_marginLeft="89dp"
+            android:layout_marginTop="215dp"
+            android:progress="2" />
+
+        <TextView
             android:id="@+id/txtNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,11 +45,12 @@
 
         <ImageView
             android:id="@+id/img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="153dp"
+            android:layout_height="161dp"
             android:layout_below="@id/txtNombre"
             android:layout_centerHorizontal="true"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:layout_marginTop="24dp"
+            app:srcCompat="@drawable/otra" />
 
         <TextView
             android:id="@+id/monto"
@@ -38,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/img"
             android:layout_marginLeft="100dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="41dp"
             android:text="Monto" />
 
         <TextView
@@ -47,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/img"
             android:layout_marginLeft="104dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="41dp"
             android:layout_toRightOf="@id/monto"
             android:text="Actual" />
 
@@ -67,12 +87,20 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/descri"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
             android:text="Usuario" />
 
         <Button
             android:id="@+id/com"
-            android:layout_width="wrap_content"
+            android:layout_width="367dp"
             android:layout_height="wrap_content"
+
+
+            android:layout_alignParentBottom="true"
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="209dp"
+            android:background="@android:color/holo_green_dark"
             android:text="Ver comentarios" />
 
 
