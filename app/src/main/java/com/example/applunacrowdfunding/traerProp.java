@@ -166,5 +166,48 @@ public class traerProp extends AppCompatActivity {
             }
         });
     }
+
+    public void colaborar(View vista)
+    {
+        final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+        String emailLogueado = sp.getString("correoLogueado", "sinusuario");
+        EditText textito = findViewById(R.id.donarText);
+        EditText nombre = findViewById(R.id.txtNombre);
+        String nombresito = nombre.getText().toString();
+        int text = Integer.parseInt(textito.getText().toString());
+        ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
+        Call<Respuesta> call = apiService.colaborar(text, emailLogueado, nombresito);
+        call.enqueue(new Callback<Respuesta>() {
+            @Override
+            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+                if (!response.isSuccessful()) {
+                    String error = "Ha ocurrido un error. Contacte al administrador";
+                    if (response.errorBody()
+                            .contentType()
+                            .subtype()
+                            .equals("json")) {
+                        ApiError apiError = ApiError.fromResponseBody(response.errorBody());
+                        error = apiError.getMessage();
+                        Log.d("ComentarActivity", apiError.getDeveloperMessage());
+                    } else {
+                        try {
+                            // Reportar causas de error no relacionado con la API
+                            Log.d("ComentarActivity", response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    return;
+                }
+                EditText xD = findViewById(R.id.donarText);
+                xD.setText("");
+            }
+
+            @Override
+            public void onFailure(Call<Respuesta> call, Throwable t) {
+                Log.d("LoginActivity", t.getMessage());
+            }
+        });
+    }
 }
 

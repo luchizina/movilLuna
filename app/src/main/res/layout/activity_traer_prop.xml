@@ -119,15 +119,37 @@
             android:id="@+id/com"
             android:layout_width="367dp"
             android:layout_height="wrap_content"
-
-
-            android:layout_alignParentBottom="true"
-
+            android:layout_below="@id/usuario"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="209dp"
             android:background="@android:color/holo_green_dark"
 
             android:layout_centerInParent="true"
             android:text="Ver comentarios" />
 
-    </RelativeLayout>
+    <EditText
+        android:id="@+id/donarText"
+        android:layout_width="330dp"
+        android:layout_height="56dp"
+        android:hint="Haz una donación..."
+        android:layout_below="@id/com"
+        android:layout_centerInParent="true"
+        android:layout_toStartOf="@id/imageButton"
+        android:layout_toLeftOf="@id/imageButton"
+        android:paddingTop="30dp"
+        android:ems="10"
+        android:inputType="numberSigned" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_below="@id/com"
+        android:layout_alignParentRight="true"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:scaleType="fitXY"
+        android:onClick="colaborar"
+        app:srcCompat="@drawable/paystuff"
+
+
+        />
+
+</RelativeLayout>
