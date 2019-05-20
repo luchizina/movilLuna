@@ -22,18 +22,18 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
-        <ProgressBar
-            android:id="@+id/prg"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="213dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="89dp"
-            android:layout_marginLeft="89dp"
-            android:layout_marginTop="215dp"
-            android:progress="2" />
+    <ProgressBar
+        android:id="@+id/prg"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="213dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="98dp"
+        android:layout_marginLeft="98dp"
+        android:layout_marginTop="222dp"
+        android:progress="2" />
 
         <EditText
         android:id="@+id/textView6"
@@ -54,6 +54,7 @@
         android:layout_height="56dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:src="@drawable/sendstuff"
         android:scaleType="fitXY"
 
         android:onClick="comentar"/>
@@ -68,14 +69,14 @@
             android:ems="10"
             android:inputType="textPersonName" />
 
-        <ImageView
-            android:id="@+id/img"
-            android:layout_width="153dp"
-            android:layout_height="161dp"
-            android:layout_below="@id/txtNombre"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="24dp"
-            app:srcCompat="@drawable/otra" />
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="133dp"
+        android:layout_height="127dp"
+        android:layout_below="@id/txtNombre"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        app:srcCompat="@drawable/otra" />
 
         <TextView
             android:id="@+id/monto"
@@ -128,28 +129,32 @@
 
     <EditText
         android:id="@+id/donarText"
-        android:layout_width="330dp"
-        android:layout_height="56dp"
-        android:hint="Haz una donación..."
+        android:layout_width="328dp"
+        android:layout_height="55dp"
         android:layout_below="@id/com"
         android:layout_centerInParent="true"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="-2dp"
+        android:layout_marginRight="-2dp"
         android:layout_toStartOf="@id/imageButton"
         android:layout_toLeftOf="@id/imageButton"
-        android:paddingTop="30dp"
         android:ems="10"
-        android:inputType="numberSigned" />
+        android:hint="Haz una donación..."
+        android:inputType="numberSigned"
+        android:paddingTop="30dp" />
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_below="@id/com"
-        android:layout_alignParentRight="true"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:scaleType="fitXY"
+        android:layout_below="@id/com"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="21dp"
+        android:layout_marginRight="0dp"
         android:onClick="colaborar"
-        app:srcCompat="@drawable/paystuff"
 
 
-        />
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/paystuff" />
 
 </RelativeLayout>
