@@ -13,12 +13,11 @@ import java.util.ArrayList;
 
 public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
 
-    private ArrayList<coments> co = new ArrayList<>();
-    private Context cont;
+     ArrayList<coments> co;
+    private long itemId;
 
-    public comAdapter(Context con, ArrayList<coments> coms){
+    public comAdapter(ArrayList<coments> coms){
         this.co = coms;
-        this.cont = con;
     }
 
     @NonNull
@@ -30,21 +29,30 @@ public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull comAdapter.ViewHolder holder, int position) {
-        holder.usu.setText(co.get(position).getNickUsuario());
-        holder.come.setText(co.get(position).getTexto());
+        holder.asignarDatos(co.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return co.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView usu, come;
+        TextView usu, come;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            usu = (TextView) itemView.findViewById(R.id.usu);
-            come = (TextView) itemView.findViewById(R.id.comen);
+            usu =  itemView.findViewById(R.id.usu);
+            come = itemView.findViewById(R.id.comen);
         }
+
+        public void asignarDatos(coments coments) {
+            usu.setText(coments.getNickUsuario());
+            come.setText(coments.getTexto());
+        }
+    }
+
+    public void removeItem(int position){
+        co.remove(position);
+        notifyItemRemoved(position);
     }
 }
