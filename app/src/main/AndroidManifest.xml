@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".iniciarSesion"></activity>
+        <activity android:name=".listview"></activity>
+        <activity android:name=".listarProp" />
+        <activity android:name=".iniciarSesion" />
         <activity android:name=".ver_propuesta" />
         <activity android:name=".registro" />
         <activity android:name=".traerProp" />

@@ -8,18 +8,31 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
-        android:layout_width="wrap_content"
+        android:layout_width="411dp"
 
-        android:layout_height="wrap_content"
+        android:layout_height="503dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.66">
+
+        <EditText
+            android:id="@+id/txtUsuLogueado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/imageView3"
+            android:layout_marginStart="56dp"
+            android:layout_marginLeft="56dp"
+            android:layout_marginBottom="-76dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="" />
 
         <EditText
             android:id="@+id/txtNombre"
-            android:layout_width="match_parent"
+            android:layout_width="275dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
@@ -51,35 +64,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/button"
+            android:layout_marginLeft="222dp"
+            android:layout_marginTop="-95dp"
+            android:layout_toRightOf="@id/buttonR"
             android:onClick="iniciarS"
             android:text="Login" />
+
+        <Button
+            android:id="@+id/btnCerrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
+            android:onClick="cerrarSesion"
+            android:text="Cerrar sesión"
+            android:visibility="invisible" />
+
+
+        <Button
+            android:id="@+id/btnListarProp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="220dp"
+            android:layout_marginLeft="220dp"
+            android:layout_centerVertical="true"
+
+            android:onClick="listarProp"
+            android:text="Listar propuesta" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="282dp"
+            android:layout_height="220dp"
+            android:layout_centerInParent="true"
+
+            app:srcCompat="@drawable/logo2" />
     </RelativeLayout>
-
-    <EditText
-        android:id="@+id/txtUsuLogueado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginLeft="88dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
-
-    <Button
-        android:id="@+id/btnCerrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Cerrar sesión"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtUsuLogueado"
-        android:onClick="cerrarSesion"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
