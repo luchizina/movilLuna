@@ -13,10 +13,12 @@ import java.util.ArrayList;
 
 public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
 
-     ArrayList<coments> co;
+    private ArrayList<coments> co = new ArrayList<>();
+    private Context cont;
 
-    public comAdapter(ArrayList<coments> coms){
+    public comAdapter(Context con, ArrayList<coments> coms){
         this.co = coms;
+        this.cont = con;
     }
 
     @NonNull
@@ -28,25 +30,21 @@ public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull comAdapter.ViewHolder holder, int position) {
-        holder.asignarDatos(co.get(position));
+        holder.usu.setText(co.get(position).getNickUsuario());
+        holder.come.setText(co.get(position).getTexto());
     }
 
     @Override
     public int getItemCount() {
-        return co.size();
+        return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView usu, come;
+        private TextView usu, come;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            usu =  itemView.findViewById(R.id.usu);
-            come = itemView.findViewById(R.id.comen);
-        }
-
-        public void asignarDatos(coments coments) {
-            usu.setText(coments.getNickUsuario());
-            come.setText(coments.getTexto());
+            usu = (TextView) itemView.findViewById(R.id.usu);
+            come = (TextView) itemView.findViewById(R.id.comen);
         }
     }
 }
