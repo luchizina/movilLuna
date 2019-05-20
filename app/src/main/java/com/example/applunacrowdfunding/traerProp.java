@@ -1,7 +1,9 @@
 package com.example.applunacrowdfunding;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,13 +35,12 @@ String nom;
 
 
         Call<Respuesta> call = null;
-        Bundle extra =getIntent().getExtras();
+        Bundle extra = getIntent().getExtras();
 
         final ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
-        if(extra!=null){
-        call = apiService.traerPropuesta(extra.getString("prop"));
-        }
-        else {
+        if (extra != null) {
+            call = apiService.traerPropuesta(extra.getString("prop"));
+        } else {
             call = apiService.traerPropuesta("hola");
         }
 
@@ -86,21 +87,21 @@ String nom;
                 nom = nombre;
              /*   JsonArray numero = response.body().getMessage();
                 String nombre=numero.get(0).getAsJsonObject().get("numerito").getAsString();*/
-                TextView txtNombre= findViewById(R.id.txtNombre);
+                TextView txtNombre = findViewById(R.id.txtNombre);
                 txtNombre.setText(nombre);
 
-                TextView monto= findViewById(R.id.monto);
+                TextView monto = findViewById(R.id.monto);
                 monto.setText(montoT);
-                TextView monto_actual= findViewById(R.id.monto_actual);
+                TextView monto_actual = findViewById(R.id.monto_actual);
                 monto_actual.setText(montoA);
-                TextView descri= findViewById(R.id.descri);
+                TextView descri = findViewById(R.id.descri);
                 descri.setText(desc);
-                TextView nic= findViewById(R.id.usuario);
+                TextView nic = findViewById(R.id.usuario);
                 nic.setText(nick);
                 ProgressBar me = (ProgressBar) findViewById(R.id.prg);
                 int moT = Integer.parseInt(montoT);
                 int moA = Integer.parseInt(montoA);
-                int barra = ((moA * 100) /  moT);
+                int barra = ((moA * 100) / moT);
                 me.setProgress(barra);
                 com = (Button) findViewById(R.id.com);
                 com.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +114,7 @@ String nom;
                 });
 
             }
+
             @Override
             public void onFailure(Call<Respuesta> call, Throwable t) {
                 Log.d("LoginActivity", t.getMessage());
@@ -120,9 +122,48 @@ String nom;
 
             }
         });
-
-
-
-
     }
-}
+        public void comentar(View vista)
+        {
+            final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+            String emailLogueado= sp.getString("correoLogueado","sinusuario");
+            EditText nombre = findViewById(R.id.txtNombre);
+            TextView textito = findViewById(R.id.textView6);
+            String text = textito.getText().toString();
+            String s = nombre.getText().toString();
+            ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
+            Call<Respuesta> call = apiService.comentar(s,emailLogueado,text);
+            call.enqueue(new Callback<Respuesta>() {
+                @Override
+                public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+                    if (!response.isSuccessful()) {
+                        String error = "Ha ocurrido un error. Contacte al administrador";
+                        if (response.errorBody()
+                                .contentType()
+                                .subtype()
+                                .equals("json")) {
+                            ApiError apiError = ApiError.fromResponseBody(response.errorBody());
+                            error = apiError.getMessage();
+                            Log.d("ComentarActivity", apiError.getDeveloperMessage());
+                        } else {
+                            try {
+                                // Reportar causas de error no relacionado con la API
+                                Log.d("ComentarActivity", response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        return;
+                    }
+                    EditText xD = findViewById(R.id.textView6);
+                    xD.setText("");
+                }
+
+                @Override
+                public void onFailure(Call<Respuesta> call, Throwable t) {
+                    Log.d("LoginActivity", t.getMessage());
+                }
+
+            });
+        }
+    }
