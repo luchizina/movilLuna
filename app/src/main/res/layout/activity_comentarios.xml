@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".listarProp">
+    tools:context=".comentarios">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lista"
+        android:id="@+id/listit"
         android:layout_width="395dp"
         android:layout_height="587dp"
         tools:layout_editor_absoluteX="8dp"

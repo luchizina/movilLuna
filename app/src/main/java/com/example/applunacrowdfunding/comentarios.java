@@ -4,50 +4,51 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
 import com.example.applunacrowdfunding.Conexion.conexion;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class listarProp extends AppCompatActivity {
+public class comentarios extends AppCompatActivity {
+    String nombre;
     private RecyclerView recyclerView;
-    ArrayList<propuests> p= new ArrayList<>();
-    private propAdapter proAd;
+    ArrayList<coments> c= new ArrayList<>();
+    private comAdapter coAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listar_prop);
-        recyclerView=(RecyclerView) findViewById(R.id.lista);
+        setContentView(R.layout.activity_comentarios);
+        nombre = getIntent().getStringExtra("nom");
+        recyclerView=(RecyclerView) findViewById(R.id.listit);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         loadJSON();
-
-
     }
+
+   /* private void initViews(){
+        recyclinitViews()erView = (RecyclerView)findViewById(R.id.listit);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        loadJSON();
+    }*/
 
     private void loadJSON(){
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
-        Call<Respuesta> call = apiService.getPropuestas();
+        Call<Respuesta> call = apiService.getCom(nombre);
         call.enqueue(new Callback<Respuesta>() {
             @Override
             public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
@@ -70,20 +71,19 @@ public class listarProp extends AppCompatActivity {
                         }
                     }
                     return;
-                }
-                p = new Gson().fromJson(response.body().getMessage(), new TypeToken<List<propuests>>(){}.getType());
-                //new ArrayList<>(response.body().getMessage());
-                proAd = new propAdapter(p);
-                recyclerView.setAdapter(proAd);
-
             }
+                c = new Gson().fromJson(response.body().getMessage(), new TypeToken<List<coments>>(){}.getType());
+                        //new ArrayList<>(response.body().getMessage());
+                coAd = new comAdapter(c);
+                recyclerView.setAdapter(coAd);
+
+        }
 
             @Override
             public void onFailure(Call<Respuesta> call, Throwable t) {
                 Log.d("Error", t.getMessage());
             }
-        });
+            });
     }
-
-
 }
+
