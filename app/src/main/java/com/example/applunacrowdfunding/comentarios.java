@@ -1,9 +1,13 @@
 package com.example.applunacrowdfunding;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -12,7 +16,10 @@ import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
 import com.example.applunacrowdfunding.Conexion.conexion;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +35,9 @@ public class comentarios extends AppCompatActivity {
     private RecyclerView recyclerView;
     ArrayList<coments> c= new ArrayList<>();
     private comAdapter coAd;
+    String nick;
+    final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+    String emailLogueado= sp.getString("correoLogueado","sinusuario");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +86,24 @@ public class comentarios extends AppCompatActivity {
                         //new ArrayList<>(response.body().getMessage());
                 coAd = new comAdapter(c);
                 recyclerView.setAdapter(coAd);
+                final String nickUsuL = nickLog(emailLogueado);
 
+                new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                        for(coments co : c){
+                            if(co.getNickUsuario() == nickUsuL){
+                                coAd.removeItem(viewHolder.getAdapterPosition());
+                                borrCom(co.getId());
+                            }
+                        }
+                    }
+                }).attachToRecyclerView(recyclerView);
         }
 
             @Override
@@ -85,5 +112,80 @@ public class comentarios extends AppCompatActivity {
             }
             });
     }
-}
+
+    private String nickLog(String correo){
+        ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
+        Call<Respuesta> call = apiService.UsuCorreo(correo);
+        call.enqueue(new Callback<Respuesta>() {
+            @Override
+            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+                if (!response.isSuccessful()) {
+                    String error = "Ha ocurrido un error. Contacte al administrador";
+                    if (response.errorBody()
+                            .contentType()
+                            .subtype()
+                            .equals("json")) {
+                        ApiError apiError = ApiError.fromResponseBody(response.errorBody());
+
+                        error = apiError.getMessage();
+                        Log.d("LoginActivity", apiError.getDeveloperMessage());
+                    } else {
+                        try {
+                            // Reportar causas de error no relacionado con la API
+                            Log.d("LoginActivity", response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    return;
+                }
+
+                JsonArray js = response.body().getMessage();
+                nick = js.get(0).getAsJsonObject().get("nick").getAsString();
+
+            }
+
+            @Override
+            public void onFailure(Call<Respuesta> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });
+        return nick;
+    }
+
+    private void borrCom(String id){
+        ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
+        Call<Respuesta> call = apiService.BorrCom(id);
+        call.enqueue(new Callback<Respuesta>() {
+            @Override
+            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+                if (!response.isSuccessful()) {
+                    String error = "Ha ocurrido un error. Contacte al administrador";
+                    if (response.errorBody()
+                            .contentType()
+                            .subtype()
+                            .equals("json")) {
+                        ApiError apiError = ApiError.fromResponseBody(response.errorBody());
+
+                        error = apiError.getMessage();
+                        Log.d("LoginActivity", apiError.getDeveloperMessage());
+                    } else {
+                        try {
+                            // Reportar causas de error no relacionado con la API
+                            Log.d("LoginActivity", response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Respuesta> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });
+    }
+    }
 
