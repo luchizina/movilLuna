@@ -84,7 +84,7 @@ public class comentarios extends AppCompatActivity {
             }
                 c = new Gson().fromJson(response.body().getMessage(), new TypeToken<List<coments>>(){}.getType());
                         //new ArrayList<>(response.body().getMessage());
-                coAd = new comAdapter(c);
+                coAd = new comAdapter(comentarios.this, c);
                 recyclerView.setAdapter(coAd);
                 final String nickUsuL = nickLog(emailLogueado);
 

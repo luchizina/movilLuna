@@ -32,12 +32,9 @@ Button registro;
 //codigo mio
         final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
         String emailLogueado= sp.getString("correoLogueado","sinusuario");
-        EditText txtUsuLog = (EditText) findViewById(R.id.txtUsuLogueado);
-        String mantieneAct = sp.getString("mantieneAct","algo");
 
-        if((!emailLogueado.equals("sinusuario")) && (mantieneAct.equals("si"))) {
-            txtUsuLog.setText(emailLogueado);
-        }else if((!emailLogueado.equals("sinusuario"))){
+        String mantieneAct = sp.getString("mantieneAct","algo");
+        if((!emailLogueado.equals("sinusuario"))){
         Button btnCerrar = (Button) findViewById(R.id.btnCerrar);
         btnCerrar.setVisibility(View.VISIBLE);
         }
@@ -95,8 +92,7 @@ Button registro;
 
              /*   JsonArray numero = response.body().getMessage();
                 String nombre=numero.get(0).getAsJsonObject().get("numerito").getAsString();*/
-                EditText txtNombre= findViewById(R.id.txtNombre);
-                txtNombre.setText(nombre);
+
 
             }
             @Override
@@ -106,9 +102,6 @@ Button registro;
 
             }
         });
-
-
-
     }
     public void traerProp(View vista){
         String prop = "hola";

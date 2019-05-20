@@ -144,7 +144,7 @@ public class registro extends AppCompatActivity {
             etCel.requestFocus();
             return false;
         }
-        if(ci.length() != 8 && ci.length() != 7){
+        if(ci.length() != 8 || ci.length() != 7){
             etCI.setError("La ci debe tener entre 7 y 8 caracteres");
             etCI.requestFocus();
             return false;
