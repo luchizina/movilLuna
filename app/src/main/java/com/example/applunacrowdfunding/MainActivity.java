@@ -119,6 +119,11 @@ Button registro;
         startActivity(intento);
     }
 
+    public void listarProp(View vista){
+        Intent intento = new Intent(MainActivity.this,listarProp.class);
+        startActivity(intento);
+    }
+
     public void cerrarSesion(View vista){
         SharedPreferences prefs =  getSharedPreferences("info", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();

@@ -13,9 +13,8 @@ import java.util.ArrayList;
 
 public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
 
-     ArrayList<coments> co;
-
-    public comAdapter(ArrayList<coments> coms){
+    ArrayList<coments> co;
+    public comAdapter(ArrayList<coments> coms) {
         this.co = coms;
     }
 
@@ -36,11 +35,13 @@ public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
         return co.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView usu, come;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            usu =  itemView.findViewById(R.id.usu);
+            usu = itemView.findViewById(R.id.usu);
             come = itemView.findViewById(R.id.comen);
         }
 
@@ -48,5 +49,10 @@ public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
             usu.setText(coments.getNickUsuario());
             come.setText(coments.getTexto());
         }
+    }
+
+     public void removeItem(int position) {
+        co.remove(position);
+        notifyItemRemoved(position);
     }
 }

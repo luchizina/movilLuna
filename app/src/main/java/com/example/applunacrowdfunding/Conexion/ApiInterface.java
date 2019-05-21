@@ -4,6 +4,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -24,10 +25,24 @@ public interface ApiInterface {
     Call<Respuesta> loginCel(@Field("email") String correo, @Field("pass") String pass);
 
   @FormUrlEncoded
-    @POST("propuesta/comentar")
-    Call<Respuesta> comentar(@Field("nombre") String s, @Field("mail") String emailLogueado, @Field("texto") String text);
+
+  @POST("propuesta/comentar")
+  Call<Respuesta> comentar(@Field("nombre") String s, @Field("mail") String emailLogueado, @Field("texto") String text);
 
   @GET("propuesta/listComent/{propu}")
   Call<Respuesta> getCom(@Path("propu") String nom);
+
+    @GET("propuesta/listadoCel")
+    Call<Respuesta> getPropuestas();
+
+    @GET("propuesta/borrComent/{id}")
+    Call<Respuesta> BorrCom(@Path("id") String id);
+
+    @GET("usuario/devuelveUsu/{correo}")
+    Call<Respuesta> UsuCorreo(@Path("correo") String correo);
+
+   @FormUrlEncoded
+   @POST("propuesta/nuevaColaboracionCel")
+   Call<Respuesta> colaborar(@Path("monto") int monto, @Path("mail") String mail, @Path("nombre") String nombresito);
 
 }

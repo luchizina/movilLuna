@@ -1,18 +1,33 @@
 package com.example.applunacrowdfunding;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
 import com.example.applunacrowdfunding.Conexion.conexion;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,16 +41,23 @@ import retrofit2.Response;
 public class comentarios extends AppCompatActivity {
     String nombre;
     private RecyclerView recyclerView;
-    ArrayList<coments> c= new ArrayList<>();
+    ArrayList<coments> c = new ArrayList<>();
     private comAdapter coAd;
+
+    String nick;
+    final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+    String emailLogueado= sp.getString("correoLogueado","sinusuario");
+    private Paint p = new Paint();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comentarios);
         nombre = getIntent().getStringExtra("nom");
-        recyclerView=(RecyclerView) findViewById(R.id.listit);
+        recyclerView = findViewById(R.id.listit);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         loadJSON();
+        enableSwipe();
     }
 
    /* private void initViews(){
@@ -46,7 +68,7 @@ public class comentarios extends AppCompatActivity {
         loadJSON();
     }*/
 
-    private void loadJSON(){
+    private void loadJSON() {
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
         Call<Respuesta> call = apiService.getCom(nombre);
         call.enqueue(new Callback<Respuesta>() {
@@ -71,19 +93,185 @@ public class comentarios extends AppCompatActivity {
                         }
                     }
                     return;
-            }
-                c = new Gson().fromJson(response.body().getMessage(), new TypeToken<List<coments>>(){}.getType());
-                        //new ArrayList<>(response.body().getMessage());
-                coAd = new comAdapter(c);
+
+                }
+                c = new Gson().fromJson(response.body().getMessage(), new TypeToken<List<coments>>() {
+                }.getType());
+                //new ArrayList<>(response.body().getMessage());
+                coAd = new comAdapter(c); //en este constructor estaba context
+
                 recyclerView.setAdapter(coAd);
 
-        }
+            }
 
             @Override
             public void onFailure(Call<Respuesta> call, Throwable t) {
                 Log.d("Error", t.getMessage());
             }
-            });
+        });
     }
-}
+
+     private String nickLog(String correo){
+        ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
+        Call<Respuesta> call = apiService.UsuCorreo(correo);
+        call.enqueue(new Callback<Respuesta>() {
+            @Override
+            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+                if (!response.isSuccessful()) {
+                    String error = "Ha ocurrido un error. Contacte al administrador";
+                    if (response.errorBody()
+                            .contentType()
+                            .subtype()
+                            .equals("json")) {
+                        ApiError apiError = ApiError.fromResponseBody(response.errorBody());
+
+                        error = apiError.getMessage();
+                        Log.d("LoginActivity", apiError.getDeveloperMessage());
+                    } else {
+                        try {
+                            // Reportar causas de error no relacionado con la API
+                            Log.d("LoginActivity", response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    return;
+                }
+
+                JsonArray js = response.body().getMessage();
+                nick = js.get(0).getAsJsonObject().get("nick").getAsString();
+
+            }
+
+            @Override
+            public void onFailure(Call<Respuesta> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });
+        return nick;
+    }
+
+    private void borrCom(String id){
+        ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
+        Call<Respuesta> call = apiService.BorrCom(id);
+        call.enqueue(new Callback<Respuesta>() {
+            @Override
+            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+                if (!response.isSuccessful()) {
+                    String error = "Ha ocurrido un error. Contacte al administrador";
+                    if (response.errorBody()
+                            .contentType()
+                            .subtype()
+                            .equals("json")) {
+                        ApiError apiError = ApiError.fromResponseBody(response.errorBody());
+
+                        error = apiError.getMessage();
+                        Log.d("LoginActivity", apiError.getDeveloperMessage());
+                    } else {
+                        try {
+                            // Reportar causas de error no relacionado con la API
+                            Log.d("LoginActivity", response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Respuesta> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });
+    }
+
+    private void enableSwipe(){
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+                final String nickUsuL = nickLog(emailLogueado);
+                if (direction == ItemTouchHelper.LEFT){
+                    final coments deletedCom = c.get(position);
+                    final int deletedPosition = position;
+                    if(deletedCom.getNickUsuario().equals(nickUsuL)) {
+                        coAd.removeItem(position);
+                        borrCom(deletedCom.getId());
+                    }
+                    // showing snack bar with Undo option
+                   /* Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), " removed from Recyclerview!", Snackbar.LENGTH_LONG);
+                    snackbar.setAction("UNDO", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // undo is selected, restore the deleted item
+                            adapter.restoreItem(deletedModel, deletedPosition);
+                        }
+                    });
+                    snackbar.setActionTextColor(Color.YELLOW);
+                    snackbar.show();*/
+                } else {
+                    final coments deletedCom = c.get(position);
+                    final int deletedPosition = position;
+                    if(deletedCom.getNickUsuario().equals(nickUsuL)) {
+                        coAd.removeItem(position);
+                        borrCom(deletedCom.getId());
+                    }
+                    // showing snack bar with Undo option
+                   /* Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), " removed from Recyclerview!", Snackbar.LENGTH_LONG);
+                    snackbar.setAction("UNDO", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            // undo is selected, restore the deleted item
+                            adapter.restoreItem(deletedModel, deletedPosition);
+                        }
+                    });
+                    snackbar.setActionTextColor(Color.YELLOW);
+                    snackbar.show();*/
+                }
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+
+                Bitmap icon;
+                if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
+
+                    View itemView = viewHolder.itemView;
+                    float height = (float) itemView.getBottom() - (float) itemView.getTop();
+                    float width = height / 3;
+
+                    if(dX > 0){
+                        p.setColor(Color.parseColor("#388E3C"));
+                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX,(float) itemView.getBottom());
+                        c.drawRect(background,p);
+                        icon = BitmapFactory.decodeResource(getResources(), R.drawable.delete);
+                        RectF icon_dest = new RectF((float) itemView.getLeft() + width ,(float) itemView.getTop() + width,(float) itemView.getLeft()+ 2*width,(float)itemView.getBottom() - width);
+                        c.drawBitmap(icon,null,icon_dest,p);
+                    } else {
+                        p.setColor(Color.parseColor("#D32F2F"));
+                        RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(),(float) itemView.getRight(), (float) itemView.getBottom());
+                        c.drawRect(background,p);
+                        icon = BitmapFactory.decodeResource(getResources(), R.drawable.delete);
+                        RectF icon_dest = new RectF((float) itemView.getRight() - 2*width ,(float) itemView.getTop() + width,(float) itemView.getRight() - width,(float)itemView.getBottom() - width);
+                        c.drawBitmap(icon,null,icon_dest,p);
+                    }
+                }
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+    }
+
+
+
 
