@@ -104,15 +104,8 @@ public class traerProp extends AppCompatActivity {
                 int moA = Integer.parseInt(montoA);
                 int barra = ((moA * 100) / moT);
                 me.setProgress(barra);
-                com = (Button) findViewById(R.id.com);
-                com.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(traerProp.this, comentarios.class);
-                        i.putExtra("nom", nom);
-                        startActivity(i);
-                    }
-                });
+
+
 
             }
 
@@ -209,5 +202,14 @@ public class traerProp extends AppCompatActivity {
             }
         });
     }
-}
+
+    public void verComentarios(View vista){
+        com = findViewById(R.id.com);
+        EditText x = findViewById(R.id.txtNombre);
+        String s = x.getText().toString();
+                Intent i = new Intent(traerProp.this, comentarios.class);
+                i.putExtra("nom", s);
+                startActivity(i);
+            }
+    }
 

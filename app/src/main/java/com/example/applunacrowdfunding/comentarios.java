@@ -41,18 +41,20 @@ import retrofit2.Response;
 public class comentarios extends AppCompatActivity {
     String nombre;
     private RecyclerView recyclerView;
-    ArrayList<coments> c= new ArrayList<>();
+    ArrayList<coments> c = new ArrayList<>();
     private comAdapter coAd;
+
     String nick;
     final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
     String emailLogueado= sp.getString("correoLogueado","sinusuario");
     private Paint p = new Paint();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comentarios);
         nombre = getIntent().getStringExtra("nom");
-        recyclerView=(RecyclerView) findViewById(R.id.listit);
+        recyclerView = findViewById(R.id.listit);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         loadJSON();
         enableSwipe();
@@ -66,7 +68,7 @@ public class comentarios extends AppCompatActivity {
         loadJSON();
     }*/
 
-    private void loadJSON(){
+    private void loadJSON() {
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
         Call<Respuesta> call = apiService.getCom(nombre);
         call.enqueue(new Callback<Respuesta>() {
@@ -91,22 +93,23 @@ public class comentarios extends AppCompatActivity {
                         }
                     }
                     return;
-            }
-                c = new Gson().fromJson(response.body().getMessage(), new TypeToken<List<coments>>(){}.getType());
-                        //new ArrayList<>(response.body().getMessage());
+                }
+                c = new Gson().fromJson(response.body().getMessage(), new TypeToken<List<coments>>() {
+                }.getType());
+                //new ArrayList<>(response.body().getMessage());
                 coAd = new comAdapter(c); //en este constructor estaba context
                 recyclerView.setAdapter(coAd);
 
-        }
+            }
 
             @Override
             public void onFailure(Call<Respuesta> call, Throwable t) {
                 Log.d("Error", t.getMessage());
             }
-            });
+        });
     }
 
-    private String nickLog(String correo){
+     private String nickLog(String correo){
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
         Call<Respuesta> call = apiService.UsuCorreo(correo);
         call.enqueue(new Callback<Respuesta>() {
@@ -266,4 +269,7 @@ public class comentarios extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
     }
+
+
+
 
