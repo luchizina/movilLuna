@@ -1,11 +1,14 @@
 package com.example.applunacrowdfunding;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -37,10 +40,11 @@ String nom;
 
         final ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
         if(extra!=null){
-        call = apiService.traerPropuesta(extra.getString("prop"));
+        //call = apiService.traerPropuesta(extra.getString("prop"));
+            call = apiService.traerPropuesta("propuestaprueba");
         }
         else {
-            call = apiService.traerPropuesta("hola");
+            call = apiService.traerPropuesta("propuestaprueba");
         }
 
         call.enqueue(new Callback<Respuesta>() {
@@ -124,5 +128,49 @@ String nom;
 
 
 
+    }
+
+    public void comentar(View vista)
+    {
+        final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+        String emailLogueado= sp.getString("correoLogueado","sinusuario");
+        EditText nombre = findViewById(R.id.txtNombre);
+        EditText textito = findViewById(R.id.textView6);
+        String text = textito.getText().toString();
+        String s = nombre.getText().toString();
+        ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
+        Call<Respuesta> call = apiService.comentar(s,emailLogueado,text);
+        call.enqueue(new Callback<Respuesta>() {
+            @Override
+            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+                if (!response.isSuccessful()) {
+                    String error = "Ha ocurrido un error. Contacte al administrador";
+                    if (response.errorBody()
+                            .contentType()
+                            .subtype()
+                            .equals("json")) {
+                        ApiError apiError = ApiError.fromResponseBody(response.errorBody());
+                        error = apiError.getMessage();
+                        Log.d("ComentarActivity", apiError.getDeveloperMessage());
+                    } else {
+                        try {
+                            // Reportar causas de error no relacionado con la API
+                            Log.d("ComentarActivity", response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    return;
+                }
+                    EditText xD = findViewById(R.id.textView6);
+                    xD.setText("");
+            }
+
+            @Override
+            public void onFailure(Call<Respuesta> call, Throwable t) {
+                Log.d("LoginActivity", t.getMessage());
+            }
+
+        });
     }
 }
