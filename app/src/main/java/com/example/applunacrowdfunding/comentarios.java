@@ -8,13 +8,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
 import com.example.applunacrowdfunding.Conexion.conexion;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
@@ -38,6 +46,7 @@ public class comentarios extends AppCompatActivity {
     String nick;
     final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
     String emailLogueado= sp.getString("correoLogueado","sinusuario");
+    private Paint p = new Paint();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +55,7 @@ public class comentarios extends AppCompatActivity {
         recyclerView=(RecyclerView) findViewById(R.id.listit);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         loadJSON();
+        enableSwipe();
     }
 
    /* private void initViews(){
@@ -86,24 +96,7 @@ public class comentarios extends AppCompatActivity {
                         //new ArrayList<>(response.body().getMessage());
                 coAd = new comAdapter(c); //en este constructor estaba context
                 recyclerView.setAdapter(coAd);
-                final String nickUsuL = nickLog(emailLogueado);
 
-                new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-                    @Override
-                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                        return false;
-                    }
-
-                    @Override
-                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                        for(coments co : c){
-                            if(co.getNickUsuario() == nickUsuL){
-                                coAd.removeItem(viewHolder.getAdapterPosition());
-                                borrCom(co.getId());
-                            }
-                        }
-                    }
-                }).attachToRecyclerView(recyclerView);
         }
 
             @Override
@@ -186,6 +179,91 @@ public class comentarios extends AppCompatActivity {
                 Log.d("Error", t.getMessage());
             }
         });
+    }
+
+    private void enableSwipe(){
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+                final String nickUsuL = nickLog(emailLogueado);
+                if (direction == ItemTouchHelper.LEFT){
+                    final coments deletedCom = c.get(position);
+                    final int deletedPosition = position;
+                    if(deletedCom.getNickUsuario().equals(nickUsuL)) {
+                        coAd.removeItem(position);
+                        borrCom(deletedCom.getId());
+                    }
+                    // showing snack bar with Undo option
+                   /* Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), " removed from Recyclerview!", Snackbar.LENGTH_LONG);
+                    snackbar.setAction("UNDO", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // undo is selected, restore the deleted item
+                            adapter.restoreItem(deletedModel, deletedPosition);
+                        }
+                    });
+                    snackbar.setActionTextColor(Color.YELLOW);
+                    snackbar.show();*/
+                } else {
+                    final coments deletedCom = c.get(position);
+                    final int deletedPosition = position;
+                    if(deletedCom.getNickUsuario().equals(nickUsuL)) {
+                        coAd.removeItem(position);
+                        borrCom(deletedCom.getId());
+                    }
+                    // showing snack bar with Undo option
+                   /* Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), " removed from Recyclerview!", Snackbar.LENGTH_LONG);
+                    snackbar.setAction("UNDO", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            // undo is selected, restore the deleted item
+                            adapter.restoreItem(deletedModel, deletedPosition);
+                        }
+                    });
+                    snackbar.setActionTextColor(Color.YELLOW);
+                    snackbar.show();*/
+                }
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+
+                Bitmap icon;
+                if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
+
+                    View itemView = viewHolder.itemView;
+                    float height = (float) itemView.getBottom() - (float) itemView.getTop();
+                    float width = height / 3;
+
+                    if(dX > 0){
+                        p.setColor(Color.parseColor("#388E3C"));
+                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX,(float) itemView.getBottom());
+                        c.drawRect(background,p);
+                        icon = BitmapFactory.decodeResource(getResources(), R.drawable.delete);
+                        RectF icon_dest = new RectF((float) itemView.getLeft() + width ,(float) itemView.getTop() + width,(float) itemView.getLeft()+ 2*width,(float)itemView.getBottom() - width);
+                        c.drawBitmap(icon,null,icon_dest,p);
+                    } else {
+                        p.setColor(Color.parseColor("#D32F2F"));
+                        RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(),(float) itemView.getRight(), (float) itemView.getBottom());
+                        c.drawRect(background,p);
+                        icon = BitmapFactory.decodeResource(getResources(), R.drawable.delete);
+                        RectF icon_dest = new RectF((float) itemView.getRight() - 2*width ,(float) itemView.getTop() + width,(float) itemView.getRight() - width,(float)itemView.getBottom() - width);
+                        c.drawBitmap(icon,null,icon_dest,p);
+                    }
+                }
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
     }
 
