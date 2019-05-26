@@ -33,17 +33,18 @@ import retrofit2.Response;
 public class comentarios extends AppCompatActivity {
     String nombre;
     private RecyclerView recyclerView;
-    ArrayList<coments> c= new ArrayList<>();
+    ArrayList<coments> c = new ArrayList<>();
     private comAdapter coAd;
-    String nick;
-    final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
-    String emailLogueado= sp.getString("correoLogueado","sinusuario");
+
+    // String nick;
+      // final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+     // String emailLogueado= sp.getString("correoLogueado","sinusuario");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comentarios);
         nombre = getIntent().getStringExtra("nom");
-        recyclerView=(RecyclerView) findViewById(R.id.listit);
+        recyclerView = findViewById(R.id.listit);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         loadJSON();
     }
@@ -56,7 +57,7 @@ public class comentarios extends AppCompatActivity {
         loadJSON();
     }*/
 
-    private void loadJSON(){
+    private void loadJSON() {
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
         Call<Respuesta> call = apiService.getCom(nombre);
         call.enqueue(new Callback<Respuesta>() {
@@ -81,14 +82,15 @@ public class comentarios extends AppCompatActivity {
                         }
                     }
                     return;
-            }
-                c = new Gson().fromJson(response.body().getMessage(), new TypeToken<List<coments>>(){}.getType());
-                        //new ArrayList<>(response.body().getMessage());
+                }
+                c = new Gson().fromJson(response.body().getMessage(), new TypeToken<List<coments>>() {
+                }.getType());
+                //new ArrayList<>(response.body().getMessage());
                 coAd = new comAdapter(c); //en este constructor estaba context
                 recyclerView.setAdapter(coAd);
-                final String nickUsuL = nickLog(emailLogueado);
+                //final String nickUsuL = nickLog(emailLogueado);
 
-                new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                /* new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
                     @Override
                     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                         return false;
@@ -103,17 +105,17 @@ public class comentarios extends AppCompatActivity {
                             }
                         }
                     }
-                }).attachToRecyclerView(recyclerView);
-        }
+                }).attachToRecyclerView(recyclerView); */
+            }
 
             @Override
             public void onFailure(Call<Respuesta> call, Throwable t) {
                 Log.d("Error", t.getMessage());
             }
-            });
+        });
     }
 
-    private String nickLog(String correo){
+    /* private String nickLog(String correo){
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
         Call<Respuesta> call = apiService.UsuCorreo(correo);
         call.enqueue(new Callback<Respuesta>() {
@@ -186,6 +188,5 @@ public class comentarios extends AppCompatActivity {
                 Log.d("Error", t.getMessage());
             }
         });
+    } */
     }
-    }
-
