@@ -30,9 +30,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="89dp"
-        android:layout_marginLeft="89dp"
-        android:layout_marginTop="243dp"
+        android:layout_marginStart="98dp"
+        android:layout_marginLeft="98dp"
+        android:layout_marginTop="222dp"
         android:progress="2" />
 
         <EditText
@@ -54,8 +54,9 @@
         android:layout_height="56dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:scaleType="fitXY"
         android:src="@drawable/sendstuff"
+        android:scaleType="fitXY"
+
         android:onClick="comentar"/>
 
 
@@ -68,14 +69,14 @@
             android:ems="10"
             android:inputType="textPersonName" />
 
-    <ImageView
-        android:id="@+id/img"
-        android:layout_width="118dp"
-        android:layout_height="124dp"
-        android:layout_below="@id/txtNombre"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="61dp"
-        />
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="153dp"
+            android:layout_height="161dp"
+            android:layout_below="@id/txtNombre"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            app:srcCompat="@drawable/otra" />
 
         <TextView
             android:id="@+id/monto"
@@ -133,6 +134,9 @@
         android:hint="Haz una donación..."
         android:layout_below="@id/com"
         android:layout_centerInParent="true"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="-2dp"
+        android:layout_marginRight="-2dp"
         android:layout_toStartOf="@id/imageButton"
         android:layout_toLeftOf="@id/imageButton"
         android:paddingTop="30dp"
@@ -141,15 +145,17 @@
 
     <ImageButton
         android:id="@+id/imageButton"
+
         android:layout_below="@id/com"
         android:layout_alignParentRight="true"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:scaleType="fitXY"
+
         android:onClick="colaborar"
-        app:srcCompat="@drawable/paystuff"
 
 
-        />
+
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/paystuff" />
 
 </RelativeLayout>
