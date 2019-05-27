@@ -108,7 +108,7 @@ public class traerProp extends AppCompatActivity {
                 StrictMode.setThreadPolicy(policy);
 
                 ImageView imageView = (ImageView) findViewById(R.id.img);
-                String nueva="http://192.168.1.2/phpLuna/imgProps/nueva propb.jpg";
+                String nueva="http://192.168.25.62/phpLuna/imgProps/nueva propb.jpg";
                 try{
                     URL url = new URL(nueva);
                     imageView.setImageBitmap(BitmapFactory.decodeStream((InputStream)url.getContent()));

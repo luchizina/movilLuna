@@ -38,7 +38,16 @@ Button registro;
         View btnCerrar =  findViewById(R.id.btnCerrar);
         btnCerrar.setVisibility(View.VISIBLE);
             View btnRegistrar = findViewById(R.id.buttonR);
-            btnCerrar.setVisibility(View.GONE);
+            btnRegistrar.setVisibility(View.INVISIBLE);
+
+
+
+
+
+
+
+
+
         }
         //hasta aca
 
