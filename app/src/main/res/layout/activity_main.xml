@@ -7,12 +7,26 @@
     android:background="@drawable/person_7"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="147dp"
+        android:layout_marginRight="147dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
+
     <RelativeLayout
         android:id="@+id/relativeLayout2"
         android:layout_width="wrap_content"
 
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
+        android:layout_marginBottom="535dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -21,12 +35,12 @@
             android:id="@+id/buttonR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="registrarUsu"
             android:text="Registro"
+            android:visibility="visible"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="175dp"
-            tools:layout_editor_absoluteY="486dp"
-            android:onClick="registrarUsu"
-            android:visibility="visible"/>
+            tools:layout_editor_absoluteY="486dp" />
 
         <Button
             android:id="@+id/btnCerrar"
@@ -56,10 +70,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:layout_marginBottom="16dp"
         android:onClick="traerProp"
         android:text="Propuesta"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView8"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -86,10 +103,16 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="16dp"
-        android:text="listar prop"
         android:onClick="listarProp"
+        android:text="listar prop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
