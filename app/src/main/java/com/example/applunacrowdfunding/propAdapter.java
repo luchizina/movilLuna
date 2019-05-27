@@ -1,6 +1,7 @@
 package com.example.applunacrowdfunding;
 
 import android.graphics.BitmapFactory;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +53,9 @@ public class propAdapter extends RecyclerView.Adapter<propAdapter.ViewHolder> {
 
         public void asignarDatos(propuests propu) {
             propNomb.setText(propu.getNombre());
-            String nueva="http://192.168.1.2/phpLuna/imgProps/"+propu.getNombre();
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            String nueva="http://192.168.1.2/phpLuna/imgProps/"+propu.getNombre()+".jpg";
             try{
                 URL url = new URL(nueva);
                 imagenota.setImageBitmap(BitmapFactory.decodeStream((InputStream)url.getContent()));
