@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.AppCompat.Light">
+        android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.ActionBar.TranslucentStatus">
         <activity android:name=".comentarios"></activity>
         <activity android:name=".iniciarSesion" />
         <activity android:name=".listarProp" />
