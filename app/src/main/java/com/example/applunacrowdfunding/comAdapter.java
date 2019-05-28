@@ -52,7 +52,8 @@ public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
     }
 
      public void removeItem(int position) {
-        co.remove(position);
+        coments c = co.get(position);
+        co.remove(c);
         notifyItemRemoved(position);
     }
 }
