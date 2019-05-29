@@ -15,6 +15,8 @@ public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
 
     ArrayList<coments> co;
 
+
+
     public comAdapter(ArrayList<coments> coms) {
         this.co = coms;
     }

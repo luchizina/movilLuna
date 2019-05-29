@@ -20,7 +20,14 @@ import java.util.ArrayList;
 public class propAdapter extends RecyclerView.Adapter<propAdapter.ViewHolder> {
 
      ArrayList<propuests> p;
+    private OnItemClickListener mListener;
 
+    public interface OnItemClickListener {
+        void OnItemClick(int posicion);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
     public propAdapter(ArrayList<propuests> props){
         this.p = props;
     }
@@ -29,7 +36,7 @@ public class propAdapter extends RecyclerView.Adapter<propAdapter.ViewHolder> {
     @Override
     public propAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.prop_list_item, parent, false);
-        return new propAdapter.ViewHolder(view);
+        return new propAdapter.ViewHolder(view, mListener);
     }
 
     @Override
@@ -45,17 +52,29 @@ public class propAdapter extends RecyclerView.Adapter<propAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView propNomb;
         ImageView imagenota;
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             propNomb =  itemView.findViewById(R.id.txtNombre);
             imagenota = itemView.findViewById(R.id.imgListaProp);
+            itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    if(listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            listener.OnItemClick(position);
+                        }
+                    }
+                }
+            }  );
         }
 
         public void asignarDatos(propuests propu) {
             propNomb.setText(propu.getNombre());
+
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
-            String nueva="http://192.168.25.62/phpLuna/imgProps/"+propu.getNombre()+".jpg";
+            String nueva="http://192.168.1.2/phpLuna/imgProps/"+propu.getNombre()+".jpg";
             try{
                 URL url = new URL(nueva);
                 imagenota.setImageBitmap(BitmapFactory.decodeStream((InputStream)url.getContent()));
@@ -65,4 +84,6 @@ public class propAdapter extends RecyclerView.Adapter<propAdapter.ViewHolder> {
             }
         }
     }
+
+
 }

@@ -33,14 +33,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class listarProp extends AppCompatActivity {
+
     private RecyclerView recyclerView;
     ArrayList<propuests> p= new ArrayList<>();
+    TextView txtNombre;
     private propAdapter proAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_prop);
-        recyclerView=(RecyclerView) findViewById(R.id.lista);
+        recyclerView= findViewById(R.id.lista);
+        txtNombre = findViewById(R.id.txtNombre);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         loadJSON();
 
@@ -81,6 +84,19 @@ public class listarProp extends AppCompatActivity {
                 proAd = new propAdapter(p);
                 recyclerView.setAdapter(proAd);
 
+                proAd.setOnItemClickListener(new propAdapter.OnItemClickListener() {
+                    @Override
+                    public void OnItemClick(int posicion) {
+                        final propuests prop = p.get(posicion);
+
+                        String nombreProp = prop.getNombre();
+                        Intent intento = new Intent(listarProp.this,traerProp.class);
+                        intento.putExtra("nombreProp",nombreProp);
+                        startActivity(intento);
+
+                    }
+                });
+
             }
 
             @Override
@@ -89,6 +105,8 @@ public class listarProp extends AppCompatActivity {
             }
         });
     }
+
+
 
 
 }
