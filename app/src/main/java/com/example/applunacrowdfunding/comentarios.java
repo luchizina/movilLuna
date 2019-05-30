@@ -1,11 +1,9 @@
 package com.example.applunacrowdfunding;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -16,22 +14,20 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
 import com.example.applunacrowdfunding.Conexion.conexion;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -47,18 +43,20 @@ public class comentarios extends AppCompatActivity {
     String nick;
 
     private Paint p = new Paint();
-
+    private ImageView ImgRed;
+    private ImageView ImgWhite;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
-        String emailLogueado= sp.getString("correoLogueado","sinusuario");
         setContentView(R.layout.activity_comentarios);
         nombre = getIntent().getStringExtra("nom");
+        ImgRed = findViewById(R.id.heartr);
+        ImgWhite = findViewById(R.id.heartw);
         recyclerView = findViewById(R.id.listit);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         loadJSON();
         enableSwipe();
+        like();
     }
 
    /* private void initViews(){
@@ -205,7 +203,7 @@ public class comentarios extends AppCompatActivity {
                     final coments deletedCom = c.get(position);
                     final int deletedPosition = position;
                     if(deletedCom.getNickUsuario().equals(nickUsuL)) {
-                        coAd.removeItem(position);
+                        coAd.removeItem(deletedPosition);
                         borrCom(deletedCom.getId());
                     }
                     // showing snack bar with Undo option
@@ -223,7 +221,7 @@ public class comentarios extends AppCompatActivity {
                     final coments deletedCom = c.get(position);
                     final int deletedPosition = position;
                     if(deletedCom.getNickUsuario().equals(nickUsuL)) {
-                        coAd.removeItem(position);
+                        coAd.removeItem(deletedPosition);
                         borrCom(deletedCom.getId());
                     }
                     // showing snack bar with Undo option
@@ -273,6 +271,106 @@ public class comentarios extends AppCompatActivity {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
+
+    public void likeComentario(){
+        SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+        String emailLogueado= sp.getString("correoLogueado","sinusuario");
+        RecyclerView.ViewHolder holder = null;
+        final coments deletedCom = c.get(holder.getAdapterPosition());
+        ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
+        Call<Respuesta> call = apiService.likeCometario(deletedCom.getId() ,emailLogueado);
+        call.enqueue(new Callback<Respuesta>() {
+            @Override
+            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+                if (!response.isSuccessful()) {
+                    String error = "Ha ocurrido un error. Contacte al administrador";
+                    if (response.errorBody()
+                            .contentType()
+                            .subtype()
+                            .equals("json")) {
+                        ApiError apiError = ApiError.fromResponseBody(response.errorBody());
+
+                        error = apiError.getMessage();
+                        Log.d("LoginActivity", apiError.getDeveloperMessage());
+                    } else {
+                        try {
+                            // Reportar causas de error no relacionado con la API
+                            Log.d("LoginActivity", response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Respuesta> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });
+    }
+
+    public void dislikeComentario(){
+        SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+        String emailLogueado= sp.getString("correoLogueado","sinusuario");
+        RecyclerView.ViewHolder holder = null;
+        final coments deletedCom = c.get(holder.getAdapterPosition());
+        ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
+        Call<Respuesta> call = apiService.dislikeCometario(deletedCom.getId() ,emailLogueado);
+        call.enqueue(new Callback<Respuesta>() {
+            @Override
+            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+                if (!response.isSuccessful()) {
+                    String error = "Ha ocurrido un error. Contacte al administrador";
+                    if (response.errorBody()
+                            .contentType()
+                            .subtype()
+                            .equals("json")) {
+                        ApiError apiError = ApiError.fromResponseBody(response.errorBody());
+
+                        error = apiError.getMessage();
+                        Log.d("LoginActivity", apiError.getDeveloperMessage());
+                    } else {
+                        try {
+                            // Reportar causas de error no relacionado con la API
+                            Log.d("LoginActivity", response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Respuesta> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });
+    }
+
+    private void like(){
+        ImgRed.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                dislikeComentario();
+                ImgRed.setVisibility(View.INVISIBLE);
+                ImgWhite.setVisibility(View.GONE);
+                return true;
+            }
+        });
+        ImgWhite.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                likeComentario();
+                ImgRed.setVisibility(View.GONE);
+                ImgWhite.setVisibility(View.INVISIBLE);
+                return true;
+            }
+        });
+    }
+
     }
 
 

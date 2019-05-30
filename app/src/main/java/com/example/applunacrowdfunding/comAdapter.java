@@ -14,6 +14,12 @@ import java.util.ArrayList;
 public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
 
     ArrayList<coments> co;
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 01789c6ccab1e3f04583a38dfce5efe0d437f0d1
     public comAdapter(ArrayList<coments> coms) {
         this.co = coms;
     }
@@ -52,7 +58,8 @@ public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
     }
 
      public void removeItem(int position) {
-        co.remove(position);
+        coments c = co.get(position);
+        co.remove(c);
         notifyItemRemoved(position);
     }
 }

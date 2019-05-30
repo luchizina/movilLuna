@@ -45,4 +45,12 @@ public interface ApiInterface {
    @POST("propuesta/nuevaColaboracionCel")
    Call<Respuesta> colaborar(@Path("monto") int monto, @Path("mail") String mail, @Path("nombre") String nombresito);
 
+  @FormUrlEncoded
+  @POST("propuesta/likeCometario")
+  Call<Respuesta> likeCometario(@Field("idCom") String id, @Field("mail") String emailLogueado);
+
+  @FormUrlEncoded
+  @POST("propuesta/dislikeCometario")
+  Call<Respuesta> dislikeCometario(@Field("idCom") String id, @Field("mail") String emailLogueado);
+
 }

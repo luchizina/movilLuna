@@ -45,12 +45,24 @@ public class traerProp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_traer_prop);
-
+        String nomProp = "";
+        Bundle extras =getIntent().getExtras();
+        if(extras!=null){
+            nomProp = extras.getString("nombreProp");
+        }
 
         Call<Respuesta> call = null;
         Bundle extra = getIntent().getExtras();
 
         final ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
+<<<<<<< HEAD
+=======
+       /* if (extra != null) {
+            call = apiService.traerPropuesta(extra.getString("prop"));
+        } else {*/
+            call = apiService.traerPropuesta(nomProp);
+      //  }
+>>>>>>> 01789c6ccab1e3f04583a38dfce5efe0d437f0d1
 
         call.enqueue(new Callback<Respuesta>() {
             @Override
@@ -104,7 +116,12 @@ public class traerProp extends AppCompatActivity {
                 StrictMode.setThreadPolicy(policy);
 
                 ImageView imageView = (ImageView) findViewById(R.id.img);
-                String nueva="http://192.168.1.2/phpLuna/imgProps/nueva propb.jpg";
+                Bundle extras =getIntent().getExtras();
+                String np= "";
+                if(extras!=null){
+                    np = extras.getString("nombreProp");
+                }
+                String nueva="http://192.168.1.2/phpLuna/imgProps/"+np+".jpg";
                 try{
                     URL url = new URL(nueva);
                     imageView.setImageBitmap(BitmapFactory.decodeStream((InputStream)url.getContent()));
