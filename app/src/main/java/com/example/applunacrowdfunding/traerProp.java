@@ -4,12 +4,18 @@ package com.example.applunacrowdfunding;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -20,6 +26,11 @@ import com.example.applunacrowdfunding.Conexion.conexion;
 import com.google.gson.JsonArray;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
@@ -40,12 +51,6 @@ public class traerProp extends AppCompatActivity {
         Bundle extra = getIntent().getExtras();
 
         final ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
-
-        if (extra != null) {
-            call = apiService.traerPropuesta(extra.getString("prop"));
-        } else {
-            call = apiService.traerPropuesta("hola");
-        }
 
         call.enqueue(new Callback<Respuesta>() {
             @Override
@@ -92,6 +97,26 @@ public class traerProp extends AppCompatActivity {
                 String nombre=numero.get(0).getAsJsonObject().get("numerito").getAsString();*/
                 TextView txtNombre = findViewById(R.id.txtNombre);
                 txtNombre.setText(nombre);
+
+
+
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+
+                ImageView imageView = (ImageView) findViewById(R.id.img);
+                String nueva="http://192.168.1.2/phpLuna/imgProps/nueva propb.jpg";
+                try{
+                    URL url = new URL(nueva);
+                    imageView.setImageBitmap(BitmapFactory.decodeStream((InputStream)url.getContent()));
+
+                }catch(IOException e){
+                    Log.e("nombre",e.getMessage());
+                }
+
+
+
+
+
 
                 TextView monto = findViewById(R.id.monto);
                 monto.setText(montoT);

@@ -45,13 +45,14 @@ public class comentarios extends AppCompatActivity {
     private comAdapter coAd;
 
     String nick;
-    final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
-    String emailLogueado= sp.getString("correoLogueado","sinusuario");
+
     private Paint p = new Paint();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+        String emailLogueado= sp.getString("correoLogueado","sinusuario");
         setContentView(R.layout.activity_comentarios);
         nombre = getIntent().getStringExtra("nom");
         recyclerView = findViewById(R.id.listit);
@@ -197,6 +198,8 @@ public class comentarios extends AppCompatActivity {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
+                SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+                String emailLogueado= sp.getString("correoLogueado","sinusuario");
                 final String nickUsuL = nickLog(emailLogueado);
                 if (direction == ItemTouchHelper.LEFT){
                     final coments deletedCom = c.get(position);

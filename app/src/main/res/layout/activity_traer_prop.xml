@@ -69,14 +69,14 @@
             android:ems="10"
             android:inputType="textPersonName" />
 
-    <ImageView
-        android:id="@+id/img"
-        android:layout_width="133dp"
-        android:layout_height="127dp"
-        android:layout_below="@id/txtNombre"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        app:srcCompat="@drawable/otra" />
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="153dp"
+            android:layout_height="161dp"
+            android:layout_below="@id/txtNombre"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            app:srcCompat="@drawable/otra" />
 
         <TextView
             android:id="@+id/monto"
@@ -129,8 +129,9 @@
 
     <EditText
         android:id="@+id/donarText"
-        android:layout_width="328dp"
-        android:layout_height="55dp"
+        android:layout_width="330dp"
+        android:layout_height="56dp"
+        android:hint="Haz una donación..."
         android:layout_below="@id/com"
         android:layout_centerInParent="true"
         android:layout_marginTop="22dp"
@@ -138,20 +139,25 @@
         android:layout_marginRight="-2dp"
         android:layout_toStartOf="@id/imageButton"
         android:layout_toLeftOf="@id/imageButton"
+        android:paddingTop="30dp"
         android:ems="10"
-        android:hint="Haz una donación..."
-        android:inputType="numberSigned"
-        android:paddingTop="30dp" />
+        android:inputType="numberSigned" />
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+
         android:layout_below="@id/com"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="21dp"
-        android:layout_marginRight="0dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+
         android:onClick="colaborar"
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> fd6a017afb2420c925d29431987f063f2f1922a5
         android:scaleType="fitXY"
         app:srcCompat="@drawable/paystuff" />
 
