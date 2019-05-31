@@ -4,23 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/f1"
     android:orientation="horizontal"
     tools:context=".traerProp">
-        android:id="@+id/relativeLayout"
-        android:layout_width="0dp"
-        android:layout_height="715dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginRight="6dp"
-        android:background="@drawable/person_7"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
+    android:id="@+id/relativeLayout"
+    android:layout_width="0dp"
+    android:layout_height="715dp"
+    android:layout_marginStart="6dp"
+    android:layout_marginLeft="6dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="6dp"
+    android:layout_marginRight="6dp"
+    android:background="@drawable/person_7"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:ignore="MissingConstraints">
 
     <ProgressBar
         android:id="@+id/prg"
@@ -32,10 +33,28 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="98dp"
         android:layout_marginLeft="98dp"
-        android:layout_marginTop="222dp"
+        android:layout_marginTop="232dp"
         android:progress="2" />
 
-        <EditText
+    <TextView
+        android:id="@+id/lbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtNombre"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="14dp"
+        android:layout_toLeftOf="@id/txtNombre"
+        android:text="Nombre:"
+        android:textColor="@color/md_white_1000"/>
+    <TextView
+        android:id="@+id/lbl2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img"
+        android:layout_centerHorizontal="true"
+        android:text="Progreso actual:"
+        android:textColor="@color/md_white_1000"/>
+    <EditText
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -44,8 +63,9 @@
         android:layout_toStartOf="@id/enviarCom"
         android:layout_toLeftOf="@id/enviarCom"
         android:hint="Haz un comentario..."
+        android:textColor="@color/md_white_1000"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textStyle="bold|italic"/>
+        android:textStyle="bold|italic" />
 
 
     <ImageButton
@@ -54,84 +74,139 @@
         android:layout_height="56dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/sendstuff"
+        android:onClick="comentar"
         android:scaleType="fitXY"
-
-        android:onClick="comentar"/>
+        android:src="@drawable/sendstuff" />
 
 
     <EditText
-            android:id="@+id/txtNombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName" />
+        android:id="@+id/txtNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="1"
+        android:textColor="@color/md_white_1000"
+        android:ems="10"
+        android:inputType="textPersonName" />
 
-        <ImageView
-            android:id="@+id/img"
-            android:layout_width="153dp"
-            android:layout_height="161dp"
-            android:layout_below="@id/txtNombre"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="24dp"
-            app:srcCompat="@drawable/otra" />
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="153dp"
+        android:layout_height="161dp"
+        android:layout_below="@id/txtNombre"
+        android:layout_alignStart="@+id/prg"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="2dp"
+        app:srcCompat="@drawable/no_disp"
+        android:layout_marginLeft="19dp"
+        android:layout_alignLeft="@+id/prg" />
 
-        <TextView
-            android:id="@+id/monto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/img"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="41dp"
-            android:text="Monto" />
+    <TextView
+        android:id="@+id/lblM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/prg"
 
-        <TextView
-            android:id="@+id/monto_actual"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/img"
-            android:layout_marginLeft="104dp"
-            android:layout_marginTop="41dp"
-            android:layout_toRightOf="@id/monto"
-            android:text="Actual" />
+        android:layout_marginStart="-1dp"
+        android:layout_marginTop="5dp"
+        android:text="Monto actual: "
+        android:textColor="@color/md_white_1000"
 
-        <TextView
-            android:id="@+id/descri"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/monto"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="18dp"
-            android:text="Descripcion" />
+        android:layout_marginLeft="-1dp" />
 
+    <TextView
+        android:id="@+id/monto_actual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/prg"
+        android:layout_marginStart="-1dp"
+        android:layout_marginLeft="-1dp"
+        android:layout_marginTop="6dp"
+        android:layout_toEndOf="@+id/lblM"
+        android:layout_toRightOf="@id/lblM"
+        android:text="MonA"
+        android:textColor="@color/md_white_1000" />
 
-        <TextView
-            android:id="@+id/usuario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/descri"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="0dp"
-            android:text="Usuario" />
+    <TextView
+        android:id="@+id/lblMo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/prg"
+        android:layout_marginLeft="59dp"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@id/monto_actual"
+        android:text="Monto total:"
+        android:textColor="@color/md_white_1000" />
 
-        <Button
-            android:id="@+id/com"
-            android:layout_width="367dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/usuario"
-            android:layout_centerHorizontal="true"
-            android:background="@android:color/holo_green_dark"
-            android:onClick="verComentarios"
-            android:layout_centerInParent="true"
-            android:text="Ver comentarios" />
+    <TextView
+        android:id="@+id/monto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img"
+        android:layout_marginLeft="184dp"
+        android:layout_marginTop="46dp"
+        android:layout_toRightOf="@id/lblM"
+        android:text="Monto"
+        android:textColor="@color/md_white_1000" />
+    <TextView
+        android:id="@+id/lblD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblu"
+        android:layout_marginTop="0dp"
+       android:layout_centerHorizontal="true"
+        android:text="Descripción: "
+        android:textColor="@color/md_white_1000"
+        tools:ignore="NotSibling" />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/descri"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblD"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:text="Descripcion"
+        android:textColor="@color/md_white_1000"/>
+
+    <TextView
+        android:id="@+id/lblu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/monto"
+        android:layout_marginTop="0dp"
+        android:layout_toStartOf="@+id/usuario"
+        android:text="Usuario: "
+        android:textColor="@color/md_white_1000"
+        android:layout_toLeftOf="@+id/usuario" />
+    <TextView
+        android:id="@+id/usuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/monto"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:text="Usuario"
+        android:textColor="@color/md_white_1000"
+        />
+
+    <Button
+        android:id="@+id/com"
+        android:layout_width="367dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/descri"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/holo_green_dark"
+        android:onClick="verComentarios"
+        android:text="Ver comentarios" />
 
     <EditText
         android:id="@+id/donarText"
         android:layout_width="330dp"
         android:layout_height="56dp"
-        android:hint="Haz una donación..."
         android:layout_below="@id/com"
         android:layout_centerInParent="true"
         android:layout_marginTop="22dp"
@@ -139,26 +214,22 @@
         android:layout_marginRight="-2dp"
         android:layout_toStartOf="@id/imageButton"
         android:layout_toLeftOf="@id/imageButton"
-        android:paddingTop="30dp"
         android:ems="10"
-        android:inputType="numberSigned" />
+        android:hint="Haz una donación..."
+        android:inputType="numberSigned"
+        android:paddingTop="30dp" />
 
     <ImageButton
         android:id="@+id/imageButton"
 
-        android:layout_below="@id/com"
-        android:layout_alignParentRight="true"
         android:layout_width="56dp"
         android:layout_height="56dp"
-
+        android:layout_below="@id/com"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="23dp"
+        android:layout_marginRight="0dp"
         android:onClick="colaborar"
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> fd6a017afb2420c925d29431987f063f2f1922a5
         android:scaleType="fitXY"
         app:srcCompat="@drawable/paystuff" />
-
+    </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

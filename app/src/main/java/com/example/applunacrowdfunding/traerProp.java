@@ -55,14 +55,7 @@ public class traerProp extends AppCompatActivity {
         Bundle extra = getIntent().getExtras();
 
         final ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
-<<<<<<< HEAD
-=======
-       /* if (extra != null) {
-            call = apiService.traerPropuesta(extra.getString("prop"));
-        } else {*/
-            call = apiService.traerPropuesta(nomProp);
-      //  }
->>>>>>> 01789c6ccab1e3f04583a38dfce5efe0d437f0d1
+
 
         call.enqueue(new Callback<Respuesta>() {
             @Override
