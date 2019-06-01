@@ -54,11 +54,7 @@ public class traerProp extends AppCompatActivity {
         Bundle extra = getIntent().getExtras();
 
         final ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
-       /* if (extra != null) {
-            call = apiService.traerPropuesta(extra.getString("prop"));
-        } else {*/
             call = apiService.traerPropuesta(nomProp);
-      //  }
 
         call.enqueue(new Callback<Respuesta>() {
             @Override
@@ -117,7 +113,7 @@ public class traerProp extends AppCompatActivity {
                 if(extras!=null){
                     np = extras.getString("nombreProp");
                 }
-                String nueva="http://192.168.1.2/phpLuna/imgProps/"+np+".jpg";
+                String nueva="http://192.168.1.3/phpLuna/imgProps/"+np+".jpg";
                 try{
                     URL url = new URL(nueva);
                     imageView.setImageBitmap(BitmapFactory.decodeStream((InputStream)url.getContent()));
