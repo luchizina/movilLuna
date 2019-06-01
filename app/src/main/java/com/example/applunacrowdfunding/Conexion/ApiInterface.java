@@ -56,5 +56,7 @@ public interface ApiInterface {
   @POST("propuesta/likePropuestaCel")
   Call<Respuesta> likePropuestaCel(@Field("usuCorreo") String usuario, @Field("propNombre") String propuesta);
 
-
+  @FormUrlEncoded
+  @POST("propuesta/chequearLikePropCel")
+  Call<Respuesta> chequearLikePropCel(@Field("usuCorreo") String usuario, @Field("propNombre") String propuesta);
 }
