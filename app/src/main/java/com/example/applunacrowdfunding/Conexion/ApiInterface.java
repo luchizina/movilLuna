@@ -52,4 +52,11 @@ public interface ApiInterface {
   @POST("propuesta/dislikeCometario")
   Call<Respuesta> dislikeCometario(@Field("idCom") String id, @Field("mail") String emailLogueado);
 
+  @FormUrlEncoded
+  @POST("propuesta/likePropuestaCel")
+  Call<Respuesta> likePropuestaCel(@Field("usuCorreo") String usuario, @Field("propNombre") String propuesta);
+
+  @FormUrlEncoded
+  @POST("propuesta/chequearLikePropCel")
+  Call<Respuesta> chequearLikePropCel(@Field("usuCorreo") String usuario, @Field("propNombre") String propuesta);
 }
