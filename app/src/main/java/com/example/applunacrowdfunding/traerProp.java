@@ -251,5 +251,51 @@ public class traerProp extends AppCompatActivity {
                 i.putExtra("nom", s);
                 startActivity(i);
             }
+
+
+
+
+     public void likePropuesta(View vista){
+         final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+         String emailLogueado = sp.getString("correoLogueado", "sinusuario");
+        EditText txtProp = (EditText) findViewById(R.id.txtNombre);
+        String nombreProp = String.valueOf(txtProp.getText());
+
+         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
+         Call<Respuesta> call = apiService.likePropuestaCel(emailLogueado,nombreProp);
+         call.enqueue(new Callback<Respuesta>() {
+             @Override
+             public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+                 if (!response.isSuccessful()) {
+                     String error = "Ha ocurrido un error. Contacte al administrador";
+                     if (response.errorBody()
+                             .contentType()
+                             .subtype()
+                             .equals("json")) {
+                         ApiError apiError = ApiError.fromResponseBody(response.errorBody());
+                         error = apiError.getMessage();
+                         Log.d("ComentarActivity", apiError.getDeveloperMessage());
+                     } else {
+                         try {
+                             // Reportar causas de error no relacionado con la API
+                             Log.d("ComentarActivity", response.errorBody().string());
+                         } catch (IOException e) {
+                             e.printStackTrace();
+                         }
+                     }
+                     return;
+                 }
+                 ImageView starNegra = (ImageView) findViewById(R.id.starNegra);
+                 ImageView starVacia = (ImageView) findViewById(R.id.starVacia);
+                 starVacia.setVisibility(View.INVISIBLE);
+                 starNegra.setVisibility(View.VISIBLE);
+             }
+
+             @Override
+             public void onFailure(Call<Respuesta> call, Throwable t) {
+                 Log.d("LoginActivity", t.getMessage());
+             }
+         });
+     }
     }
 

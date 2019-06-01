@@ -115,7 +115,32 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="0dp"
             android:text="Usuario" />
+    <RelativeLayout
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:id="@+id/starLayout"
+        android:background="@color/md_white_1000">
 
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:id="@+id/starNegra"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/star_black"
+            android:visibility="invisible"/>
+
+        <ImageView
+            android:id="@+id/starVacia"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/star_border_black"
+            android:visibility="visible"
+            android:onClick="likePropuesta"
+            />
+    </RelativeLayout>
         <Button
             android:id="@+id/com"
             android:layout_width="367dp"
