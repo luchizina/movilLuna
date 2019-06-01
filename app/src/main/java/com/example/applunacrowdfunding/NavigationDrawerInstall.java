@@ -1,6 +1,9 @@
 package com.example.applunacrowdfunding;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
@@ -18,10 +21,10 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 public class NavigationDrawerInstall {
+    Activity aa;
     public void crearHamburguesita(Activity a)
     {
-
-
+        this.aa = a;
         Toolbar toolbar = a.findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(a.getResources().getColor(R.color.colorAccent));
         AccountHeader headerResult = new AccountHeaderBuilder()
@@ -53,6 +56,21 @@ public class NavigationDrawerInstall {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // do something with the clicked item :D
+                        switch (position) {
+                            case 1:
+                                Intent intento = new Intent(aa, listarProp.class);
+                                aa.startActivity(intento);
+                                break;
+                            case 3:
+                                SharedPreferences prefs = aa.getSharedPreferences("info", aa.getApplicationContext().MODE_PRIVATE);
+                                SharedPreferences.Editor editor = prefs.edit();
+                                editor.remove("correoLogueado");
+                                editor.remove("mantieneAct");
+                                editor.commit();
+                                Intent intento2 = new Intent(aa, iniciarSesion.class);
+                                aa.startActivity(intento2);
+                                break;
+                        }
                         return true;
                     }
                 })
