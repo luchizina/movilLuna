@@ -75,12 +75,14 @@ public class iniciarSesion extends AppCompatActivity {
 
 
                 JsonArray mensaje = response.body().getMessage();
+                String nick = mensaje.get(0).getAsJsonObject().get("Nick").getAsString();
                 String estado = response.body().getEstado();
                 CheckBox caja = (CheckBox) findViewById(R.id.checkBox);
                 if(estado.equals("ok")){
                     if(caja.isChecked()){
                         SharedPreferences.Editor editor = sp.edit();
                         editor.putString("correoLogueado",correo);
+                        editor.putString("nickLogueado", nick);
                         editor.putString("mantieneAct", "si");
                         editor.commit();
                         Intent intento = new Intent(iniciarSesion.this,MainActivity.class);
@@ -90,6 +92,7 @@ public class iniciarSesion extends AppCompatActivity {
                     }else{
                         SharedPreferences.Editor editor = sp.edit();
                         editor.putString("correoLogueado",correo);
+                        editor.putString("nickLogueado", nick);
                         editor.putString("mantieneAct", "no");
                         editor.commit();
                         Intent intento = new Intent(iniciarSesion.this,MainActivity.class);

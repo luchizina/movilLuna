@@ -101,14 +101,9 @@ public class traerProp extends AppCompatActivity {
                 String nombre=numero.get(0).getAsJsonObject().get("numerito").getAsString();*/
                 TextView txtNombre = findViewById(R.id.txtNombre);
                 txtNombre.setText(nombre);
-                ImageView starNegra = (ImageView) findViewById(R.id.starNegra);
-                ImageView starVacia = (ImageView) findViewById(R.id.starVacia);
-                chequearLikePropCelu(nombre);
-                    starVacia.setVisibility(View.INVISIBLE);
-                    starNegra.setVisibility(View.VISIBLE);
 
-                    starVacia.setVisibility(View.VISIBLE);
-                    starNegra.setVisibility(View.INVISIBLE);
+                chequearLikePropCelu(nombre);
+
 
 
 
