@@ -130,11 +130,6 @@ public class traerProp extends AppCompatActivity {
                     Log.e("nombre",e.getMessage());
                 }
 
-
-
-
-
-
                 TextView monto = findViewById(R.id.monto);
                 monto.setText(montoT);
                 TextView monto_actual = findViewById(R.id.monto_actual);
@@ -214,7 +209,14 @@ public class traerProp extends AppCompatActivity {
         String nombresito = nombre.getText().toString();
         int text = Integer.parseInt(textito.getText().toString());
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
-        Call<Respuesta> call = apiService.colaborar(text, emailLogueado, nombresito);
+        Call<Respuesta> call = null;
+        try{
+             call = apiService.colaborar(text, emailLogueado, nombresito);
+        }catch(Exception e)
+        {
+            Log.d("Error", "No entiendo: "+e);
+        }
+
         call.enqueue(new Callback<Respuesta>() {
             @Override
             public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {

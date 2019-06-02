@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
@@ -56,7 +57,6 @@ public class comentarios extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         loadJSON();
         enableSwipe();
-        like();
     }
 
    /* private void initViews(){
@@ -270,11 +270,10 @@ public class comentarios extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
-    public void likeComentario(){
-        SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+    public void likeComentario(int Position){
+        final SharedPreferences sp = this.getApplicationContext().getSharedPreferences("info", Context.MODE_PRIVATE);
         String emailLogueado= sp.getString("correoLogueado","sinusuario");
-        RecyclerView.ViewHolder holder = null;
-        final coments deletedCom = c.get(holder.getAdapterPosition());
+        final coments deletedCom = c.get(Position);
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
         Call<Respuesta> call = apiService.likeCometario(deletedCom.getId() ,emailLogueado);
         call.enqueue(new Callback<Respuesta>() {
@@ -309,11 +308,10 @@ public class comentarios extends AppCompatActivity {
         });
     }
 
-    public void dislikeComentario(){
+    public void dislikeComentario(int Position){
         SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
         String emailLogueado= sp.getString("correoLogueado","sinusuario");
-        RecyclerView.ViewHolder holder = null;
-        final coments deletedCom = c.get(holder.getAdapterPosition());
+        final coments deletedCom = c.get(Position);
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
         Call<Respuesta> call = apiService.dislikeCometario(deletedCom.getId() ,emailLogueado);
         call.enqueue(new Callback<Respuesta>() {
@@ -348,25 +346,16 @@ public class comentarios extends AppCompatActivity {
         });
     }
 
-    private void like(){
-        ImgRed.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                dislikeComentario();
-                ImgRed.setVisibility(View.INVISIBLE);
-                ImgWhite.setVisibility(View.GONE);
-                return true;
-            }
-        });
-        ImgWhite.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                likeComentario();
+    public void like(View vista){
+                likeComentario((Integer)vista.getTag());
                 ImgRed.setVisibility(View.GONE);
                 ImgWhite.setVisibility(View.INVISIBLE);
-                return true;
-            }
-        });
+    }
+
+    public void dislike(View vista){
+        dislikeComentario((Integer)vista.getTag());
+        ImgRed.setVisibility(View.INVISIBLE);
+        ImgWhite.setVisibility(View.GONE);
     }
 
     }

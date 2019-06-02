@@ -42,7 +42,7 @@ public interface ApiInterface {
 
    @FormUrlEncoded
    @POST("propuesta/nuevaColaboracionCel")
-   Call<Respuesta> colaborar(@Path("monto") int monto, @Path("mail") String mail, @Path("nombre") String nombresito);
+   Call<Respuesta> colaborar(@Field("monto") int monto, @Field("mail") String mail, @Field("nombre") String nombresito);
 
   @FormUrlEncoded
   @POST("propuesta/likeCometario")
