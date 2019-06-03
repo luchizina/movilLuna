@@ -42,7 +42,7 @@ public interface ApiInterface {
 
    @FormUrlEncoded
    @POST("propuesta/nuevaColaboracionCel")
-   Call<Respuesta> colaborar(@Path("monto") int monto, @Path("mail") String mail, @Path("nombre") String nombresito);
+   Call<Respuesta> colaborar(@Field("monto") int monto, @Field("mail") String mail, @Field("nombre") String nombresito);
 
   @FormUrlEncoded
   @POST("propuesta/likeCometario")
@@ -52,4 +52,11 @@ public interface ApiInterface {
   @POST("propuesta/dislikeCometario")
   Call<Respuesta> dislikeCometario(@Field("idCom") String id, @Field("mail") String emailLogueado);
 
+  @FormUrlEncoded
+  @POST("propuesta/likePropuestaCel")
+  Call<Respuesta> likePropuestaCel(@Field("usuCorreo") String usuario, @Field("propNombre") String propuesta);
+
+  @FormUrlEncoded
+  @POST("propuesta/chequearLikePropCel")
+  Call<Respuesta> chequearLikePropCel(@Field("usuCorreo") String usuario, @Field("propNombre") String propuesta);
 }

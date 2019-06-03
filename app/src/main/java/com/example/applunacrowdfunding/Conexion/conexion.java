@@ -4,7 +4,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class conexion {
 
 
-    public static final String BASE_URL = "http://192.168.1.2/phpLuna/";
+    public static final String BASE_URL = "http://192.168.1.3/phpLuna/";
     private static Retrofit retrofit = null;
 
 

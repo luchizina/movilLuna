@@ -44,17 +44,17 @@ public class traerProp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_traer_prop);
-
+        String nomProp = "";
+        Bundle extras =getIntent().getExtras();
+        if(extras!=null){
+            nomProp = extras.getString("nombreProp");
+        }
 
         Call<Respuesta> call = null;
         Bundle extra = getIntent().getExtras();
 
         final ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
-       /* if (extra != null) {
-            call = apiService.traerPropuesta(extra.getString("prop"));
-        } else {*/
-            call = apiService.traerPropuesta("shsdfhsfd");
-      //  }
+            call = apiService.traerPropuesta(nomProp);
 
         call.enqueue(new Callback<Respuesta>() {
             @Override
@@ -102,13 +102,21 @@ public class traerProp extends AppCompatActivity {
                 TextView txtNombre = findViewById(R.id.txtNombre);
                 txtNombre.setText(nombre);
 
+                chequearLikePropCelu(nombre);
+
+
 
 
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
 
                 ImageView imageView = (ImageView) findViewById(R.id.img);
-                String nueva="http://192.168.1.2/phpLuna/imgProps/nueva propb.jpg";
+                Bundle extras =getIntent().getExtras();
+                String np= "";
+                if(extras!=null){
+                    np = extras.getString("nombreProp");
+                }
+                String nueva="http://192.168.1.3/phpLuna/imgProps/"+np+".jpg";
                 try{
                     URL url = new URL(nueva);
                     imageView.setImageBitmap(BitmapFactory.decodeStream((InputStream)url.getContent()));
@@ -116,11 +124,6 @@ public class traerProp extends AppCompatActivity {
                 }catch(IOException e){
                     Log.e("nombre",e.getMessage());
                 }
-
-
-
-
-
 
                 TextView monto = findViewById(R.id.monto);
                 monto.setText(montoT);
@@ -147,6 +150,7 @@ public class traerProp extends AppCompatActivity {
 
             }
         });
+
     }
 
     public void comentar(View vista) {
@@ -200,7 +204,14 @@ public class traerProp extends AppCompatActivity {
         String nombresito = nombre.getText().toString();
         int text = Integer.parseInt(textito.getText().toString());
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
-        Call<Respuesta> call = apiService.colaborar(text, emailLogueado, nombresito);
+        Call<Respuesta> call = null;
+        try{
+             call = apiService.colaborar(text, emailLogueado, nombresito);
+        }catch(Exception e)
+        {
+            Log.d("Error", "No entiendo: "+e);
+        }
+
         call.enqueue(new Callback<Respuesta>() {
             @Override
             public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
@@ -242,5 +253,112 @@ public class traerProp extends AppCompatActivity {
                 i.putExtra("nom", s);
                 startActivity(i);
             }
+
+public void chequearLikePropCelu(String nombreProp){
+    final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+    String emailLogueado = sp.getString("correoLogueado", "sinusuario");
+
+    ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
+    Call<Respuesta> call = apiService.chequearLikePropCel(emailLogueado,nombreProp);
+    call.enqueue(new Callback<Respuesta>() {
+        @Override
+        public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+            if (!response.isSuccessful()) {
+                String error = "Ha ocurrido un error. Contacte al administrador";
+                if (response.errorBody()
+                        .contentType()
+                        .subtype()
+                        .equals("json")) {
+                    ApiError apiError = ApiError.fromResponseBody(response.errorBody());
+                    error = apiError.getMessage();
+                    Log.d("ComentarActivity", apiError.getDeveloperMessage());
+                } else {
+                    try {
+                        // Reportar causas de error no relacionado con la API
+                        Log.d("ComentarActivity", response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return;
+            }
+            JsonArray mens = response.body().getMessage();
+            String mensaje = mens.get(0).getAsJsonObject().get("mens").getAsString();
+            ImageView starNegra = (ImageView) findViewById(R.id.starNegra);
+            ImageView starVacia = (ImageView) findViewById(R.id.starVacia);
+
+            if(mensaje.equals("tiene")){
+                starVacia.setVisibility(View.INVISIBLE);
+                starNegra.setVisibility(View.VISIBLE);
+            }else{
+                starVacia.setVisibility(View.VISIBLE);
+                starNegra.setVisibility(View.INVISIBLE);
+            }
+        }
+
+        @Override
+        public void onFailure(Call<Respuesta> call, Throwable t) {
+            Log.d("LoginActivity", t.getMessage());
+        }
+    });
+
+}
+
+
+     public void likePropuesta(View vista){
+         final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+         String emailLogueado = sp.getString("correoLogueado", "sinusuario");
+        EditText txtProp = (EditText) findViewById(R.id.txtNombre);
+        String nombreProp = String.valueOf(txtProp.getText());
+
+         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
+         Call<Respuesta> call = apiService.likePropuestaCel(emailLogueado,nombreProp);
+         call.enqueue(new Callback<Respuesta>() {
+             @Override
+             public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+                 if (!response.isSuccessful()) {
+                     String error = "Ha ocurrido un error. Contacte al administrador";
+                     if (response.errorBody()
+                             .contentType()
+                             .subtype()
+                             .equals("json")) {
+                         ApiError apiError = ApiError.fromResponseBody(response.errorBody());
+                         error = apiError.getMessage();
+                         Log.d("ComentarActivity", apiError.getDeveloperMessage());
+                     } else {
+                         try {
+                             // Reportar causas de error no relacionado con la API
+                             Log.d("ComentarActivity", response.errorBody().string());
+                         } catch (IOException e) {
+                             e.printStackTrace();
+                         }
+                     }
+                     return;
+                 }
+                 JsonArray mens = response.body().getMessage();
+                 ImageView starNegra = (ImageView) findViewById(R.id.starNegra);
+                 ImageView starVacia = (ImageView) findViewById(R.id.starVacia);
+               String mensaje = mens.get(0).getAsJsonObject().get("mens").getAsString();
+               if(mensaje.equals("ingresar")){
+
+                 starVacia.setVisibility(View.INVISIBLE);
+                 starNegra.setVisibility(View.VISIBLE);
+               }else{
+                   starVacia.setVisibility(View.VISIBLE);
+                   starNegra.setVisibility(View.INVISIBLE);
+               }
+
+             }
+
+             @Override
+             public void onFailure(Call<Respuesta> call, Throwable t) {
+                 Log.d("LoginActivity", t.getMessage());
+             }
+         });
+     }
+
+
+
+
     }
 

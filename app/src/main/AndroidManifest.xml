@@ -13,18 +13,19 @@
         android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar.ActionBar.TranslucentStatus"
         android:usesCleartextTraffic="true">
         <activity android:name=".comentarios" />
-        <activity android:name=".iniciarSesion" />
-        <activity android:name=".listarProp" />
-        <activity android:name=".ver_propuesta" />
-        <activity android:name=".registro" />
-        <activity android:name=".traerProp" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".iniciarSesion" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".listarProp" />
+        <activity android:name=".ver_propuesta" />
+        <activity android:name=".registro" />
+        <activity android:name=".traerProp" />
+        <activity android:name=".MainActivity"/>
+
     </application>
 
 </manifest>
