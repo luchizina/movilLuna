@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
@@ -20,18 +23,30 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class NavigationDrawerInstall {
     Activity aa;
     public void crearHamburguesita(Activity a)
     {
         this.aa = a;
+        SharedPreferences sp = a.getSharedPreferences("info", Context.MODE_PRIVATE);
+        String txt = sp.getString("nickLogueado", "sinnick");
+        String txt2 = sp.getString("correoLogueado","sincorreo");
+        String nueva="http://192.168.1.3/phpLuna/imgUsus/"+txt+".jpg";
+
+
+
         Toolbar toolbar = a.findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(a.getResources().getColor(R.color.colorAccent));
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(a)
                 .withHeaderBackground(R.color.md_white_1000)
                 .addProfiles(
-                        new ProfileDrawerItem().withName("Prueba").withEmail("prueba@gmail.com").withIcon(FontAwesome.Icon.faw_user1)
+                        new ProfileDrawerItem().withName(txt).withEmail(txt2).withIcon(nueva)
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
