@@ -349,24 +349,24 @@ public class comentarios extends AppCompatActivity {
     }
 
     private void like(){
-        ImgRed.setOnTouchListener(new View.OnTouchListener() {
+        ImgRed.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
+            public void onClick(View v) {
                 dislikeComentario();
                 ImgRed.setVisibility(View.INVISIBLE);
                 ImgWhite.setVisibility(View.GONE);
-                return true;
             }
         });
-        ImgWhite.setOnTouchListener(new View.OnTouchListener() {
+
+        ImgWhite.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
+            public void onClick(View v) {
                 likeComentario();
                 ImgRed.setVisibility(View.GONE);
                 ImgWhite.setVisibility(View.INVISIBLE);
-                return true;
             }
         });
+
     }
 
     }
