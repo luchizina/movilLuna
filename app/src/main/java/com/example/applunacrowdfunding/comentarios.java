@@ -110,46 +110,6 @@ public class comentarios extends AppCompatActivity {
         });
     }
 
-     private String nickLog(String correo){
-        ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
-        Call<Respuesta> call = apiService.UsuCorreo(correo);
-        call.enqueue(new Callback<Respuesta>() {
-            @Override
-            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
-                if (!response.isSuccessful()) {
-                    String error = "Ha ocurrido un error. Contacte al administrador";
-                    if (response.errorBody()
-                            .contentType()
-                            .subtype()
-                            .equals("json")) {
-                        ApiError apiError = ApiError.fromResponseBody(response.errorBody());
-
-                        error = apiError.getMessage();
-                        Log.d("LoginActivity", apiError.getDeveloperMessage());
-                    } else {
-                        try {
-                            // Reportar causas de error no relacionado con la API
-                            Log.d("LoginActivity", response.errorBody().string());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    return;
-                }
-
-                JsonArray js = response.body().getMessage();
-                nick = js.get(0).getAsJsonObject().get("nick").getAsString();
-
-            }
-
-            @Override
-            public void onFailure(Call<Respuesta> call, Throwable t) {
-                Log.d("Error", t.getMessage());
-            }
-        });
-        return nick;
-    }
-
     private void borrCom(String id){
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
         Call<Respuesta> call = apiService.BorrCom(id);
@@ -197,8 +157,7 @@ public class comentarios extends AppCompatActivity {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
-                String emailLogueado= sp.getString("correoLogueado","sinusuario");
-                final String nickUsuL = nickLog(emailLogueado);
+                String nickUsuL = sp.getString("nickLogueado", "sinnick");
                 if (direction == ItemTouchHelper.LEFT){
                     final coments deletedCom = c.get(position);
                     final int deletedPosition = position;
@@ -347,6 +306,7 @@ public class comentarios extends AppCompatActivity {
             }
         });
     }
+
 
     public void like(View vista){
                 likeComentario((Integer)vista.getTag());
