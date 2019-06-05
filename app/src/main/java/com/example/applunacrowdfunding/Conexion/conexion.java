@@ -5,7 +5,7 @@ public class conexion {
 
 
 
-    public static final String BASE_URL = "http://192.168.1.13/phpLuna/";
+    public static final String BASE_URL = "http://192.168.25.25/phpLuna/";
     private static Retrofit retrofit = null;
 
 

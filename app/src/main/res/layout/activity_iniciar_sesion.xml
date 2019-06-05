@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/person_7"
+    android:background="@drawable/f1"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".iniciarSesion">
@@ -13,21 +13,23 @@
         android:id="@+id/imageView3"
         android:layout_width="252dp"
         android:layout_height="225dp"
-        android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo2" />
 
     <EditText
         android:id="@+id/txtCorreo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Correo electrónico"
+        android:hint="Ingrese su correo..."
         android:inputType="textPersonName"
         android:onClick="cambiarError"
         android:text=""
         tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="75dp" />
+        tools:layout_editor_absoluteY="75dp"
+        android:textColor="@color/md_white_1000"
+        android:textColorHighlight="@color/md_white_1000"
+        android:textColorHint="@color/md_white_1000"/>
 
     <EditText
         android:id="@+id/txtPass"
@@ -38,7 +40,11 @@
         android:inputType="textPassword"
         android:text=""
         tools:layout_editor_absoluteX="97dp"
-        tools:layout_editor_absoluteY="136dp" />
+        tools:layout_editor_absoluteY="136dp"
+        android:textColor="@color/md_white_1000"
+        android:textColorHighlight="@color/md_white_1000"
+        android:textColorHint="@color/md_white_1000"
+        />
 
     <CheckBox
         android:id="@+id/checkBox"
@@ -49,13 +55,16 @@
         android:text="Mantenerse activo"
         tools:layout_editor_absoluteX="97dp"
 
-        tools:layout_editor_absoluteY="240dp" />
+        tools:layout_editor_absoluteY="240dp"
+        android:textColor="@color/md_white_1000"
+        android:textColorHighlight="@color/md_white_1000"
+        android:textColorHint="@color/md_white_1000"/>
 
     <Button
         android:id="@+id/btnLogin"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
+        android:layout_width="312dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/botonstyle"
         android:onClick="iniciarS"
         android:text="Iniciar sesión" />
 
@@ -69,7 +78,10 @@
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:text="¿No tiene cuenta?" />
+            android:text="¿No tiene cuenta?"
+            android:textColor="@color/md_white_1000"
+            android:textColorHighlight="@color/md_white_1000"
+            android:textColorHint="@color/md_white_1000"/>
 
         <TextView
             android:id="@+id/txtRegistro"
@@ -79,7 +91,7 @@
             android:ems="10"
             android:onClick="regUsu"
             android:text="¡Registrate!"
-            android:textColor="#3F51B5" />
+            android:textColor="#B8C2F1" />
     </RelativeLayout>
 
     <TextView

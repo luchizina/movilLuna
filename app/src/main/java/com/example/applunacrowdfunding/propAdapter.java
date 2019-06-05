@@ -74,7 +74,7 @@ public class propAdapter extends RecyclerView.Adapter<propAdapter.ViewHolder> {
 
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
-            String nueva="http://192.168.1.3/phpLuna/imgProps/"+propu.getNombre()+".jpg";
+            String nueva="http://192.168.25.25/phpLuna/imgProps/"+propu.getNombre()+".jpg";
             try{
                 URL url = new URL(nueva);
                 imagenota.setImageBitmap(BitmapFactory.decodeStream((InputStream)url.getContent()));

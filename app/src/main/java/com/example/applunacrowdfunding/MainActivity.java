@@ -59,10 +59,6 @@ Button registro;
 
         String mantieneAct = sp.getString("mantieneAct","algo");
         if((!emailLogueado.equals("sinusuario"))){
-        View btnCerrar =  findViewById(R.id.btnCerrar);
-        btnCerrar.setVisibility(View.VISIBLE);
-            View btnRegistrar = findViewById(R.id.buttonR);
-            btnRegistrar.setVisibility(View.INVISIBLE);
 
 
 

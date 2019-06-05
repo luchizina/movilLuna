@@ -24,6 +24,7 @@ import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
 import com.example.applunacrowdfunding.Conexion.conexion;
 import com.google.gson.JsonArray;
+import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -117,7 +118,7 @@ public class traerProp extends AppCompatActivity {
                 if(extras!=null){
                     np = extras.getString("nombreProp");
                 }
-                String nueva="http://192.168.1.2/phpLuna/imgProps/"+np+".jpg";
+                String nueva="http://192.168.25.25/phpLuna/imgProps/"+np+".jpg";
                 try{
                     URL url = new URL(nueva);
                     imageView.setImageBitmap(BitmapFactory.decodeStream((InputStream)url.getContent()));
@@ -127,9 +128,8 @@ public class traerProp extends AppCompatActivity {
                 }
 
                 TextView monto = findViewById(R.id.monto);
-                monto.setText(montoT);
-                TextView monto_actual = findViewById(R.id.monto_actual);
-                monto_actual.setText(montoA);
+                monto.setText("$"+montoA+" de $"+montoT);
+
                 TextView descri = findViewById(R.id.descri);
                 descri.setText(desc);
                 TextView nic = findViewById(R.id.usuario);
@@ -287,6 +287,7 @@ public void chequearLikePropCelu(String nombreProp){
             String mensaje = mens.get(0).getAsJsonObject().get("mens").getAsString();
             ImageView starNegra = (ImageView) findViewById(R.id.starNegra);
             ImageView starVacia = (ImageView) findViewById(R.id.starVacia);
+
 
             if(mensaje.equals("tiene")){
                 starVacia.setVisibility(View.INVISIBLE);

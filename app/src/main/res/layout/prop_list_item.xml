@@ -1,29 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:elevation="12dp"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/imgListaProp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitXY" />
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:elevation="12dp">
+        android:layout_above="@id/txtNombre"
+        android:baselineAligned="false"
+        android:textColor="@color/md_white_1000"
+        android:gravity="center"
+        android:text="Título:"
+        android:textAppearance="?attr/textAppearanceListItem" />
 
-        <ImageView
-            android:id="@+id/imgListaProp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:contentDescription="@string/app_name"
-            android:scaleType="fitXY"
-            />
+    <TextView
+        android:id="@+id/txtNombre"
+        android:textColor="@color/md_white_1000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtNombre"
+        android:layout_centerInParent="true"
+        android:textAppearance="?attr/textAppearanceListItem" />
 
+</RelativeLayout>
 
-            <TextView
-                android:id="@+id/txtNombre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="8dp"
-                android:textAppearance="?attr/textAppearanceListItem"
-                />
-
-
-
-    </LinearLayout>
+</LinearLayout>
