@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 
@@ -25,7 +27,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class NavigationDrawerInstall {
@@ -37,16 +38,22 @@ public class NavigationDrawerInstall {
         String txt = sp.getString("nickLogueado", "sinnick");
         String txt2 = sp.getString("correoLogueado","sincorreo");
         String nueva="http://192.168.1.3/phpLuna/imgUsus/"+txt+".jpg";
-
-
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        Bitmap c = null;
+        try{
+            URL url = new URL(nueva);
+           c = BitmapFactory.decodeStream((InputStream)url.getContent());
+        }catch(IOException e){
+            Log.e("nombre",e.getMessage());
+        }
 
         Toolbar toolbar = a.findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(a.getResources().getColor(R.color.colorAccent));
+        toolbar.setBackgroundColor(Color.rgb(255,152,0));
         AccountHeader headerResult = new AccountHeaderBuilder()
-                .withActivity(a)
-                .withHeaderBackground(R.color.md_white_1000)
+                .withActivity(a).withHeaderBackground(R.drawable.navimg)
                 .addProfiles(
-                        new ProfileDrawerItem().withName(txt).withEmail(txt2).withIcon(nueva)
+                        new ProfileDrawerItem().withName(txt).withEmail(txt2).withIcon(c)
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override

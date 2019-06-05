@@ -1,42 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="12dp"
     android:orientation="horizontal"
     android:padding="10dp">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/imgListaProp"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:contentDescription="@string/app_name"
-        android:scaleType="fitXY" />
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <TextView
-        android:id="@+id/nombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/txtNombre"
-        android:baselineAligned="false"
-        android:textColor="@color/md_white_1000"
-        android:gravity="center"
-        android:text="Título:"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        app:civ_border_width="2dp"
+        android:background="#dadada"
+        app:civ_border_color="#FFFFFF"/>
 
     <TextView
         android:id="@+id/txtNombre"
-        android:textColor="@color/md_white_1000"
-        android:layout_width="wrap_content"
+        android:layout_width="194dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@id/imgListaProp"
+        android:layout_toRightOf="@id/imgListaProp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeTextType="uniform"
+        android:background="#dadada"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textColor="@color/md_white_1000"
+        android:textFontWeight="bold" />
+
+    <TextView
+        android:id="@+id/txtDesc"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
         android:layout_below="@id/txtNombre"
-        android:layout_centerInParent="true"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/imgListaProp"
+        android:layout_toRightOf="@id/imgListaProp"
+        android:autoSizeMinTextSize="10sp"
+        android:autoSizeTextType="uniform"
+        android:background="#dadada"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:singleLine="false"
+
+        android:textColor="@color/md_white_1000" />
 
 </RelativeLayout>
-
-</LinearLayout>

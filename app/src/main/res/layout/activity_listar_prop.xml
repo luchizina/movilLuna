@@ -6,11 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".listarProp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lista"
+    <com.cooltechworks.views.shimmer.ShimmerRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/shimmer_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/f1"
         android:scrollbars="vertical"
-        tools:ignore="MissingConstraints" />
+        app:shimmer_demo_angle="20"
+        app:shimmer_demo_child_count="9"
+        app:shimmer_demo_grid_child_count="1"
+        app:shimmer_demo_layout="@layout/prop_list_item"
+        app:shimmer_demo_layout_manager_type="grid" />
+
 </RelativeLayout>

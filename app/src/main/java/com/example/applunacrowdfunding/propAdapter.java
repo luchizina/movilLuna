@@ -1,6 +1,7 @@
 package com.example.applunacrowdfunding;
 
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,11 +52,13 @@ public class propAdapter extends RecyclerView.Adapter<propAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView propNomb;
+        TextView propDesc;
         ImageView imagenota;
         public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             propNomb =  itemView.findViewById(R.id.txtNombre);
             imagenota = itemView.findViewById(R.id.imgListaProp);
+            propDesc = itemView.findViewById(R.id.txtDesc);
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
@@ -71,10 +74,13 @@ public class propAdapter extends RecyclerView.Adapter<propAdapter.ViewHolder> {
 
         public void asignarDatos(propuests propu) {
             propNomb.setText(propu.getNombre());
-
+            propDesc.setText(propu.getDescripcion());
+            propNomb.setBackgroundColor(Color.TRANSPARENT);
+            propDesc.setBackgroundColor(Color.TRANSPARENT);
+            imagenota.setBackgroundColor(Color.TRANSPARENT);
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
-            String nueva="http://192.168.25.25/phpLuna/imgProps/"+propu.getNombre()+".jpg";
+            String nueva="http://192.168.1.3/phpLuna/imgProps/"+propu.getNombre()+".jpg";
             try{
                 URL url = new URL(nueva);
                 imagenota.setImageBitmap(BitmapFactory.decodeStream((InputStream)url.getContent()));

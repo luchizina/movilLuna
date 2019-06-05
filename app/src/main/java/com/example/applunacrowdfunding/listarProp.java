@@ -1,40 +1,38 @@
 package com.example.applunacrowdfunding;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.ListView;
-import android.widget.TextView;
-
+import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
 import com.example.applunacrowdfunding.Conexion.conexion;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class listarProp extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
+    private ShimmerRecyclerView recyclerView;
     ArrayList<propuests> p= new ArrayList<>();
     TextView txtNombre;
     private propAdapter proAd;
@@ -42,7 +40,7 @@ public class listarProp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_prop);
-        recyclerView= findViewById(R.id.lista);
+        recyclerView= findViewById(R.id.shimmer_recycler_view);
         txtNombre = findViewById(R.id.txtNombre);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         loadJSON();
@@ -53,6 +51,7 @@ public class listarProp extends AppCompatActivity {
     private void loadJSON(){
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
         Call<Respuesta> call = apiService.getPropuestas();
+        recyclerView.showShimmerAdapter();
         call.enqueue(new Callback<Respuesta>() {
             @Override
             public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
@@ -83,7 +82,7 @@ public class listarProp extends AppCompatActivity {
                 recyclerView.addItemDecoration(dividerItemDecoration);
                 proAd = new propAdapter(p);
                 recyclerView.setAdapter(proAd);
-
+                recyclerView.hideShimmerAdapter();
                 proAd.setOnItemClickListener(new propAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(int posicion) {

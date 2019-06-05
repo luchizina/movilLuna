@@ -4,36 +4,29 @@ package com.example.applunacrowdfunding;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
 import com.example.applunacrowdfunding.Conexion.conexion;
 import com.google.gson.JsonArray;
-import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 
-import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -118,11 +111,10 @@ public class traerProp extends AppCompatActivity {
                 if(extras!=null){
                     np = extras.getString("nombreProp");
                 }
-                String nueva="http://192.168.25.25/phpLuna/imgProps/"+np+".jpg";
+                String nueva="http://192.168.1.3/phpLuna/imgProps/"+np+".jpg";
                 try{
                     URL url = new URL(nueva);
                     imageView.setImageBitmap(BitmapFactory.decodeStream((InputStream)url.getContent()));
-
                 }catch(IOException e){
                     Log.e("nombre",e.getMessage());
                 }
