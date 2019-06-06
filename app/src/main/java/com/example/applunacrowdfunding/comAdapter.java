@@ -1,6 +1,11 @@
 package com.example.applunacrowdfunding;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +16,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
 
@@ -20,8 +30,9 @@ public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
 
 
 
-    public comAdapter(ArrayList<coments> coms) {
+    public comAdapter(ArrayList<coments> coms, Activity a) {
         this.co = coms;
+        this.c = (comentarios) a;
     }
 
     @NonNull
@@ -32,12 +43,14 @@ public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull comAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final comAdapter.ViewHolder holder, final int position) {
         holder.asignarDatos(co.get(position));
         holder.heartr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 v.setTag(position);
+                holder.heartr.setVisibility(v.INVISIBLE);
+                holder.heartw.setVisibility(v.VISIBLE);
                 c.dislike(v);
             }
         });
@@ -45,6 +58,8 @@ public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 v.setTag(position);
+                holder.heartw.setVisibility(v.INVISIBLE);
+                holder.heartr.setVisibility(v.VISIBLE);
                 c.like(v);
             }
         });
@@ -59,21 +74,34 @@ public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View mView;
-        TextView usu, come;
+        TextView nick, come;
         ImageView heartr,heartw;
+        CircleImageView fotito;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
-            usu = itemView.findViewById(R.id.usu);
-            come = itemView.findViewById(R.id.comen);
+            nick = itemView.findViewById(R.id.txtNickComent);
+            fotito = itemView.findViewById(R.id.imgUsuComent);
+            come = itemView.findViewById(R.id.txtComentItem);
             heartr = itemView.findViewById(R.id.heartr);
             heartw = itemView.findViewById(R.id.heartw);
         }
 
         public void asignarDatos(coments coments) {
-            usu.setText(coments.getNickUsuario());
+            nick.setText(coments.getNickUsuario());
             come.setText(coments.getTexto());
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            String nueva="http://192.168.1.3/phpLuna/imgUsus/"+coments.getNickUsuario()+".jpg";
+            try{
+                URL url = new URL(nueva);
+                fotito.setImageBitmap(BitmapFactory.decodeStream((InputStream)url.getContent()));
+            }catch(IOException e){
+                Log.e("nombre",e.getMessage());
+            }
+            fotito.setBackgroundColor(Color.TRANSPARENT);
+            nick.setBackgroundColor(Color.TRANSPARENT);
         }
 
 

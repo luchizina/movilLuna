@@ -1,50 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/card" android:layout_width="match_parent" android:layout_height="wrap_content">
-<RelativeLayout
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/imgUsuComent"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:civ_border_width="2dp"
+        android:background="#505050"
+        app:civ_border_color="#FFFFFF"/>
+<TextView
+    android:id="@+id/txtNickComent"
+    android:textColor="@color/md_white_1000"
+    android:layout_width="wrap_content"
+    android:maxWidth="250dp"
+    android:minWidth="80dp"
+    android:layout_height="30dp"
+    android:autoSizeMinTextSize="8sp"
+    android:background="#505050"
+    android:autoSizeTextType="uniform"
+    android:layout_toRightOf="@id/imgUsuComent"
+    />
 
-            <TextView
-                android:id="@+id/usu"
-                android:layout_width="200dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+    <TextView
+        android:id="@+id/txtComentItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtNickComent"
+        android:layout_marginTop="3dp"
+        android:padding = "8dp"
+        android:textColor="@color/md_white_1000"
+        android:elegantTextHeight="true"
+        android:text=""
+        android:layout_toStartOf="@id/heartw"
+        android:layout_toEndOf="@id/imgUsuComent"
+        android:layout_toRightOf="@id/imgUsuComent"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/comentariobackground"
+        android:layout_toLeftOf="@id/heartw" />
 
-            <TextView
-                android:id="@+id/comen"
-                android:layout_width="237dp"
-                android:layout_height="36dp"
-                android:layout_weight="1" />
-            <RelativeLayout
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:id="@+id/heartLayout"
-                android:background="@color/md_white_1000">
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:id="@+id/heartr"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/icheartred"
-                android:visibility="invisible"/>
+    <ImageView
+        android:id="@+id/heartr"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/txtComentItem"
+        android:src="@drawable/icheartred"
+        android:visibility="invisible"
+        android:layout_alignBottom="@id/txtComentItem"/>
 
             <ImageView
                 android:id="@+id/heartw"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="20dp"
+                android:layout_alignParentRight="true"
                 android:src="@drawable/icheartwhite"
-                android:visibility="visible" />
+                android:visibility="visible"
+                android:layout_alignBottom="@id/txtComentItem"/>
             </RelativeLayout>
-        </LinearLayout>
-</RelativeLayout>
-</androidx.cardview.widget.CardView>

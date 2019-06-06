@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
@@ -37,7 +38,7 @@ import retrofit2.Response;
 
 public class comentarios extends AppCompatActivity {
     String nombre;
-    private RecyclerView recyclerView;
+    private ShimmerRecyclerView recyclerView;
     ArrayList<coments> c = new ArrayList<>();
     private comAdapter coAd;
 
@@ -53,7 +54,7 @@ public class comentarios extends AppCompatActivity {
         nombre = getIntent().getStringExtra("nom");
         ImgRed = findViewById(R.id.heartr);
         ImgWhite = findViewById(R.id.heartw);
-        recyclerView = findViewById(R.id.listit);
+        recyclerView = findViewById(R.id.shimmer_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         loadJSON();
         enableSwipe();
@@ -68,6 +69,7 @@ public class comentarios extends AppCompatActivity {
     }*/
 
     private void loadJSON() {
+        recyclerView.showShimmerAdapter();
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
         Call<Respuesta> call = apiService.getCom(nombre);
         call.enqueue(new Callback<Respuesta>() {
@@ -97,8 +99,7 @@ public class comentarios extends AppCompatActivity {
                 c = new Gson().fromJson(response.body().getMessage(), new TypeToken<List<coments>>() {
                 }.getType());
                 //new ArrayList<>(response.body().getMessage());
-                coAd = new comAdapter(c); //en este constructor estaba context
-
+                coAd = new comAdapter(c, comentarios.this); //en este constructor estaba context
                 recyclerView.setAdapter(coAd);
 
             }
@@ -310,14 +311,10 @@ public class comentarios extends AppCompatActivity {
 
     public void like(View vista){
                 likeComentario((Integer)vista.getTag());
-                ImgRed.setVisibility(View.GONE);
-                ImgWhite.setVisibility(View.INVISIBLE);
     }
 
     public void dislike(View vista){
         dislikeComentario((Integer)vista.getTag());
-        ImgRed.setVisibility(View.INVISIBLE);
-        ImgWhite.setVisibility(View.GONE);
     }
 
     }

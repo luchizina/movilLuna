@@ -1,16 +1,20 @@
 package com.example.applunacrowdfunding;
 
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,6 +31,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,10 +40,13 @@ import retrofit2.Response;
 public class traerProp extends AppCompatActivity {
     Button com;
     String nom;
+    Dialog myDialog;
+    boolean output = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        myDialog = new Dialog(this);
         setContentView(R.layout.activity_traer_prop);
         String nomProp = "";
         Bundle extras =getIntent().getExtras();
@@ -146,16 +155,20 @@ public class traerProp extends AppCompatActivity {
 
     }
 
-    public void comentar(View vista) {
+    public void comentar(String text) {
+        SweetAlertDialog pDialog = new SweetAlertDialog(traerProp.this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("Enviando Comentario...");
+        pDialog.setCancelable(false);
+        pDialog.show();
         final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
         String emailLogueado = sp.getString("correoLogueado", "sinusuario");
         EditText nombre = findViewById(R.id.txtNombre);
-        TextView textito = findViewById(R.id.textView6);
-        String text = textito.getText().toString();
         String s = nombre.getText().toString();
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
         Call<Respuesta> call = apiService.comentar(s, emailLogueado, text);
         call.enqueue(new Callback<Respuesta>() {
+
             @Override
             public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
                 if (!response.isSuccessful()) {
@@ -175,17 +188,26 @@ public class traerProp extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                    return;
+
                 }
-                EditText xD = findViewById(R.id.textView6);
-                xD.setText("");
+                SweetAlertDialog pDialog = new SweetAlertDialog(traerProp.this, SweetAlertDialog.SUCCESS_TYPE);
+                pDialog.setTitleText("El comentario ha sido enviado!");
+                pDialog.setConfirmText("Aceptar");
+                pDialog.show();
+
             }
 
             @Override
             public void onFailure(Call<Respuesta> call, Throwable t) {
+                SweetAlertDialog pDialog = new SweetAlertDialog(traerProp.this, SweetAlertDialog.ERROR_TYPE);
+                pDialog.setTitleText("Ha ocurrido un error :(");
+                pDialog.setConfirmText("Aceptar");
+                pDialog.show();
                 Log.d("LoginActivity", t.getMessage());
+
             }
         });
+        pDialog.dismissWithAnimation();
     }
 
     public void colaborar(View vista)
@@ -349,6 +371,51 @@ public void chequearLikePropCelu(String nombreProp){
                  Log.d("LoginActivity", t.getMessage());
              }
          });
+     }
+
+     public void comentarUp(View v)
+     {
+         output = false;
+         SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+         String nicksito = sp.getString("nickLogueado","sinnick");
+         String nueva="http://192.168.1.3/phpLuna/imgUsus/"+nicksito+".jpg";
+         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+         StrictMode.setThreadPolicy(policy);
+         Bitmap c = null;
+         try{
+             URL url = new URL(nueva);
+             c = BitmapFactory.decodeStream((InputStream)url.getContent());
+         }catch(IOException e){
+             Log.e("nombre",e.getMessage());
+         }
+         myDialog.setContentView(R.layout.comentariopopup);
+         TextView txtNick = myDialog.findViewById(R.id.txtNickPerfil);
+         final EditText txtComent = myDialog.findViewById(R.id.txtComent);
+         CircleImageView img = myDialog.findViewById(R.id.imgPerfilComent);
+         txtNick.setText(nicksito);
+         img.setImageBitmap(c);
+         ImageButton btn = myDialog.findViewById(R.id.enviarBtn);
+         btn.setOnClickListener(new View.OnClickListener(){
+             public void onClick(View v)
+             {
+                 if(!txtComent.getText().toString().trim().equals(""))
+                 {
+
+                     comentar(txtComent.getText().toString());
+                     myDialog.dismiss();
+
+                 }
+                 else
+                 {
+                     SweetAlertDialog pDialog = new SweetAlertDialog(traerProp.this,SweetAlertDialog.WARNING_TYPE);
+                     pDialog.setConfirmText("Aceptar");
+                     pDialog.setTitleText("¡No puedes hacer un comentario vacío!");
+                     pDialog.show();
+                 }
+
+             }
+         });
+         myDialog.show();
      }
 
 

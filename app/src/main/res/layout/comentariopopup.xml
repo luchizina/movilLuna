@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal" android:layout_width="272dp"
+    android:layout_height="100dp"
+    android:background="@drawable/fondo"
+    android:layout_gravity="center">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgPerfilComent"
+        android:layout_width="96dp"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_alignParentLeft="true"
+        app:civ_border_color="#FFFFFF"
+        app:civ_border_width="2dp" />
+    <TextView
+        android:id="@+id/txtNickPerfil"
+        android:textColor="#FF9800"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:autoSizeTextType="uniform"
+        android:textFontWeight="bold"
+        android:layout_toRightOf="@id/imgPerfilComent" />
+
+    <EditText
+        android:id="@+id/txtComent"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="0dp"
+        android:layout_toRightOf="@id/imgPerfilComent"
+        android:textColor="@color/md_white_1000" />
+
+    <ImageButton
+        android:id="@+id/enviarBtn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="1dp"
+        android:layout_marginBottom="1dp"
+        android:layout_toRightOf="@id/txtComent"
+        android:background="@color/cardview_shadow_end_color"
+        android:scaleType="fitXY"
+        android:src="@drawable/send" />
+</RelativeLayout>
