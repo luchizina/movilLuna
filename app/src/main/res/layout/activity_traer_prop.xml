@@ -8,43 +8,34 @@
     android:orientation="horizontal"
     tools:context=".traerProp">
 
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        tools:layout_editor_absoluteX="134dp">
+        android:fillViewport="true">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
 
-            <LinearLayout
-                android:layout_width="400dp"
-                android:layout_height="264dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="-14dp"
-                android:orientation="horizontal">
 
-                <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="20dp"
-                    app:srcCompat="@drawable/no_disp" />
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:src="@drawable/no_disp"
+                    android:layout_centerHorizontal="true"
+
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="#FFFFFF" />
+
 
                     <ImageView
                         android:id="@+id/starNegra"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:layout_marginTop="30dp"
+                        android:layout_toRightOf="@id/img"
                         android:onClick="likePropuesta"
                         android:src="@drawable/star2"
                         android:visibility="invisible" />
@@ -53,68 +44,61 @@
                     android:id="@+id/starVacia"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_toRightOf="@id/img"
                     android:onClick="likePropuesta"
                     android:src="@drawable/estrella1"
                     android:visibility="visible" />
-                </RelativeLayout>
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="408dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="0dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginBottom="7dp"
-                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="248dp"
-                    android:layout_height="215dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="70dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
+
+
+
                     <TextView
                         android:id="@+id/lbl2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Progreso actual:"
+                        android:layout_below="@id/img"
+                        android:layout_centerHorizontal="true"
                         android:textColor="@color/md_white_1000" />
 
                     <ProgressBar
                         android:id="@+id/prg"
                         style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="fill_parent"
+                        android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:indeterminate="false"
-                        android:maxHeight="10dip"
-                        android:minHeight="10dip"
+                        android:layout_below="@id/lbl2"
+                        android:layout_centerHorizontal="true"
+                        android:maxHeight="20dip"
+                        android:minHeight="20dip"
                         android:progress="50"
                         android:progressDrawable="@drawable/greenprogress" />
+
                     <TextView
                         android:id="@+id/monto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_column="0"
-                        android:padding="4dip"
-                        android:text="Monto"
+                        android:layout_below="@id/prg"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:text="Monto: $400 de $10000"
                         android:textColor="@color/md_white_1000" />
+
                     <TableLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="300dp"
+                        android:id="@+id/tablita"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:padding="16dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/monto"
+                        android:layout_marginTop="10dp"
                         android:stretchColumns="1"
                         android:textColor="@android:color/white">
+
                         <View
                             android:layout_height="5dip"
                             android:background="#FF909090" />
+
                         <TableRow android:background="#DDB53D">
 
                             <TextView
@@ -126,7 +110,7 @@
                             <TextView
                                 android:id="@+id/txtNombre"
                                 android:layout_column="1"
-                                android:padding="3dip"
+
                                 android:text="Titulo"
                                 android:textColor="@android:color/white" />
                         </TableRow>
@@ -134,30 +118,35 @@
                         <View
                             android:layout_height="2dip"
                             android:background="#FF909090" />
-                        <TableRow>
-                    <TextView
-                        android:id="@+id/lblu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:text="Usuario: "
-                        android:layout_column="0"
-                        android:padding="4dip"
-                        android:textColor="@color/md_white_1000" />
 
-                    <TextView
-                        android:id="@+id/usuario"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="1"
-                        android:padding="4dip"
-                        android:text="Usuario"
-                        android:textColor="@color/md_white_1000" />
+                        <TableRow>
+
+                            <TextView
+                                android:id="@+id/lblu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_column="0"
+                                android:layout_centerHorizontal="true"
+                                android:padding="4dip"
+                                android:text="Usuario: "
+                                android:textColor="@color/md_white_1000" />
+
+                            <TextView
+                                android:id="@+id/usuario"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_column="1"
+                                android:padding="4dip"
+                                android:text="Usuario"
+                                android:textColor="@color/md_white_1000" />
                         </TableRow>
+
                         <View
                             android:layout_height="2dip"
                             android:background="#FF909090" />
+
                         <TableRow>
+
                             <TextView
                                 android:id="@+id/tFecha"
                                 android:layout_width="wrap_content"
@@ -166,62 +155,56 @@
                                 android:padding="4dip"
                                 android:text="Faltan: "
                                 android:textColor="@color/md_white_1000" />
-                    <TextView
-                        android:id="@+id/txtFecha"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="1"
-                        android:padding="4dip"
-                        android:text="5 días"
-                        android:textColor="@color/md_white_1000" />
+
+                            <TextView
+                                android:id="@+id/txtFecha"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_column="1"
+                                android:padding="4dip"
+                                android:text="5 días"
+                                android:textColor="@color/md_white_1000" />
                         </TableRow>
+
                         <View
                             android:layout_height="2dip"
                             android:background="#FF909090" />
-                    <TableRow>
-                    <TextView
-                        android:id="@+id/lblD"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="0"
-                        android:padding="4dip"
-                        android:text="Descripción: "
-                        android:textColor="@color/md_white_1000"
-                        tools:ignore="NotSibling" />
-                    <TextView
-                        android:id="@+id/descri"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="1"
-                        android:padding="4dip"
-                        android:text="Descripcion"
-                        android:textColor="@color/md_white_1000" />
-                    </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:id="@+id/lblD"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_column="0"
+                                android:padding="4dip"
+                                android:text="Descripción: "
+                                android:textColor="@color/md_white_1000"
+                                tools:ignore="NotSibling" />
+
+                            <TextView
+                                android:id="@+id/descri"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_column="1"
+                                android:padding="4dip"
+                                android:text="Descripcion"
+                                android:textColor="@color/md_white_1000" />
+                        </TableRow>
+
                         <View
                             android:layout_height="2dip"
                             android:background="#FF909090" />
-                </TableLayout>
-                </LinearLayout>
+                    </TableLayout>
 
-
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="151dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentBottom="true"
-                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/com"
                     android:layout_width="270dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
+                    android:layout_below="@id/tablita"
+                    android:layout_marginTop="50dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="1dp"
                     android:background="@drawable/botonstyle"
                     android:onClick="verComentarios"
                     android:text="Ver comentarios" />
@@ -231,12 +214,8 @@
                     android:layout_width="225dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/com"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="3dp"
-                    android:layout_marginRight="3dp"
-                    android:layout_toStartOf="@id/imageButton"
-                    android:layout_toLeftOf="@id/imageButton"
                     android:hint="Haz una donación..."
+                    android:visibility="gone"
                     android:inputType="numberSigned"
                     android:textColor="@color/md_white_1000"
                     android:textColorHighlight="@color/md_white_1000"
@@ -246,11 +225,12 @@
                     android:id="@+id/imageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/com"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginRight="69dp"
+                    android:layout_alignParentLeft="true"
                     android:background="@drawable/plata"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+
+                    android:layout_alignParentBottom="true"
                     android:onClick="colaborar"
                     android:scaleType="fitXY"
                     android:src="@drawable/plata" />
@@ -266,9 +246,6 @@
                     android:background="@color/demo_light_transparent"
                     android:onClick="comentarUp"
                     android:src="@drawable/addc" />
-
-            </RelativeLayout>
-        </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>
