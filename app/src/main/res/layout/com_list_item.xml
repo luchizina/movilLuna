@@ -44,8 +44,8 @@
 
     <ImageView
         android:id="@+id/heartr"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@id/txtComentItem"
         android:src="@drawable/icheartred"
@@ -54,8 +54,8 @@
 
             <ImageView
                 android:id="@+id/heartw"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/icheartwhite"
                 android:visibility="visible"
