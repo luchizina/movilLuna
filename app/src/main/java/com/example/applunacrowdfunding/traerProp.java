@@ -120,7 +120,7 @@ public class traerProp extends AppCompatActivity {
                 if(extras!=null){
                     np = extras.getString("nombreProp");
                 }
-                String nueva="http://192.168.1.3/phpLuna/imgProps/"+np+".jpg";
+                String nueva="http://192.168.25.26/phpLuna/imgProps/"+np+".jpg";
                 try{
                     URL url = new URL(nueva);
                     imageView.setImageBitmap(BitmapFactory.decodeStream((InputStream)url.getContent()));
@@ -378,7 +378,7 @@ public void chequearLikePropCelu(String nombreProp){
          output = false;
          SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
          String nicksito = sp.getString("nickLogueado","sinnick");
-         String nueva="http://192.168.1.3/phpLuna/imgUsus/"+nicksito+".jpg";
+         String nueva="http://192.168.25.26/phpLuna/imgUsus/"+nicksito+".jpg";
          StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
          StrictMode.setThreadPolicy(policy);
          Bitmap c = null;

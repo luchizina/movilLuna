@@ -74,12 +74,12 @@ Button registro;
 
 
     }
-    public void traerProp(View vista){
-        String prop = "hola";
-        Intent intento = new Intent(MainActivity.this,traerProp.class);
-        intento.putExtra("prop",prop);
+    public void traerPerfil(View vista){
+        SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+        String nick = sp.getString("nickLogueado", "sinnick");
+        Intent intento = new Intent(MainActivity.this,verPerfil.class);
+        intento.putExtra("nick",nick);
         startActivity(intento);
-
     }
 
     public void iniciarS(View vista){

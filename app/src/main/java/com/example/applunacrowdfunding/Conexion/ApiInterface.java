@@ -60,4 +60,8 @@ public interface ApiInterface {
   @FormUrlEncoded
   @POST("propuesta/chequearLikePropCel")
   Call<Respuesta> chequearLikePropCel(@Field("usuCorreo") String usuario, @Field("propNombre") String propuesta);
+
+  @GET("usuario/traerPerfilM/{nick}")
+  Call<Respuesta> traerPerfilM(@Path("nick") String nick);
+
 }
