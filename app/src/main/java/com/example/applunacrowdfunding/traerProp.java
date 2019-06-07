@@ -134,7 +134,7 @@ public class traerProp extends AppCompatActivity {
                 }
 
                 TextView monto = findViewById(R.id.monto);
-                monto.setText("$"+montoA+" de $"+montoT);
+                monto.setText("Monto:  $"+montoA+" de $"+montoT);
 
                 TextView descri = findViewById(R.id.descri);
                 descri.setText(desc);
