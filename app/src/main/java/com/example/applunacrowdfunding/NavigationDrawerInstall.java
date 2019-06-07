@@ -58,8 +58,12 @@ public class NavigationDrawerInstall {
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
                     public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                        Intent intento = new Intent(aa,verPerfil.class);
+                        intento.putExtra("nick",profile.getName().toString());
+                        aa.startActivity(intento);
                         return false;
                     }
+
                 })
                 .build();
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Listar Propuestas").withIcon(FontAwesome.Icon.faw_list);

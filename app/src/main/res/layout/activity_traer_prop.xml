@@ -80,42 +80,6 @@
                     android:layout_marginLeft="70dp"
                     android:gravity="center"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/lbl"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:layout_centerHorizontal="true"
-                        android:text="Nombre:"
-                        android:textColor="@color/md_white_1000" />
-
-                    <EditText
-                        android:id="@+id/txtNombre"
-                        android:layout_width="182dp"
-                        android:layout_height="33dp"
-                        android:layout_centerHorizontal="true"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:textColor="@color/md_white_1000" />
-
-                    <TextView
-                        android:id="@+id/lblu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:text="Usuario: "
-                        android:textColor="@color/md_white_1000" />
-
-                    <TextView
-                        android:id="@+id/usuario"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/lblu"
-                        android:layout_centerHorizontal="true"
-                        android:text="Usuario"
-                        android:textColor="@color/md_white_1000" />
-
                     <TextView
                         android:id="@+id/lbl2"
                         android:layout_width="wrap_content"
@@ -133,35 +97,110 @@
                         android:minHeight="10dip"
                         android:progress="50"
                         android:progressDrawable="@drawable/greenprogress" />
-
                     <TextView
                         android:id="@+id/monto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/prg"
-                        android:layout_centerHorizontal="true"
+                        android:layout_column="0"
+                        android:padding="4dip"
                         android:text="Monto"
                         android:textColor="@color/md_white_1000" />
+                    <TableLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="16dp"
+                        android:stretchColumns="1"
+                        android:textColor="@android:color/white">
+                        <View
+                            android:layout_height="5dip"
+                            android:background="#FF909090" />
+                        <TableRow android:background="#DDB53D">
 
+                            <TextView
+                                android:layout_column="0"
+                                android:padding="4dip"
+                                android:text="Titulo:"
+                                android:textColor="#FFFFFF" />
+
+                            <TextView
+                                android:id="@+id/txtNombre"
+                                android:layout_column="1"
+                                android:padding="3dip"
+                                android:text="Titulo"
+                                android:textColor="@android:color/white" />
+                        </TableRow>
+
+                        <View
+                            android:layout_height="2dip"
+                            android:background="#FF909090" />
+                        <TableRow>
+                    <TextView
+                        android:id="@+id/lblu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="Usuario: "
+                        android:layout_column="0"
+                        android:padding="4dip"
+                        android:textColor="@color/md_white_1000" />
+
+                    <TextView
+                        android:id="@+id/usuario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:padding="4dip"
+                        android:text="Usuario"
+                        android:textColor="@color/md_white_1000" />
+                        </TableRow>
+                        <View
+                            android:layout_height="2dip"
+                            android:background="#FF909090" />
+                        <TableRow>
+                            <TextView
+                                android:id="@+id/tFecha"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_column="0"
+                                android:padding="4dip"
+                                android:text="Faltan: "
+                                android:textColor="@color/md_white_1000" />
+                    <TextView
+                        android:id="@+id/txtFecha"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:padding="4dip"
+                        android:text="5 días"
+                        android:textColor="@color/md_white_1000" />
+                        </TableRow>
+                        <View
+                            android:layout_height="2dip"
+                            android:background="#FF909090" />
+                    <TableRow>
                     <TextView
                         android:id="@+id/lblD"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/usuario"
-                        android:layout_centerHorizontal="true"
+                        android:layout_column="0"
+                        android:padding="4dip"
                         android:text="Descripción: "
                         android:textColor="@color/md_white_1000"
                         tools:ignore="NotSibling" />
-
                     <TextView
                         android:id="@+id/descri"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/usuario"
-                        android:layout_centerHorizontal="true"
+                        android:layout_column="1"
+                        android:padding="4dip"
                         android:text="Descripcion"
                         android:textColor="@color/md_white_1000" />
-
+                    </TableRow>
+                        <View
+                            android:layout_height="2dip"
+                            android:background="#FF909090" />
+                </TableLayout>
                 </LinearLayout>
 
 

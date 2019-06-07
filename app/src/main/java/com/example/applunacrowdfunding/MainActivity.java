@@ -74,13 +74,7 @@ Button registro;
 
 
     }
-    public void traerPerfil(View vista){
-        SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
-        String nick = sp.getString("nickLogueado", "sinnick");
-        Intent intento = new Intent(MainActivity.this,verPerfil.class);
-        intento.putExtra("nick",nick);
-        startActivity(intento);
-    }
+
 
     public void iniciarS(View vista){
 

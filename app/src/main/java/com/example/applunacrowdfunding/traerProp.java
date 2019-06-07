@@ -30,6 +30,9 @@ import com.google.gson.JsonArray;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -100,6 +103,8 @@ public class traerProp extends AppCompatActivity {
                 String montoA = arregloUsers.get(0).getAsJsonObject().get("MontoActual").getAsString();
                 String desc = arregloUsers.get(0).getAsJsonObject().get("Descripcion").getAsString();
                 String nick = arregloUsers.get(0).getAsJsonObject().get("NickUsuario").getAsString();
+                String fechaP = arregloUsers.get(0).getAsJsonObject().get("FechaPublicada").getAsString();
+
                 nom = nombre;
              /*   JsonArray numero = response.body().getMessage();
                 String nombre=numero.get(0).getAsJsonObject().get("numerito").getAsString();*/
@@ -140,8 +145,8 @@ public class traerProp extends AppCompatActivity {
                 int moA = Integer.parseInt(montoA);
                 int barra = ((moA * 100) / moT);
                 me.setProgress(barra);
-
-
+                TextView txtFecha = findViewById(R.id.txtFecha);
+                txtFecha.setText(fechaP);
 
             }
 
@@ -163,7 +168,7 @@ public class traerProp extends AppCompatActivity {
         pDialog.show();
         final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
         String emailLogueado = sp.getString("correoLogueado", "sinusuario");
-        EditText nombre = findViewById(R.id.txtNombre);
+        TextView nombre = findViewById(R.id.txtNombre);
         String s = nombre.getText().toString();
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
         Call<Respuesta> call = apiService.comentar(s, emailLogueado, text);
@@ -215,7 +220,7 @@ public class traerProp extends AppCompatActivity {
         final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
         String emailLogueado = sp.getString("correoLogueado", "sinusuario");
         EditText textito = findViewById(R.id.donarText);
-        EditText nombre = findViewById(R.id.txtNombre);
+        TextView nombre = findViewById(R.id.txtNombre);
         String nombresito = nombre.getText().toString();
         int text = Integer.parseInt(textito.getText().toString());
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
@@ -262,7 +267,7 @@ public class traerProp extends AppCompatActivity {
 
     public void verComentarios(View vista){
         com = findViewById(R.id.com);
-        EditText x = findViewById(R.id.txtNombre);
+        TextView x = findViewById(R.id.txtNombre);
         String s = x.getText().toString();
                 Intent i = new Intent(traerProp.this, comentarios.class);
                 i.putExtra("nom", s);
@@ -324,7 +329,7 @@ public void chequearLikePropCelu(String nombreProp){
      public void likePropuesta(View vista){
          final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
          String emailLogueado = sp.getString("correoLogueado", "sinusuario");
-        EditText txtProp = (EditText) findViewById(R.id.txtNombre);
+        TextView txtProp =  findViewById(R.id.txtNombre);
         String nombreProp = String.valueOf(txtProp.getText());
 
          ApiInterface apiService = conexion.getClient().create(ApiInterface.class);

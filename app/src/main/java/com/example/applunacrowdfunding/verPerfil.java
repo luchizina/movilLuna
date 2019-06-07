@@ -41,10 +41,8 @@ public class verPerfil extends AppCompatActivity {
         if(extras!=null){
             nick = extras.getString("nick");
         }
-
         Call<Respuesta> call = null;
         Bundle extra = getIntent().getExtras();
-
         final ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
         call = apiService.traerPerfilM(nick);
         call.enqueue(new Callback<Respuesta>() {
@@ -68,13 +66,8 @@ public class verPerfil extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-
-
                     return;
-
-
                 }
-
                 //Este es con call respuesta, para mostrar lista de usuarios
                 JsonArray arregloUsers = response.body().getMessage();
               /* for(int i=0; i<arregloUsers.size(); i++){
@@ -87,7 +80,6 @@ public class verPerfil extends AppCompatActivity {
                 String apellido = arregloUsers.get(0).getAsJsonObject().get("Apellido").getAsString();
                 String correo = arregloUsers.get(0).getAsJsonObject().get("Correo").getAsString();
                 String celu = arregloUsers.get(0).getAsJsonObject().get("Celular").getAsString();
-
              /*   JsonArray numero = response.body().getMessage();
                 String nombre=numero.get(0).getAsJsonObject().get("numerito").getAsString();*/
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -98,7 +90,7 @@ public class verPerfil extends AppCompatActivity {
                 if(extras!=null){
                     npl = extras.getString("nick");
                 }
-                String nueva="http://192.168.25.26/phpLuna/imgUsus/"+npl+".png";
+                String nueva="http://192.168.25.26/phpLuna/imgUsus/"+npl+".jpg";
                 try{
                     URL url = new URL(nueva);
                     imageView.setImageBitmap(BitmapFactory.decodeStream((InputStream)url.getContent()));
