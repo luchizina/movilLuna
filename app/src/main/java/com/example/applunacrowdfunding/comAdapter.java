@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.StrictMode;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +30,6 @@ public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
 
     ArrayList<coments> co;
     public comentarios c;
-
 
 
     public comAdapter(ArrayList<coments> coms, Activity a) {
@@ -74,14 +76,13 @@ public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View mView;
-        TextView nick, come;
-        ImageView heartr,heartw;
+        TextView come;
+        ImageView heartr, heartw;
         CircleImageView fotito;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
-            nick = itemView.findViewById(R.id.txtNickComent);
             fotito = itemView.findViewById(R.id.imgUsuComent);
             come = itemView.findViewById(R.id.txtComentItem);
             heartr = itemView.findViewById(R.id.heartr);
@@ -89,30 +90,22 @@ public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
         }
 
         public void asignarDatos(coments coments) {
-            nick.setText(coments.getNickUsuario());
-            come.setText(coments.getTexto());
+            come.setText(Html.fromHtml("<b>" + coments.getNickUsuario() + "</b>" + "<br />" + "<br />" + coments.getTexto()));
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
-            String nueva="http://192.168.1.3/phpLuna/imgUsus/"+coments.getNickUsuario()+".jpg";
-            try{
-                URL url = new URL(nueva);
-                fotito.setImageBitmap(BitmapFactory.decodeStream((InputStream)url.getContent()));
-            }catch(IOException e){
-                Log.e("nombre",e.getMessage());
-            }
+            Picasso.get().load("http://192.168.1.3/phpLuna/imgUsus/" + coments.getNickUsuario() + ".jpg").resize(50, 50).centerCrop().into(fotito);
             fotito.setBackgroundColor(Color.TRANSPARENT);
-            nick.setBackgroundColor(Color.TRANSPARENT);
         }
 
 
     }
 
-     public void removeItem(int position) {
+    public void removeItem(int position) {
         coments c = co.get(position);
         co.remove(c);
 
         notifyItemRemoved(position);
-         notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     public Object getItem(int pos) {

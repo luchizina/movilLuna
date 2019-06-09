@@ -17,6 +17,7 @@ import com.example.applunacrowdfunding.Conexion.conexion;
 import java.io.IOException;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,13 +43,13 @@ public class registro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
-        etNick= findViewById(R.id.nick);
-        etCont= findViewById(R.id.cont);
-        etNombre= findViewById(R.id.nom);
-        etApe= findViewById(R.id.ape);
-        etCorreo= findViewById(R.id.correo);
-        etCel= findViewById(R.id.cel);
-        etCI= findViewById(R.id.ci);
+        etNick = findViewById(R.id.nick);
+        etCont = findViewById(R.id.cont);
+        etNombre = findViewById(R.id.nom);
+        etApe = findViewById(R.id.ape);
+        etCorreo = findViewById(R.id.correo);
+        etCel = findViewById(R.id.cel);
+        etCI = findViewById(R.id.ci);
         Button regis = findViewById(R.id.reg);
 
         regis.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +63,7 @@ public class registro extends AppCompatActivity {
                 correo = etCorreo.getText().toString().trim();
                 cel = etCel.getText().toString().trim();
                 ci = etCI.getText().toString().trim();
-               if (validateInputs()) {
+                if (validateInputs()) {
                     ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
                     Call<Respuesta> call = apiService.nuevoUsuCel(nick, cont, nombre, ape, correo, cel, ci);
                     call.enqueue(new Callback<Respuesta>() {
@@ -107,7 +108,7 @@ public class registro extends AppCompatActivity {
         });
     }
 
-   private boolean validateInputs() {
+    private boolean validateInputs() {
         if (KEY_EMPTY.equals(nick)) {
             etNick.setError("El campo no puede estar vacio");
             etNick.requestFocus();
@@ -144,7 +145,7 @@ public class registro extends AppCompatActivity {
             etCel.requestFocus();
             return false;
         }
-        if(ci.length() != 8 && ci.length() != 7){
+        if (ci.length() != 8 && ci.length() != 7) {
             etCI.setError("La ci debe tener entre 7 y 8 caracteres");
             etCI.requestFocus();
             return false;

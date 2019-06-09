@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -47,6 +48,7 @@ public class comentarios extends AppCompatActivity {
     private Paint p = new Paint();
     private ImageView ImgRed;
     private ImageView ImgWhite;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +113,7 @@ public class comentarios extends AppCompatActivity {
         });
     }
 
-    private void borrCom(String id){
+    private void borrCom(String id) {
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
         Call<Respuesta> call = apiService.BorrCom(id);
         call.enqueue(new Callback<Respuesta>() {
@@ -146,7 +148,7 @@ public class comentarios extends AppCompatActivity {
         });
     }
 
-    private void enableSwipe(){
+    private void enableSwipe() {
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
             @Override
@@ -159,10 +161,10 @@ public class comentarios extends AppCompatActivity {
                 int position = viewHolder.getAdapterPosition();
                 SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
                 String nickUsuL = sp.getString("nickLogueado", "sinnick");
-                if (direction == ItemTouchHelper.LEFT){
+                if (direction == ItemTouchHelper.LEFT) {
                     final coments deletedCom = c.get(position);
                     final int deletedPosition = position;
-                    if(deletedCom.getNickUsuario().equals(nickUsuL)) {
+                    if (deletedCom.getNickUsuario().equals(nickUsuL)) {
                         coAd.removeItem(deletedPosition);
                         borrCom(deletedCom.getId());
                     }
@@ -180,7 +182,7 @@ public class comentarios extends AppCompatActivity {
                 } else {
                     final coments deletedCom = c.get(position);
                     final int deletedPosition = position;
-                    if(deletedCom.getNickUsuario().equals(nickUsuL)) {
+                    if (deletedCom.getNickUsuario().equals(nickUsuL)) {
                         coAd.removeItem(deletedPosition);
                         borrCom(deletedCom.getId());
                     }
@@ -203,26 +205,26 @@ public class comentarios extends AppCompatActivity {
             public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
 
                 Bitmap icon;
-                if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
 
                     View itemView = viewHolder.itemView;
                     float height = (float) itemView.getBottom() - (float) itemView.getTop();
                     float width = height / 3;
 
-                    if(dX > 0){
+                    if (dX > 0) {
                         p.setColor(Color.parseColor("#388E3C"));
-                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX,(float) itemView.getBottom());
-                        c.drawRect(background,p);
+                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX, (float) itemView.getBottom());
+                        c.drawRect(background, p);
                         icon = BitmapFactory.decodeResource(getResources(), R.drawable.delete);
-                        RectF icon_dest = new RectF((float) itemView.getLeft() + width ,(float) itemView.getTop() + width,(float) itemView.getLeft()+ 2*width,(float)itemView.getBottom() - width);
-                        c.drawBitmap(icon,null,icon_dest,p);
+                        RectF icon_dest = new RectF((float) itemView.getLeft() + width, (float) itemView.getTop() + width, (float) itemView.getLeft() + 2 * width, (float) itemView.getBottom() - width);
+                        c.drawBitmap(icon, null, icon_dest, p);
                     } else {
                         p.setColor(Color.parseColor("#D32F2F"));
-                        RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(),(float) itemView.getRight(), (float) itemView.getBottom());
-                        c.drawRect(background,p);
+                        RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(), (float) itemView.getRight(), (float) itemView.getBottom());
+                        c.drawRect(background, p);
                         icon = BitmapFactory.decodeResource(getResources(), R.drawable.delete);
-                        RectF icon_dest = new RectF((float) itemView.getRight() - 2*width ,(float) itemView.getTop() + width,(float) itemView.getRight() - width,(float)itemView.getBottom() - width);
-                        c.drawBitmap(icon,null,icon_dest,p);
+                        RectF icon_dest = new RectF((float) itemView.getRight() - 2 * width, (float) itemView.getTop() + width, (float) itemView.getRight() - width, (float) itemView.getBottom() - width);
+                        c.drawBitmap(icon, null, icon_dest, p);
                     }
                 }
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
@@ -232,12 +234,12 @@ public class comentarios extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
-    public void likeComentario(int Position){
+    public void likeComentario(int Position) {
         final SharedPreferences sp = this.getApplicationContext().getSharedPreferences("info", Context.MODE_PRIVATE);
-        String emailLogueado= sp.getString("correoLogueado","sinusuario");
+        String emailLogueado = sp.getString("correoLogueado", "sinusuario");
         final coments deletedCom = c.get(Position);
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
-        Call<Respuesta> call = apiService.likeCometario(deletedCom.getId() ,emailLogueado);
+        Call<Respuesta> call = apiService.likeCometario(deletedCom.getId(), emailLogueado);
         call.enqueue(new Callback<Respuesta>() {
             @Override
             public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
@@ -270,12 +272,12 @@ public class comentarios extends AppCompatActivity {
         });
     }
 
-    public void dislikeComentario(int Position){
+    public void dislikeComentario(int Position) {
         SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
-        String emailLogueado= sp.getString("correoLogueado","sinusuario");
+        String emailLogueado = sp.getString("correoLogueado", "sinusuario");
         final coments deletedCom = c.get(Position);
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
-        Call<Respuesta> call = apiService.dislikeCometario(deletedCom.getId() ,emailLogueado);
+        Call<Respuesta> call = apiService.dislikeCometario(deletedCom.getId(), emailLogueado);
         call.enqueue(new Callback<Respuesta>() {
             @Override
             public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
@@ -309,15 +311,15 @@ public class comentarios extends AppCompatActivity {
     }
 
 
-    public void like(View vista){
-                likeComentario((Integer)vista.getTag());
+    public void like(View vista) {
+        likeComentario((Integer) vista.getTag());
     }
 
-    public void dislike(View vista){
-        dislikeComentario((Integer)vista.getTag());
+    public void dislike(View vista) {
+        dislikeComentario((Integer) vista.getTag());
     }
 
-    }
+}
 
 
 
