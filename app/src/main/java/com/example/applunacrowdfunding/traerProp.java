@@ -207,21 +207,19 @@ public class traerProp extends AppCompatActivity {
         });
     }
 
-    public void colaborar(View vista) {
+    public void colaborar(int monto) {
+        pd = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        pd.setCancelable(false);
+        pd.setTitleText("Enviando Colaboración");
+        pd.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pd.show();
         final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
         String emailLogueado = sp.getString("correoLogueado", "sinusuario");
-        EditText textito = findViewById(R.id.donarText);
         TextView nombre = findViewById(R.id.txtNombre);
         String nombresito = nombre.getText().toString();
-        int text = Integer.parseInt(textito.getText().toString());
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
-        Call<Respuesta> call = null;
-        try {
-            call = apiService.colaborar(text, emailLogueado, nombresito);
-        } catch (Exception e) {
-            Log.d("Error", "No entiendo: " + e);
-        }
-
+        Call<Respuesta> call;
+        call = apiService.colaborar(monto, emailLogueado, nombresito);
         call.enqueue(new Callback<Respuesta>() {
             @Override
             public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
@@ -244,12 +242,18 @@ public class traerProp extends AppCompatActivity {
                     }
                     return;
                 }
-                EditText xD = findViewById(R.id.donarText);
-                xD.setText("");
+                pd.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                pd.setTitleText("¡La donación ha sido enviada!");
+                pd.setConfirmText("Aceptar");
+                pd.show();
             }
 
             @Override
             public void onFailure(Call<Respuesta> call, Throwable t) {
+                pd.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                pd.setTitleText("Ha ocurrido un error :(");
+                pd.setConfirmText("Aceptar");
+                pd.show();
                 Log.d("LoginActivity", t.getMessage());
             }
         });
@@ -366,6 +370,29 @@ public class traerProp extends AppCompatActivity {
                 Log.d("LoginActivity", t.getMessage());
             }
         });
+    }
+
+    public void colaborarUp(View v)
+    {
+        output = false;
+        myDialog.setContentView(R.layout.colaborarpopup);
+        final EditText txtDonar = myDialog.findViewById(R.id.donarText);
+        ImageButton btn = myDialog.findViewById(R.id.donarBtn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (!txtDonar.getText().toString().trim().equals("")) {
+                    colaborar(Integer.parseInt(txtDonar.getText().toString()));
+                    myDialog.dismiss();
+                } else {
+                    SweetAlertDialog pDialog = new SweetAlertDialog(traerProp.this, SweetAlertDialog.WARNING_TYPE);
+                    pDialog.setConfirmText("Aceptar");
+                    pDialog.setTitleText("¡Debes donar al menos $1!");
+                    pDialog.show();
+                }
+
+            }
+        });
+        myDialog.show();
     }
 
     public void comentarUp(View v) {

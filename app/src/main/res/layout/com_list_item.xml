@@ -10,7 +10,7 @@
         android:id="@+id/imgUsuComent"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:civ_border_width="2dp"
+        app:civ_border_width="1dp"
         android:layout_marginTop="10dp"
         android:background="#505050"
         app:civ_border_color="#505050"/>
