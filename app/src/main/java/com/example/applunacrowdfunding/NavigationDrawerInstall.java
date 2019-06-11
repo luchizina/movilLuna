@@ -30,6 +30,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,20 +39,6 @@ import java.net.URL;
 public class NavigationDrawerInstall {
     Activity aa;
 
-    public void onCreate() {
-        DrawerImageLoader.init(new AbstractDrawerImageLoader() {
-            @Override
-            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
-                Picasso.get().load(uri).placeholder(placeholder).into(imageView);
-            }
-
-            @Override
-            public void cancel(ImageView imageView) {
-                Picasso.get().cancelRequest(imageView);
-            }
-        });
-    }
-
     public void crearHamburguesita(Activity a) {
 
 
@@ -59,7 +46,7 @@ public class NavigationDrawerInstall {
         SharedPreferences sp = a.getSharedPreferences("info", Context.MODE_PRIVATE);
         String txt = sp.getString("nickLogueado", "sinnick");
         String txt2 = sp.getString("correoLogueado", "sincorreo");
-        String nueva = "http://192.168.1.3/phpLuna/imgUsus/" + txt + ".jpg";
+        String nueva = "http://192.168.20.192/phpLuna/imgUsus/" + txt + ".jpg";
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Toolbar toolbar = a.findViewById(R.id.toolbar);
@@ -80,6 +67,7 @@ public class NavigationDrawerInstall {
 
                 })
                 .build();
+
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Listar Propuestas").withIcon(FontAwesome.Icon.faw_list);
         SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName("Cerrar Sesión").withIcon(FontAwesome.Icon.faw_sign_out_alt);
         Drawer result = new DrawerBuilder()

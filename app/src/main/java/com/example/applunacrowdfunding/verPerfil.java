@@ -36,7 +36,7 @@ SweetAlertDialog pd;
     protected void onCreate(Bundle savedInstanceState) {
         pd = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         pd.setCancelable(false);
-        pd.setTitleText("Enviando Comentario...");
+        pd.setTitleText("Cargando Información.");
         pd.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         pd.show();
         super.onCreate(savedInstanceState);
@@ -97,7 +97,7 @@ SweetAlertDialog pd;
                 if (extras != null) {
                     npl = extras.getString("nick");
                 }
-                String nueva = "http://192.168.25.26/phpLuna/imgUsus/" + npl + ".jpg";
+                String nueva = "http://192.168.20.192/phpLuna/imgUsus/" + npl + ".jpg";
                 try {
                     URL url = new URL(nueva);
                     imageView.setImageBitmap(BitmapFactory.decodeStream((InputStream) url.getContent()));

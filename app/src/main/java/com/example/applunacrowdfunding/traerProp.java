@@ -43,6 +43,8 @@ public class traerProp extends AppCompatActivity {
     String nom;
     Dialog myDialog;
     SweetAlertDialog pd;
+    int montoAA;
+    int montoTT;
     boolean output = false;
 
     @Override
@@ -108,7 +110,8 @@ public class traerProp extends AppCompatActivity {
                 String desc = arregloUsers.get(0).getAsJsonObject().get("Descripcion").getAsString();
                 String nick = arregloUsers.get(0).getAsJsonObject().get("NickUsuario").getAsString();
                 String fechaP = arregloUsers.get(0).getAsJsonObject().get("FechaPublicada").getAsString();
-
+                montoAA = Integer.parseInt(montoA);
+                montoTT = Integer.parseInt(montoT);
                 nom = nombre;
              /*   JsonArray numero = response.body().getMessage();
                 String nombre=numero.get(0).getAsJsonObject().get("numerito").getAsString();*/
@@ -125,7 +128,7 @@ public class traerProp extends AppCompatActivity {
                 if (extras != null) {
                     np = extras.getString("nombreProp");
                 }
-                Picasso.get().load("http://192.168.1.3/phpLuna/imgProps/" + np + ".jpg").resize(imageView.getWidth(), imageView.getHeight()).centerCrop().into(imageView);
+                Picasso.get().load("http://192.168.20.192/phpLuna/imgProps/" + np + ".jpg").resize(imageView.getWidth(), imageView.getHeight()).centerCrop().into(imageView);
 
                 TextView monto = findViewById(R.id.monto);
                 monto.setText("$" + montoA + " de $" + montoT);
@@ -207,7 +210,7 @@ public class traerProp extends AppCompatActivity {
         });
     }
 
-    public void colaborar(int monto) {
+    public void colaborar(final int monto) {
         pd = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         pd.setCancelable(false);
         pd.setTitleText("Enviando Colaboración");
@@ -246,6 +249,13 @@ public class traerProp extends AppCompatActivity {
                 pd.setTitleText("¡La donación ha sido enviada!");
                 pd.setConfirmText("Aceptar");
                 pd.show();
+                montoAA += monto;
+                ProgressBar me = findViewById(R.id.prg);
+                int barra = ((montoAA * 100) / montoTT);
+                me.setProgress(barra);
+                TextView monto = findViewById(R.id.monto);
+                monto.setText("$" + montoAA + " de $" + montoTT);
+
             }
 
             @Override
@@ -406,7 +416,7 @@ public class traerProp extends AppCompatActivity {
         final EditText txtComent = myDialog.findViewById(R.id.txtComent);
         CircleImageView img = myDialog.findViewById(R.id.imgPerfilComent);
         txtNick.setText(nicksito);
-        Picasso.get().load("http://192.168.1.3/phpLuna/imgUsus/" + nicksito + ".jpg").resize(96, 96).centerCrop().into(img);
+        Picasso.get().load("http://192.168.20.192/phpLuna/imgUsus/" + nicksito + ".jpg").resize(96, 96).centerCrop().into(img);
         ImageButton btn = myDialog.findViewById(R.id.enviarBtn);
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
