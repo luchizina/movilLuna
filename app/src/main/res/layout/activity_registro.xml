@@ -4,85 +4,166 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@drawable/f1"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".registro">
 
-    <EditText
-        android:id="@+id/nick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Nick"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="75dp" />
+    <LinearLayout
+        android:layout_width="354dp"
+        android:layout_height="498dp"
+        android:orientation="vertical"
+        android:background="@drawable/bg">
 
-    <EditText
-        android:id="@+id/nom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Nombre"
-        tools:layout_editor_absoluteX="97dp"
-        tools:layout_editor_absoluteY="136dp" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="REGISTRARME"
+            android:textColor="#fff"
+            android:textSize="24sp" />
 
-    <EditText
-        android:id="@+id/ape"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Apellido"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="206dp" />
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_width="222dp"
+            android:layout_height="5dp"
+            android:layout_gravity="center"
+            android:background="#FF909090" />
 
-    <EditText
-        android:id="@+id/correo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:text="Correo"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="261dp" />
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/sendstuff"
+            android:scaleType="fitXY"
+            android:onClick="cargarImg"/>
+        <EditText
+            android:id="@+id/nom"
+            style="@android:style/Widget.AutoCompleteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Nombre"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#fff"
+            android:textColorHighlight="#fff"
+            android:textColorHint="#fff"
 
-    <EditText
-        android:id="@+id/cont"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:text="Password"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="470dp" />
+            tools:layout_editor_absoluteX="97dp"
+            tools:layout_editor_absoluteY="136dp" />
 
-    <EditText
-        android:id="@+id/cel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Celular"
-        tools:layout_editor_absoluteX="97dp"
-        tools:layout_editor_absoluteY="329dp" />
+        <EditText
+            android:id="@+id/cont"
+            style="@android:style/Widget.AutoCompleteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:text="Password"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#fff"
+            android:textColorHighlight="#fff"
+            android:textColorHint="#fff"
 
-    <EditText
-        android:id="@+id/ci"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
-        android:maxLength="8"
-        android:text="CI"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="398dp" />
+            tools:layout_editor_absoluteX="99dp"
+            tools:layout_editor_absoluteY="470dp" />
 
-    <Button
-        android:id="@+id/reg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Registrar" />
+        <EditText
+            android:id="@+id/cel"
+            style="@android:style/Widget.AutoCompleteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Celular"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#fff"
+            android:textColorHighlight="#fff"
+            android:textColorHint="#fff"
+
+            tools:layout_editor_absoluteX="97dp"
+            tools:layout_editor_absoluteY="329dp" />
+
+        <EditText
+            android:id="@+id/ape"
+            style="@android:style/Widget.AutoCompleteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Apellido"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#fff"
+            android:textColorHighlight="#fff"
+            android:textColorHint="#fff"
+
+            tools:layout_editor_absoluteX="99dp"
+            tools:layout_editor_absoluteY="206dp" />
+
+        <EditText
+            android:id="@+id/nick"
+            style="@android:style/Widget.AutoCompleteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Nick"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#fff"
+            android:textColorHighlight="#fff"
+            android:textColorHint="#fff"
+            tools:layout_editor_absoluteX="99dp"
+            tools:layout_editor_absoluteY="75dp" />
+
+        <EditText
+            android:id="@+id/correo"
+            style="@android:style/Widget.AutoCompleteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:text="Correo"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#fff"
+            android:textColorHighlight="#fff"
+            android:textColorHint="#fff"
+
+            tools:layout_editor_absoluteX="99dp"
+            tools:layout_editor_absoluteY="261dp" />
+
+        <EditText
+            android:id="@+id/ci"
+            style="@android:style/Widget.AutoCompleteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:inputType="number"
+            android:maxLength="8"
+            android:text="CI"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#fff"
+            android:textColorHighlight="#fff"
+            android:textColorHint="#fff"
+
+            tools:layout_editor_absoluteX="99dp"
+            tools:layout_editor_absoluteY="398dp" />
+
+        <Button
+            android:id="@+id/reg"
+            android:layout_width="222dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/botonstyle"
+            android:text="Registrar" />
+    </LinearLayout>
 
 </LinearLayout>

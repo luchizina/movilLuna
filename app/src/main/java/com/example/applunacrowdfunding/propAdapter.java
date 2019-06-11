@@ -13,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -20,16 +22,18 @@ import java.util.ArrayList;
 
 public class propAdapter extends RecyclerView.Adapter<propAdapter.ViewHolder> {
 
-     ArrayList<propuests> p;
+    ArrayList<propuests> p;
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
         void OnItemClick(int posicion);
     }
-    public void setOnItemClickListener(OnItemClickListener listener){
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
-    public propAdapter(ArrayList<propuests> props){
+
+    public propAdapter(ArrayList<propuests> props) {
         this.p = props;
     }
 
@@ -50,26 +54,27 @@ public class propAdapter extends RecyclerView.Adapter<propAdapter.ViewHolder> {
         return p.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView propNomb;
         TextView propDesc;
         ImageView imagenota;
+
         public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
-            propNomb =  itemView.findViewById(R.id.txtNombre);
+            propNomb = itemView.findViewById(R.id.txtNombre);
             imagenota = itemView.findViewById(R.id.imgListaProp);
             propDesc = itemView.findViewById(R.id.txtDesc);
-            itemView.setOnClickListener(new View.OnClickListener(){
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v){
-                    if(listener != null){
+                public void onClick(View v) {
+                    if (listener != null) {
                         int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
+                        if (position != RecyclerView.NO_POSITION) {
                             listener.OnItemClick(position);
                         }
                     }
                 }
-            }  );
+            });
         }
 
         public void asignarDatos(propuests propu) {
@@ -80,14 +85,8 @@ public class propAdapter extends RecyclerView.Adapter<propAdapter.ViewHolder> {
             imagenota.setBackgroundColor(Color.TRANSPARENT);
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
-            String nueva="http://192.168.1.3/phpLuna/imgProps/"+propu.getNombre()+".jpg";
-            try{
-                URL url = new URL(nueva);
-                imagenota.setImageBitmap(BitmapFactory.decodeStream((InputStream)url.getContent()));
-
-            }catch(IOException e){
-                Log.e("nombre",e.getMessage());
-            }
+            String nueva = "http://192.168.1.3/phpLuna/imgProps/" + propu.getNombre() + ".jpg";
+            Picasso.get().load(nueva).resize(96, 96).centerCrop().into(imagenota);
         }
     }
 

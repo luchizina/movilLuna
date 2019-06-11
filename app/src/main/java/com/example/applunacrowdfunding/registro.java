@@ -1,22 +1,38 @@
 package com.example.applunacrowdfunding;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
 import com.example.applunacrowdfunding.Conexion.conexion;
+import com.mvc.imagepicker.ImagePicker;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,6 +42,7 @@ public class registro extends AppCompatActivity {
     private EditText etNick;
     private EditText etCont;
     private EditText etNombre;
+    Dialog myDialog;
     private EditText etApe;
     private EditText etCorreo;
     private EditText etCel;
@@ -42,15 +59,14 @@ public class registro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
-        etNick= findViewById(R.id.nick);
-        etCont= findViewById(R.id.cont);
-        etNombre= findViewById(R.id.nom);
-        etApe= findViewById(R.id.ape);
-        etCorreo= findViewById(R.id.correo);
-        etCel= findViewById(R.id.cel);
-        etCI= findViewById(R.id.ci);
+        etNick = findViewById(R.id.nick);
+        etCont = findViewById(R.id.cont);
+        etNombre = findViewById(R.id.nom);
+        etApe = findViewById(R.id.ape);
+        etCorreo = findViewById(R.id.correo);
+        etCel = findViewById(R.id.cel);
+        etCI = findViewById(R.id.ci);
         Button regis = findViewById(R.id.reg);
-
         regis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +78,7 @@ public class registro extends AppCompatActivity {
                 correo = etCorreo.getText().toString().trim();
                 cel = etCel.getText().toString().trim();
                 ci = etCI.getText().toString().trim();
-               if (validateInputs()) {
+                if (validateInputs()) {
                     ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
                     Call<Respuesta> call = apiService.nuevoUsuCel(nick, cont, nombre, ape, correo, cel, ci);
                     call.enqueue(new Callback<Respuesta>() {
@@ -107,7 +123,56 @@ public class registro extends AppCompatActivity {
         });
     }
 
-   private boolean validateInputs() {
+
+    public void cargarImg(View v) {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        myDialog.setContentView(R.layout.imagenpop);
+        TextView txtNick = myDialog.findViewById(R.id.txtNickPerfil);
+        final EditText txtComent = myDialog.findViewById(R.id.txtComent);
+        CircleImageView img = myDialog.findViewById(R.id.imgPerfilComent);
+
+       // Picasso.get().load("http://192.168.25.43/phpLuna/imgUsus/" + nicksito + ".jpg").resize(96, 96).centerCrop().into(img);
+        ImageButton btn = myDialog.findViewById(R.id.button);
+        btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto , 1);//one can be replaced with any action code
+            }
+        });
+        ImageButton btn2 = myDialog.findViewById(R.id.button2);
+        btn2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePicture, 0);//zero can be replaced with any action code
+            }
+        });
+        myDialog.show();
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        ImageView imageview = findViewById(R.id.imageView4);
+        switch(requestCode) {
+            case 0:
+                if(resultCode == RESULT_OK){
+                    Uri selectedImage = imageReturnedIntent.getData();
+
+                    imageview.setImageURI(selectedImage);
+                }
+
+                break;
+            case 1:
+                if(resultCode == RESULT_OK){
+                    Uri selectedImage = imageReturnedIntent.getData();
+                    imageview.setImageURI(selectedImage);
+                }
+                break;
+        }
+    }
+
+    private boolean validateInputs() {
         if (KEY_EMPTY.equals(nick)) {
             etNick.setError("El campo no puede estar vacio");
             etNick.requestFocus();
@@ -144,7 +209,7 @@ public class registro extends AppCompatActivity {
             etCel.requestFocus();
             return false;
         }
-        if(ci.length() != 8 && ci.length() != 7){
+        if (ci.length() != 8 && ci.length() != 7) {
             etCI.setError("La ci debe tener entre 7 y 8 caracteres");
             etCI.requestFocus();
             return false;

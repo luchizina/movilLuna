@@ -33,14 +33,15 @@ import retrofit2.Response;
 public class listarProp extends AppCompatActivity {
 
     private ShimmerRecyclerView recyclerView;
-    ArrayList<propuests> p= new ArrayList<>();
+    ArrayList<propuests> p = new ArrayList<>();
     TextView txtNombre;
     private propAdapter proAd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_prop);
-        recyclerView= findViewById(R.id.shimmer_recycler_view);
+        recyclerView = findViewById(R.id.shimmer_recycler_view);
         txtNombre = findViewById(R.id.txtNombre);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         loadJSON();
@@ -48,7 +49,7 @@ public class listarProp extends AppCompatActivity {
 
     }
 
-    private void loadJSON(){
+    private void loadJSON() {
         ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
         Call<Respuesta> call = apiService.getPropuestas();
         recyclerView.showShimmerAdapter();
@@ -75,7 +76,8 @@ public class listarProp extends AppCompatActivity {
                     }
                     return;
                 }
-                p = new Gson().fromJson(response.body().getMessage(), new TypeToken<List<propuests>>(){}.getType());
+                p = new Gson().fromJson(response.body().getMessage(), new TypeToken<List<propuests>>() {
+                }.getType());
                 //new ArrayList<>(response.body().getMessage());
                 Drawable dividerDrawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.divider);
                 RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
@@ -89,8 +91,8 @@ public class listarProp extends AppCompatActivity {
                         final propuests prop = p.get(posicion);
 
                         String nombreProp = prop.getNombre();
-                        Intent intento = new Intent(listarProp.this,traerProp.class);
-                        intento.putExtra("nombreProp",nombreProp);
+                        Intent intento = new Intent(listarProp.this, traerProp.class);
+                        intento.putExtra("nombreProp", nombreProp);
                         startActivity(intento);
 
                     }
@@ -104,8 +106,6 @@ public class listarProp extends AppCompatActivity {
             }
         });
     }
-
-
 
 
 }

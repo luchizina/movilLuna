@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="300dp"
+    android:layout_height="350dp"
+    android:background="@drawable/fondo"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        tools:srcCompat="@tools:sample/avatars" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selecciona una imagen"
+        android:layout_below="@id/imageView4"
+        android:layout_centerHorizontal="true"
+
+        android:textColor="@color/md_white_1000"
+        android:layout_marginTop="10dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Galería"
+        android:layout_above="@id/button"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/md_white_1000"
+        android:layout_marginTop="10dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cámara"
+        android:layout_marginLeft="10dp"
+        android:layout_above="@id/button2"
+        android:textColor="@color/md_white_1000"
+        android:layout_marginTop="10dp"
+        />
+    <ImageButton
+        android:id="@+id/button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="15dp"
+        android:src="@drawable/sendstuff"
+        android:scaleType="fitXY"
+        android:text="Button" />
+
+    <ImageButton
+        android:id="@+id/button2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/sendstuff"
+        android:scaleType="fitXY"
+        android:layout_margin="15dp"
+        android:text="Button" />
+
+</RelativeLayout>

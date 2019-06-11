@@ -17,7 +17,8 @@ import java.net.SocketException;
 import java.util.Enumeration;
 
 public class MainActivity extends AppCompatActivity {
-Button registro;
+    Button registro;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +45,9 @@ Button registro;
 
             // smth we can explore
             Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
-            while(addresses.hasMoreElements()) {
+            while (addresses.hasMoreElements()) {
                 InetAddress addr = addresses.nextElement();
-                if(!addr.isLinkLocalAddress() && addr instanceof Inet4Address && !addr.isLoopbackAddress() && !networkInterface.getName().equals("eth0")){
+                if (!addr.isLinkLocalAddress() && addr instanceof Inet4Address && !addr.isLoopbackAddress() && !networkInterface.getName().equals("eth0")) {
                     System.out.println(String.format(addr.getHostAddress()));
                     TextView a = findViewById(R.id.textView8);
                     a.setText(String.format(addr.getHostAddress()));
@@ -55,56 +56,47 @@ Button registro;
             }
         }
         final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
-        String emailLogueado= sp.getString("correoLogueado","sinusuario");
+        String emailLogueado = sp.getString("correoLogueado", "sinusuario");
 
-        String mantieneAct = sp.getString("mantieneAct","algo");
-        if((!emailLogueado.equals("sinusuario"))){
-
-
-
-
-
-
-
+        String mantieneAct = sp.getString("mantieneAct", "algo");
+        if ((!emailLogueado.equals("sinusuario"))) {
 
 
         }
         //hasta aca
 
 
-
     }
 
 
-    public void iniciarS(View vista){
+    public void iniciarS(View vista) {
 
-        String algo ="oh";
-        Intent intento = new Intent(MainActivity.this,iniciarSesion.class);
-        intento.putExtra("algo",algo);
+        String algo = "oh";
+        Intent intento = new Intent(MainActivity.this, iniciarSesion.class);
+        intento.putExtra("algo", algo);
         startActivity(intento);
     }
 
-    public void listarProp(View vista){
-        Intent intento = new Intent(MainActivity.this,listarProp.class);
+    public void listarProp(View vista) {
+        Intent intento = new Intent(MainActivity.this, listarProp.class);
         startActivity(intento);
     }
 
-    public void cerrarSesion(View vista){
-        SharedPreferences prefs =  getSharedPreferences("info", Context.MODE_PRIVATE);
+    public void cerrarSesion(View vista) {
+        SharedPreferences prefs = getSharedPreferences("info", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.remove("correoLogueado");
         editor.remove("mantieneAct");
         editor.commit();
-        Intent intento = new Intent(MainActivity.this,iniciarSesion.class);
+        Intent intento = new Intent(MainActivity.this, iniciarSesion.class);
         startActivity(intento);
     }
 
 
-    public void registrarUsu(View vista){
+    public void registrarUsu(View vista) {
         Intent i = new Intent(MainActivity.this, registro.class);
         startActivity(i);
     }
-
 
 
 }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -24,21 +25,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class verPerfil extends AppCompatActivity {
-
+SweetAlertDialog pd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        pd = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        pd.setCancelable(false);
+        pd.setTitleText("Enviando Comentario...");
+        pd.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pd.show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_perfil);
         NavigationDrawerInstall nav = new NavigationDrawerInstall();
         nav.crearHamburguesita(this);
         String nick = "";
-        Bundle extras =getIntent().getExtras();
-        if(extras!=null){
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
             nick = extras.getString("nick");
         }
         Call<Respuesta> call = null;
@@ -85,17 +92,17 @@ public class verPerfil extends AppCompatActivity {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
                 ImageView imageView = (ImageView) findViewById(R.id.img);
-                Bundle extras =getIntent().getExtras();
-                String npl= "";
-                if(extras!=null){
+                Bundle extras = getIntent().getExtras();
+                String npl = "";
+                if (extras != null) {
                     npl = extras.getString("nick");
                 }
-                String nueva="http://192.168.25.26/phpLuna/imgUsus/"+npl+".jpg";
-                try{
+                String nueva = "http://192.168.25.43/phpLuna/imgUsus/" + npl + ".jpg";
+                try {
                     URL url = new URL(nueva);
-                    imageView.setImageBitmap(BitmapFactory.decodeStream((InputStream)url.getContent()));
-                }catch(IOException e){
-                    Log.e("nombre",e.getMessage());
+                    imageView.setImageBitmap(BitmapFactory.decodeStream((InputStream) url.getContent()));
+                } catch (IOException e) {
+                    Log.e("nombre", e.getMessage());
                 }
                 TextView txtNick = findViewById(R.id.txtNick);
                 txtNick.setText(nick);
@@ -111,13 +118,16 @@ public class verPerfil extends AppCompatActivity {
 
                 TextView txtCorreo = findViewById(R.id.txtCorreo);
                 txtCorreo.setText(correo);
+                pd.dismissWithAnimation();
             }
 
             @Override
             public void onFailure(Call<Respuesta> call, Throwable t) {
                 Log.d("LoginActivity", t.getMessage());
-
-
+                pd.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                pd.setTitleText("¡Error!");
+                pd.setContentText("Ha ocurrido un error al cargar la información");
+                pd.setConfirmText("Aceptar");
             }
         });
 

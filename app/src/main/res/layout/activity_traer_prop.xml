@@ -2,23 +2,25 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ScrollView01"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context=".traerProp">
+    android:fillViewport="true">
 
 <RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="@drawable/f1"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="horizontal"
+    tools:context=".traerProp">
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
+
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img"
                     android:src="@drawable/no_disp"
                     android:layout_centerHorizontal="true"
-
                     android:layout_width="250dp"
                     android:layout_height="250dp"
                     app:civ_border_width="2dp"
@@ -223,8 +225,9 @@
                     android:background="@drawable/plata"
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="10dp"
+
                     android:layout_alignParentBottom="true"
-                    android:onClick="colaborar"
+                    android:onClick="colaborarUp"
                     android:scaleType="fitXY"
                     android:src="@drawable/plata" />
 
@@ -239,6 +242,7 @@
                     android:background="@color/demo_light_transparent"
                     android:onClick="comentarUp"
                     android:src="@drawable/addc" />
+
 
 </RelativeLayout>
 </androidx.core.widget.NestedScrollView>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal" android:layout_width="272dp"
+    android:layout_height="80dp"
+    android:background="@drawable/fondo"
+    android:layout_gravity="center">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Haz una donación"
+        android:textColor="@color/md_white_1000"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"/>
+    <EditText
+        android:id="@+id/donarText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:inputType="number" />
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/plata"
+        android:id="@+id/donarBtn"
+        android:background="@color/float_transparent"
+        android:layout_toRightOf="@id/donarText"
+        android:layout_alignBottom="@id/donarText"
+        android:scaleType="fitXY"/>
+</RelativeLayout>
