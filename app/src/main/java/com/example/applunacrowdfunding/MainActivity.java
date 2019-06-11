@@ -3,12 +3,19 @@ package com.example.applunacrowdfunding;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
+import com.squareup.picasso.Picasso;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -22,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overrideDrawerImageLoaderPicasso();
         setContentView(R.layout.activity_main);
         NavigationDrawerInstall nav = new NavigationDrawerInstall();
         nav.crearHamburguesita(this);
@@ -96,6 +104,33 @@ public class MainActivity extends AppCompatActivity {
     public void registrarUsu(View vista) {
         Intent i = new Intent(MainActivity.this, registro.class);
         startActivity(i);
+    }
+
+    private void overrideDrawerImageLoaderPicasso(){
+        //initialize and create the image loader logic
+        DrawerImageLoader.init(new AbstractDrawerImageLoader() {
+            @Override
+            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
+                Picasso.get().load(uri).placeholder(placeholder).into(imageView);
+            }
+
+            @Override
+            public void cancel(ImageView imageView) {
+                Picasso.get().cancelRequest(imageView);
+            }
+
+           /*
+           @Override
+           public Drawable placeholder(Context ctx) {
+               return super.placeholder(ctx);
+           }
+
+           @Override
+           public Drawable placeholder(Context ctx, String tag) {
+               return super.placeholder(ctx, tag);
+           }
+           */
+        });
     }
 
 
