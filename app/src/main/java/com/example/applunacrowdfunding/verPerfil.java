@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -20,6 +22,9 @@ import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
 import com.example.applunacrowdfunding.Conexion.conexion;
 import com.google.gson.JsonArray;
+import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,6 +46,7 @@ SweetAlertDialog pd;
         pd.show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_perfil);
+        overrideDrawerImageLoaderPicasso();
         NavigationDrawerInstall nav = new NavigationDrawerInstall();
         nav.crearHamburguesita(this);
         String nick = "";
@@ -131,5 +137,32 @@ SweetAlertDialog pd;
             }
         });
 
+    }
+
+    private void overrideDrawerImageLoaderPicasso(){
+        //initialize and create the image loader logic
+        DrawerImageLoader.init(new AbstractDrawerImageLoader() {
+            @Override
+            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
+                Picasso.get().load(uri).placeholder(placeholder).into(imageView);
+            }
+
+            @Override
+            public void cancel(ImageView imageView) {
+                Picasso.get().cancelRequest(imageView);
+            }
+
+           /*
+           @Override
+           public Drawable placeholder(Context ctx) {
+               return super.placeholder(ctx);
+           }
+
+           @Override
+           public Drawable placeholder(Context ctx, String tag) {
+               return super.placeholder(ctx, tag);
+           }
+           */
+        });
     }
 }
