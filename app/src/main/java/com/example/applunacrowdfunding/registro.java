@@ -24,7 +24,6 @@ import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
 import com.example.applunacrowdfunding.Conexion.conexion;
-import com.mvc.imagepicker.ImagePicker;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -54,7 +53,7 @@ public class registro extends AppCompatActivity {
     private String correo;
     private String cel;
     private String ci;
-
+    private ImageView imageview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +65,9 @@ public class registro extends AppCompatActivity {
         etCorreo = findViewById(R.id.correo);
         etCel = findViewById(R.id.cel);
         etCI = findViewById(R.id.ci);
+        myDialog = new Dialog(this);
         Button regis = findViewById(R.id.reg);
+         imageview = findViewById(R.id.imgR);
         regis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,9 +130,9 @@ public class registro extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         myDialog.setContentView(R.layout.imagenpop);
-        TextView txtNick = myDialog.findViewById(R.id.txtNickPerfil);
-        final EditText txtComent = myDialog.findViewById(R.id.txtComent);
-        CircleImageView img = myDialog.findViewById(R.id.imgPerfilComent);
+     //   TextView txtNick = myDialog.findViewById(R.id.txtNickPerfil);
+       // final EditText txtComent = myDialog.findViewById(R.id.txtComent);
+        //CircleImageView img = myDialog.findViewById(R.id.imgPerfilComent);
 
        // Picasso.get().load("http://192.168.25.43/phpLuna/imgUsus/" + nicksito + ".jpg").resize(96, 96).centerCrop().into(img);
         ImageButton btn = myDialog.findViewById(R.id.button);
@@ -153,15 +154,13 @@ public class registro extends AppCompatActivity {
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        ImageView imageview = findViewById(R.id.imageView4);
+
         switch(requestCode) {
             case 0:
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = imageReturnedIntent.getData();
-
                     imageview.setImageURI(selectedImage);
                 }
-
                 break;
             case 1:
                 if(resultCode == RESULT_OK){
