@@ -10,8 +10,8 @@
     tools:context=".registro">
 
     <LinearLayout
-        android:layout_width="354dp"
-        android:layout_height="498dp"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/bg">
 
@@ -22,7 +22,8 @@
             android:layout_gravity="center"
             android:text="REGISTRARME"
             android:textColor="#fff"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:layout_marginTop="10dp"/>
 
         <View
             android:layout_marginTop="10dp"
@@ -31,10 +32,19 @@
             android:layout_gravity="center"
             android:background="#FF909090" />
 
+        <ImageView
+            android:id="@+id/imgR"
+            android:layout_width="183dp"
+            android:layout_height="142dp"
+            android:layout_gravity="center"
+            android:maxWidth="200dp"
+            android:maxHeight="200dp"
+            android:src="@drawable/no_disp" />
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/sendstuff"
+            android:layout_gravity="center"
             android:scaleType="fitXY"
             android:onClick="cargarImg"/>
         <EditText
@@ -163,7 +173,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:background="@drawable/botonstyle"
-            android:text="Registrar" />
+            android:text="Registrar"
+            android:layout_marginBottom="15dp"/>
     </LinearLayout>
-
 </LinearLayout>
