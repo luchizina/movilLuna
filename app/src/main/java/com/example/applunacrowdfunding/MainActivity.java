@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         NavigationDrawerInstall nav = new NavigationDrawerInstall();
         nav.crearHamburguesita(this);
-        setContentView(R.layout.activity_main);
+
         carouselView = (CarouselView) findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(imageListener);

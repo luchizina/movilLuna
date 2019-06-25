@@ -103,7 +103,7 @@ SweetAlertDialog pd;
                 if (extras != null) {
                     npl = extras.getString("nick");
                 }
-                String nueva = "http://192.168.1.15/phpLuna/imgUsus/" + npl + ".jpg";
+                String nueva = "http://192.168.25.93/phpLuna/imgUsus/" + npl + ".jpg";
                 try {
                     URL url = new URL(nueva);
                     imageView.setImageBitmap(BitmapFactory.decodeStream((InputStream) url.getContent()));
