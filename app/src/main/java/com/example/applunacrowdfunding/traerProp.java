@@ -18,13 +18,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
 import com.example.applunacrowdfunding.Conexion.conexion;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.JsonArray;
 import com.squareup.picasso.Picasso;
 
@@ -128,7 +133,7 @@ public class traerProp extends AppCompatActivity {
                 if (extras != null) {
                     np = extras.getString("nombreProp");
                 }
-                Picasso.get().load("http://192.168.20.192/phpLuna/imgProps/" + np + ".jpg").resize(imageView.getWidth(), imageView.getHeight()).centerCrop().into(imageView);
+                Picasso.get().load("http://192.168.1.15/phpLuna/imgProps/" + np + ".jpg").resize(imageView.getWidth(), imageView.getHeight()).centerCrop().into(imageView);
 
                 TextView monto = findViewById(R.id.monto);
                 monto.setText("$" + montoA + " de $" + montoT);
@@ -392,7 +397,20 @@ public class traerProp extends AppCompatActivity {
             public void onClick(View v) {
                 if (!txtDonar.getText().toString().trim().equals("")) {
                     colaborar(Integer.parseInt(txtDonar.getText().toString()));
+                    FirebaseMessaging.getInstance().subscribeToTopic("weather")
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    String msg = "Bien!";
+                                    if (!task.isSuccessful()) {
+                                        msg = "No tan bien";
+                                    }
+                                    Log.d("error:", msg);
+                                    Toast.makeText(traerProp.this, msg, Toast.LENGTH_SHORT).show();
+                                }
+                            });
                     myDialog.dismiss();
+
                 } else {
                     SweetAlertDialog pDialog = new SweetAlertDialog(traerProp.this, SweetAlertDialog.WARNING_TYPE);
                     pDialog.setConfirmText("Aceptar");
@@ -416,7 +434,7 @@ public class traerProp extends AppCompatActivity {
         final EditText txtComent = myDialog.findViewById(R.id.txtComent);
         CircleImageView img = myDialog.findViewById(R.id.imgPerfilComent);
         txtNick.setText(nicksito);
-        Picasso.get().load("http://192.168.20.192/phpLuna/imgUsus/" + nicksito + ".jpg").resize(96, 96).centerCrop().into(img);
+        Picasso.get().load("http://192.168.1.15/phpLuna/imgUsus/" + nicksito + ".jpg").resize(96, 96).centerCrop().into(img);
         ImageButton btn = myDialog.findViewById(R.id.enviarBtn);
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

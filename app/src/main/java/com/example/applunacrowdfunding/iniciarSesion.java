@@ -1,5 +1,6 @@
 package com.example.applunacrowdfunding;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -17,6 +18,10 @@ import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
 import com.example.applunacrowdfunding.Conexion.conexion;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.JsonArray;
 
 import java.io.IOException;
@@ -29,11 +34,31 @@ import retrofit2.Response;
 public class iniciarSesion extends AppCompatActivity {
 
     SweetAlertDialog pd;
-
+    String token = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_sesion);
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("ERROR", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        token = task.getResult().getToken();
+
+                        // Log and toast
+                        String msg = getString(R.string.msg_token_fmt, token);
+                        Log.d("SUCCESSTOKEN", msg);
+
+                        // Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 
 
@@ -43,6 +68,7 @@ public class iniciarSesion extends AppCompatActivity {
         pd.setTitleText("Iniciando Sesión");
         pd.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         pd.show();
+
         final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
         EditText txtCorreo = (EditText) findViewById(R.id.txtCorreo);
         final String correo = txtCorreo.getText().toString();
@@ -90,6 +116,39 @@ public class iniciarSesion extends AppCompatActivity {
                     final CheckBox caja = (CheckBox) findViewById(R.id.checkBox);
                     if (estado.equals("ok")) {
 
+                        ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
+                        final SharedPreferences sp = getSharedPreferences("info", Context.MODE_PRIVATE);
+                        String nombre = sp.getString("nickLogueado", "sinnick");
+                        call = apiService.sendRegistrationToServer(token,nick);
+                        call.enqueue(new Callback<Respuesta>() {
+                            @Override
+                            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+                                if (!response.isSuccessful()) {
+                                    String error = "Ha ocurrido un error. Contacte al administrador";
+                                    if (response.errorBody()
+                                            .contentType()
+                                            .subtype()
+                                            .equals("json")) {
+                                        ApiError apiError = ApiError.fromResponseBody(response.errorBody());
+                                        error = apiError.getMessage();
+                                        Log.d("ComentarActivity", apiError.getDeveloperMessage());
+                                    } else {
+                                        try {
+                                            // Reportar causas de error no relacionado con la API
+                                            Log.d("ComentarActivity", response.errorBody().string());
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                                Log.d("ANDUVOJAJA","OKAYPOLISHA");
+                            }
+                            @Override
+                            public void onFailure(Call<Respuesta> call, Throwable t) {
+
+                                Log.d("LoginActivity", t.getMessage());
+                            }
+                        });
                         pd.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
                         pd.setTitleText("¡Éxito!");
                         pd.setContentText("Presione aceptar para ser redirigido a la ventana principal");

@@ -85,7 +85,7 @@ public class propAdapter extends RecyclerView.Adapter<propAdapter.ViewHolder> {
             imagenota.setBackgroundColor(Color.TRANSPARENT);
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
-            String nueva = "http://192.168.20.192/phpLuna/imgProps/" + propu.getNombre() + ".jpg";
+            String nueva = "http://192.168.1.15/phpLuna/imgProps/" + propu.getNombre() + ".jpg";
             Picasso.get().load(nueva).resize(96, 96).centerCrop().into(imagenota);
         }
     }

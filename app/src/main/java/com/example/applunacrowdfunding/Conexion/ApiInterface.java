@@ -9,20 +9,22 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ApiInterface {
-    @GET("usuario/listadoMovil")
-    Call<Respuesta> getUsuarios();
+  @GET("usuario/listadoMovil")
+  Call<Respuesta> getUsuarios();
+
   @GET("usuario/multiplicidad/{numerito}")
-    Call<Respuesta> multiplicidad(@Path("numerito") int num);
+  Call<Respuesta> multiplicidad(@Path("numerito") int num);
+
   @FormUrlEncoded
-    @POST("usuario/nuevoUsuCel")
-    Call<Respuesta> nuevoUsuCel(@Field("nick") String nick, @Field("cont") String cont, @Field("nombre") String nom, @Field("ape") String ape, @Field("correo") String correo, @Field("cel") String cel,@Field("ci") String ci);
+  @POST("usuario/nuevoUsuCel")
+  Call<Respuesta> nuevoUsuCel(@Field("nick") String nick, @Field("cont") String cont, @Field("nombre") String nom, @Field("ape") String ape, @Field("correo") String correo, @Field("cel") String cel, @Field("ci") String ci);
 
   @GET("propuesta/traerPropuesta/{nombre}")
-    Call<Respuesta> traerPropuesta(@Path("nombre") String nombre);
+  Call<Respuesta> traerPropuesta(@Path("nombre") String nombre);
 
   @FormUrlEncoded
-    @POST("usuario/loginCel")
-    Call<Respuesta> loginCel(@Field("email") String correo, @Field("pass") String pass);
+  @POST("usuario/loginCel")
+  Call<Respuesta> loginCel(@Field("email") String correo, @Field("pass") String pass);
 
   @FormUrlEncoded
 
@@ -32,18 +34,18 @@ public interface ApiInterface {
   @GET("propuesta/listComent/{propu}")
   Call<Respuesta> getCom(@Path("propu") String nom);
 
-    @GET("propuesta/listadoCel")
-    Call<Respuesta> getPropuestas();
+  @GET("propuesta/listadoCel")
+  Call<Respuesta> getPropuestas();
 
-    @GET("propuesta/borrComent/{id}")
-    Call<Respuesta> BorrCom(@Path("id") String id);
+  @GET("propuesta/borrComent/{id}")
+  Call<Respuesta> BorrCom(@Path("id") String id);
 
-    @GET("usuario/devuelveUsu/{correo}")
-    Call<Respuesta> UsuCorreo(@Path("correo") String correo);
+  @GET("usuario/devuelveUsu/{correo}")
+  Call<Respuesta> UsuCorreo(@Path("correo") String correo);
 
-   @FormUrlEncoded
-   @POST("propuesta/nuevaColaboracionCel")
-   Call<Respuesta> colaborar(@Field("monto") int monto, @Field("mail") String mail, @Field("nombre") String nombresito);
+  @FormUrlEncoded
+  @POST("propuesta/nuevaColaboracionCel")
+  Call<Respuesta> colaborar(@Field("monto") int monto, @Field("mail") String mail, @Field("nombre") String nombresito);
 
   @FormUrlEncoded
   @POST("propuesta/likeCometario")
@@ -64,4 +66,8 @@ public interface ApiInterface {
   @GET("usuario/traerPerfilM/{nick}")
   Call<Respuesta> traerPerfilM(@Path("nick") String nick);
 
+  @FormUrlEncoded
+  @POST("propuesta/sendRegistrationToServer")
+  Call<Respuesta> sendRegistrationToServer(@Field("token") String token, @Field ("nombre") String nombre);
 }
+

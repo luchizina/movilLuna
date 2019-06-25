@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
-    android:layout_width="300dp"
-    android:layout_height="350dp"
-    android:background="@drawable/fondo"
+    android:layout_width="280dp"
+    android:layout_height="260dp"
+    android:background="@drawable/bg"
     android:layout_gravity="center">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imgR3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Selecciona una imagen"
-        android:layout_below="@id/imageView4"
+        android:layout_below="@id/imgR3"
         android:layout_centerHorizontal="true"
 
         android:textColor="@color/md_white_1000"
@@ -51,7 +51,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="15dp"
-        android:src="@drawable/sendstuff"
+        android:background="@drawable/galy"
         android:scaleType="fitXY"
         android:text="Button" />
 
@@ -61,7 +61,7 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:src="@drawable/sendstuff"
+        android:background="@drawable/camera2"
         android:scaleType="fitXY"
         android:layout_margin="15dp"
         android:text="Button" />
