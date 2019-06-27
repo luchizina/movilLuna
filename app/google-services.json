@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "568301554095",
+    "firebase_url": "https://movilluna-4eb80.firebaseio.com",
+    "project_id": "movilluna-4eb80",
+    "storage_bucket": "movilluna-4eb80.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:568301554095:android:9af110ff0cf481cc",
+        "android_client_info": {
+          "package_name": "com.example.applunacrowdfunding"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "568301554095-h4p199j8fcrshgq7ajn7l1so43gknnn1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.applunacrowdfunding",
+            "certificate_hash": "2d46d9131bcee6c4b1bae61b56ac60436aec44a4"
+          }
+        },
+        {
+          "client_id": "568301554095-mdqm7g1r42svir4orbh1umpbf8ff1ahh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoTgvQogUy8If4rc_6cPYYRVPWbB151mE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "568301554095-mdqm7g1r42svir4orbh1umpbf8ff1ahh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

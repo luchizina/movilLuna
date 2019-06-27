@@ -392,12 +392,13 @@ public class traerProp extends AppCompatActivity {
         output = false;
         myDialog.setContentView(R.layout.colaborarpopup);
         final EditText txtDonar = myDialog.findViewById(R.id.donarText);
+        final TextView txtProp = findViewById(R.id.txtNombre);
         ImageButton btn = myDialog.findViewById(R.id.donarBtn);
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (!txtDonar.getText().toString().trim().equals("")) {
                     colaborar(Integer.parseInt(txtDonar.getText().toString()));
-                    FirebaseMessaging.getInstance().subscribeToTopic("weather")
+                    FirebaseMessaging.getInstance().subscribeToTopic(txtProp.getText().toString())
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
