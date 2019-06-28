@@ -93,7 +93,7 @@ public class comAdapter extends RecyclerView.Adapter<comAdapter.ViewHolder> {
             come.setText(Html.fromHtml("<b>" + coments.getNickUsuario() + "</b>" + "<br />" + "<br />" + coments.getTexto()));
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
-            Picasso.get().load("http://192.168.1.15/phpLuna/imgUsus/" + coments.getNickUsuario() + ".jpg").resize(50, 50).centerCrop().into(fotito);
+            Picasso.get().load("http://192.168.1.7/phpLuna/imgUsus/" + coments.getNickUsuario() + ".jpg").resize(50, 50).centerCrop().into(fotito);
             fotito.setBackgroundColor(Color.TRANSPARENT);
         }
 

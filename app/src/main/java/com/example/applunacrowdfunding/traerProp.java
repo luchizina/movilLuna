@@ -133,7 +133,7 @@ public class traerProp extends AppCompatActivity {
                 if (extras != null) {
                     np = extras.getString("nombreProp");
                 }
-                Picasso.get().load("http://192.168.25.93/phpLuna/imgProps/" + np + ".jpg").resize(imageView.getWidth(), imageView.getHeight()).centerCrop().into(imageView);
+                Picasso.get().load("http://192.168.1.7/phpLuna/imgProps/" + np + ".jpg").resize(imageView.getWidth(), imageView.getHeight()).centerCrop().into(imageView);
 
                 TextView monto = findViewById(R.id.monto);
                 monto.setText("$" + montoA + " de $" + montoT);
@@ -435,7 +435,7 @@ public class traerProp extends AppCompatActivity {
         final EditText txtComent = myDialog.findViewById(R.id.txtComent);
         CircleImageView img = myDialog.findViewById(R.id.imgPerfilComent);
         txtNick.setText(nicksito);
-        Picasso.get().load("http://192.168.25.93/phpLuna/imgUsus/" + nicksito + ".jpg").resize(96, 96).centerCrop().into(img);
+        Picasso.get().load("http://192.168.1.7/phpLuna/imgUsus/" + nicksito + ".jpg").resize(96, 96).centerCrop().into(img);
         ImageButton btn = myDialog.findViewById(R.id.enviarBtn);
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

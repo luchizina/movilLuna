@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/f1"
@@ -32,10 +36,10 @@
             android:layout_gravity="center"
             android:background="#FF909090" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgR"
-            android:layout_width="183dp"
-            android:layout_height="142dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
             android:maxWidth="200dp"
             android:maxHeight="200dp"
@@ -55,7 +59,8 @@
             android:layout_gravity="center"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Nombre"
+            android:hint="Nombre..."
+            android:text="Nazareno"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#fff"
             android:textColorHighlight="#fff"
@@ -72,7 +77,8 @@
             android:layout_gravity="center"
             android:ems="10"
             android:inputType="textPassword"
-            android:text="Password"
+            android:hint="Contraseña..."
+            android:text="123456"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#fff"
             android:textColorHighlight="#fff"
@@ -89,7 +95,8 @@
             android:layout_gravity="center"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Celular"
+            android:hint="Celular..."
+            android:text="091892412"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#fff"
             android:textColorHighlight="#fff"
@@ -106,7 +113,8 @@
             android:layout_gravity="center"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Apellido"
+            android:hint="Apellido..."
+            android:text="Alvarez"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#fff"
             android:textColorHighlight="#fff"
@@ -123,7 +131,8 @@
             android:layout_gravity="center"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Nick"
+            android:hint="Nick..."
+            android:text="Aeliner"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#fff"
             android:textColorHighlight="#fff"
@@ -139,7 +148,8 @@
             android:layout_gravity="center"
             android:ems="10"
             android:inputType="textEmailAddress"
-            android:text="Correo"
+            android:hint="Correo..."
+            android:text="aeliner123@gmail.com"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#fff"
             android:textColorHighlight="#fff"
@@ -157,7 +167,8 @@
             android:ems="10"
             android:inputType="number"
             android:maxLength="8"
-            android:text="CI"
+            android:hint="CI..."
+            android:text="49378765"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#fff"
             android:textColorHighlight="#fff"
@@ -177,3 +188,4 @@
             android:layout_marginBottom="15dp"/>
     </LinearLayout>
 </LinearLayout>
+</androidx.core.widget.NestedScrollView>
