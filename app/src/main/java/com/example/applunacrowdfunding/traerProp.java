@@ -36,6 +36,9 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -115,6 +118,19 @@ public class traerProp extends AppCompatActivity {
                 String desc = arregloUsers.get(0).getAsJsonObject().get("Descripcion").getAsString();
                 String nick = arregloUsers.get(0).getAsJsonObject().get("NickUsuario").getAsString();
                 String fechaP = arregloUsers.get(0).getAsJsonObject().get("FechaPublicada").getAsString();
+                String fechaFinalizacion = arregloUsers.get(0).getAsJsonObject().get("fechaFinalizacion").getAsString();
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = null;
+                Date actual = new Date();
+                try {
+                    date = format.parse(fechaFinalizacion);
+                    System.out.println(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                int dias=(int) ((date.getTime() - actual.getTime())/86400000);
+
+
                 montoAA = Integer.parseInt(montoA);
                 montoTT = Integer.parseInt(montoT);
                 nom = nombre;
@@ -133,7 +149,7 @@ public class traerProp extends AppCompatActivity {
                 if (extras != null) {
                     np = extras.getString("nombreProp");
                 }
-                Picasso.get().load("http://192.168.25.93/phpLuna/imgProps/" + np + ".jpg").resize(imageView.getWidth(), imageView.getHeight()).centerCrop().into(imageView);
+                Picasso.get().load("http://192.168.1.15/phpLuna/imgProps/" + np + ".jpg").resize(imageView.getWidth(), imageView.getHeight()).centerCrop().into(imageView);
 
                 TextView monto = findViewById(R.id.monto);
                 monto.setText("$" + montoA + " de $" + montoT);
@@ -148,7 +164,7 @@ public class traerProp extends AppCompatActivity {
                 int barra = ((moA * 100) / moT);
                 me.setProgress(barra);
                 TextView txtFecha = findViewById(R.id.txtFecha);
-                txtFecha.setText(fechaP);
+                txtFecha.setText(dias);
                 pd.dismissWithAnimation();
             }
 
@@ -435,7 +451,7 @@ public class traerProp extends AppCompatActivity {
         final EditText txtComent = myDialog.findViewById(R.id.txtComent);
         CircleImageView img = myDialog.findViewById(R.id.imgPerfilComent);
         txtNick.setText(nicksito);
-        Picasso.get().load("http://192.168.25.93/phpLuna/imgUsus/" + nicksito + ".jpg").resize(96, 96).centerCrop().into(img);
+        Picasso.get().load("http://192.168.25.37/phpLuna/imgUsus/" + nicksito + ".jpg").resize(96, 96).centerCrop().into(img);
         ImageButton btn = myDialog.findViewById(R.id.enviarBtn);
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
