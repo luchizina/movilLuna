@@ -14,14 +14,10 @@
         tools:ignore="MissingConstraints"></androidx.appcompat.widget.Toolbar>
     <RelativeLayout
         android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="62dp"
-        android:orientation="vertical"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -29,9 +25,9 @@
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:src="@drawable/no_disp"
+            android:layout_centerInParent="true"
             app:civ_border_color="#FFFFFF"
-            app:civ_border_width="2dp"
-            android:layout_gravity="center"/>
+            app:civ_border_width="2dp" />
 
     </RelativeLayout>
 

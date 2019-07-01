@@ -1,16 +1,21 @@
 package com.example.applunacrowdfunding;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,9 +31,12 @@ import com.example.applunacrowdfunding.Conexion.Respuesta;
 import com.example.applunacrowdfunding.Conexion.conexion;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -40,8 +48,10 @@ public class registro extends AppCompatActivity {
     private static final String KEY_EMPTY = "";
     private EditText etNick;
     private EditText etCont;
+    private Uri imageUri;
     private EditText etNombre;
     Dialog myDialog;
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 0;
     private EditText etApe;
     private EditText etCorreo;
     private EditText etCel;
@@ -79,9 +89,19 @@ public class registro extends AppCompatActivity {
                 correo = etCorreo.getText().toString().trim();
                 cel = etCel.getText().toString().trim();
                 ci = etCI.getText().toString().trim();
+
                 if (validateInputs()) {
+                    ImageView m = findViewById(R.id.imgR);
+                    BitmapDrawable drawable = (BitmapDrawable) m.getDrawable();
+                    Bitmap bitmap = drawable.getBitmap();
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+                    byte[] byteArray = stream.toByteArray();
+                    String base64OfBitmap = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                    String nombreImg = "xD.jpeg";
+                    String tipoimg = "image/jpeg";
                     ApiInterface apiService = conexion.getClient().create(ApiInterface.class);
-                    Call<Respuesta> call = apiService.nuevoUsuCel(nick, cont, nombre, ape, correo, cel, ci);
+                    Call<Respuesta> call = apiService.nuevoUsuCel(nick, cont, nombre, ape, correo, cel, ci, base64OfBitmap, nombreImg, tipoimg);
                     call.enqueue(new Callback<Respuesta>() {
                         @Override
                         public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
@@ -134,7 +154,7 @@ public class registro extends AppCompatActivity {
        // final EditText txtComent = myDialog.findViewById(R.id.txtComent);
         //CircleImageView img = myDialog.findViewById(R.id.imgPerfilComent);
 
-       // Picasso.get().load("http://192.168.25.43/phpLuna/imgUsus/" + nicksito + ".jpg").resize(96, 96).centerCrop().into(img);
+       // Picasso.get().load("http://192.168.1.7/phpLuna/imgUsus/" + nicksito + ".jpg").resize(96, 96).centerCrop().into(img);
         ImageButton btn = myDialog.findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -146,9 +166,30 @@ public class registro extends AppCompatActivity {
         ImageButton btn2 = myDialog.findViewById(R.id.button2);
         btn2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(takePicture, 0);//zero can be replaced with any action code
+                if (ContextCompat.checkSelfPermission(registro.this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(registro.this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                    } else {
+                        ActivityCompat.requestPermissions(registro.this,
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+                    }
+                }
+                else
+                {
+                    ContentValues values = new ContentValues();
+                    values.put(MediaStore.Images.Media.TITLE, "MyPicture");
+                    values.put(MediaStore.Images.Media.DESCRIPTION, "Photo taken on " + System.currentTimeMillis());
+                    imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                    startActivityForResult(intent, 0);
+                }
             }
+
         });
         myDialog.show();
     }
@@ -157,16 +198,19 @@ public class registro extends AppCompatActivity {
 
         switch(requestCode) {
             case 0:
-                if(resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
-                    imageview.setImageURI(selectedImage);
+                if(resultCode == RESULT_OK) {
+                    Bitmap selectedImage = null;
+                    try {
+                        selectedImage = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    imageview.setImageBitmap(selectedImage);
                 }
                 break;
             case 1:
-                if(resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
-                    imageview.setImageURI(selectedImage);
-                }
+        Uri selectedImage = imageReturnedIntent.getData();
+        imageview.setImageURI(selectedImage);
                 break;
         }
     }
@@ -214,5 +258,26 @@ public class registro extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    ContentValues values = new ContentValues();
+                    values.put(MediaStore.Images.Media.TITLE, "MyPicture");
+                    values.put(MediaStore.Images.Media.DESCRIPTION, "Photo taken on " + System.currentTimeMillis());
+                    imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                    startActivityForResult(intent, 0);
+                } else {
+                }
+                return;
+            }
+        }
     }
 }
