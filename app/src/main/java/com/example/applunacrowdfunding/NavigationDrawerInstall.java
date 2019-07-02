@@ -46,7 +46,7 @@ public class NavigationDrawerInstall {
         SharedPreferences sp = a.getSharedPreferences("info", Context.MODE_PRIVATE);
         String txt = sp.getString("nickLogueado", "sinnick");
         String txt2 = sp.getString("correoLogueado", "sincorreo");
-        String nueva = "http://192.168.25.37/phpLuna/imgUsus/" + txt + ".jpg";
+        String nueva = "http://192.168.1.9/phpLuna/imgUsus/" + txt + ".jpg";
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Toolbar toolbar = a.findViewById(R.id.toolbar);

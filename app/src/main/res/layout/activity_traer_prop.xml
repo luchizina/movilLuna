@@ -12,23 +12,25 @@
     android:background="@drawable/f1"
     android:orientation="horizontal"
     tools:context=".traerProp">
-
-
-
-
-
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        ></androidx.appcompat.widget.Toolbar>
     <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img"
                     android:src="@drawable/no_disp"
+                    android:layout_marginTop="60dp"
                     android:layout_centerHorizontal="true"
                     android:layout_width="250dp"
                     android:layout_height="250dp"
                     app:civ_border_width="2dp"
                     app:civ_border_color="#FFFFFF" />
 
-
                     <ImageView
                         android:id="@+id/starNegra"
+                        android:layout_marginTop="60dp"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_toRightOf="@id/img"
@@ -39,6 +41,7 @@
                 <ImageView
                     android:id="@+id/starVacia"
                     android:layout_width="35dp"
+                    android:layout_marginTop="60dp"
                     android:layout_height="35dp"
                     android:layout_toRightOf="@id/img"
                     android:onClick="likePropuesta"
@@ -149,7 +152,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_column="0"
                                 android:padding="4dip"
-                                android:text="Faltan: "
+                                android:text="Termina en: "
                                 android:textColor="@color/md_white_1000" />
 
                             <TextView

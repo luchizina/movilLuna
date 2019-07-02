@@ -3,8 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal" android:layout_width="272dp"
     android:layout_height="80dp"
-    android:background="@drawable/fondo"
+    android:background="@drawable/f1"
     android:layout_gravity="center">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,14 +16,16 @@
         android:textColor="@color/md_white_1000"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"/>
-    <EditText
-        android:id="@+id/donarText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="number" />
+
+        <EditText
+            android:id="@+id/donarText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ems="10"
+            android:hint="Ej: 60,70...10000"
+            android:inputType="number"
+            android:singleLine="true" />
 
     <ImageButton
         android:layout_width="30dp"
@@ -30,4 +36,5 @@
         android:layout_toRightOf="@id/donarText"
         android:layout_alignBottom="@id/donarText"
         android:scaleType="fitXY"/>
+</RelativeLayout>
 </RelativeLayout>

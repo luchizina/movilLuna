@@ -65,6 +65,8 @@ public class traerProp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         myDialog = new Dialog(this);
         setContentView(R.layout.activity_traer_prop);
+        NavigationDrawerInstall nav = new NavigationDrawerInstall();
+        nav.crearHamburguesita(this);
         String nomProp = "";
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -149,7 +151,7 @@ public class traerProp extends AppCompatActivity {
                 if (extras != null) {
                     np = extras.getString("nombreProp");
                 }
-                Picasso.get().load("http://192.168.1.15/phpLuna/imgProps/" + np + ".jpg").resize(imageView.getWidth(), imageView.getHeight()).centerCrop().into(imageView);
+                Picasso.get().load("http://192.168.1.9/phpLuna/imgProps/" + np + ".jpg").resize(imageView.getWidth(), imageView.getHeight()).centerCrop().into(imageView);
 
                 TextView monto = findViewById(R.id.monto);
                 monto.setText("$" + montoA + " de $" + montoT);
@@ -164,7 +166,7 @@ public class traerProp extends AppCompatActivity {
                 int barra = ((moA * 100) / moT);
                 me.setProgress(barra);
                 TextView txtFecha = findViewById(R.id.txtFecha);
-                txtFecha.setText(dias);
+                txtFecha.setText(dias + " días");
                 pd.dismissWithAnimation();
             }
 
@@ -450,8 +452,8 @@ public class traerProp extends AppCompatActivity {
         TextView txtNick = myDialog.findViewById(R.id.txtNickPerfil);
         final EditText txtComent = myDialog.findViewById(R.id.txtComent);
         CircleImageView img = myDialog.findViewById(R.id.imgPerfilComent);
-        txtNick.setText(nicksito);
-        Picasso.get().load("http://192.168.25.37/phpLuna/imgUsus/" + nicksito + ".jpg").resize(96, 96).centerCrop().into(img);
+        txtNick.setText("Nick: "+nicksito);
+        Picasso.get().load("http://192.168.1.9/phpLuna/imgUsus/" + nicksito + ".jpg").resize(96, 96).centerCrop().into(img);
         ImageButton btn = myDialog.findViewById(R.id.enviarBtn);
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
