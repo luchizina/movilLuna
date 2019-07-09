@@ -3,7 +3,9 @@ package com.example.applunacrowdfunding.Service;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -15,7 +17,9 @@ import com.example.applunacrowdfunding.Conexion.ApiError;
 import com.example.applunacrowdfunding.Conexion.ApiInterface;
 import com.example.applunacrowdfunding.Conexion.Respuesta;
 import com.example.applunacrowdfunding.Conexion.conexion;
+import com.example.applunacrowdfunding.MainActivity;
 import com.example.applunacrowdfunding.R;
+import com.example.applunacrowdfunding.iniciarSesion;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -62,6 +66,13 @@ public class MyFireBaseInstanceService extends FirebaseMessagingService {
 
     @Override
     public void onNewToken(String s) {
+        super.onNewToken(s);
+
+        Log.d("TOKENFIREASE", s);
+
+
+    }
+    public void jaja(String s) {
         super.onNewToken(s);
 
         Log.d("TOKENFIREASE", s);
